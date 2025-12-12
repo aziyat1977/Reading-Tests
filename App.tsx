@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TESTS, VOCAB_LIST } from './constants';
 import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabItem } from './types';
 
@@ -181,9 +181,9 @@ export default function App() {
                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                    </svg>
-                                   Study Vocab (Passage 1)
+                                   Vocab Studio (Passage 1)
                                </span>
-                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs">New</span>
+                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
                            </button>
                        </div>
 
@@ -564,337 +564,725 @@ export default function App() {
 }
 
 // ----------------------------------------------------------------------------
-// VOCABULARY STUDIO COMPONENT
+// ULTRA VOCABULARY STUDIO COMPONENT
 // ----------------------------------------------------------------------------
 
+// -- Animated Particles Background --
+const ParticleBackground = () => {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none bg-grid-animate">
+            {/* Create 30 random particles */}
+            {Array.from({ length: 30 }).map((_, i) => {
+                const size = Math.random() * 4 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const opacity = Math.random() * 0.4 + 0.1;
+                
+                return (
+                    <div 
+                        key={i}
+                        className="absolute rounded-full bg-cyan-400 animate-float blur-[1px]"
+                        style={{
+                            width: `${size}px`,
+                            height: `${size}px`,
+                            left: `${left}%`,
+                            top: `${top}%`,
+                            opacity: opacity,
+                            animationDuration: `${duration}s`,
+                            animationDelay: `${delay}s`,
+                            boxShadow: `0 0 ${size * 4}px rgba(34, 211, 238, 0.8)`
+                        }}
+                    />
+                );
+            })}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0b0c15] via-[#111222] to-[#0b0c15] opacity-95 z-[-1]"></div>
+        </div>
+    );
+};
+
+// -- Confetti Effect (Canvas) --
+const ConfettiCanvas = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles: any[] = [];
+        const colors = ['#22d3ee', '#818cf8', '#c084fc', '#f472b6', '#34d399'];
+
+        for(let i=0; i<150; i++) {
+            particles.push({
+                x: window.innerWidth / 2,
+                y: window.innerHeight / 2,
+                vx: (Math.random() - 0.5) * 20,
+                vy: (Math.random() - 0.5) * 20,
+                size: Math.random() * 6 + 2,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                gravity: 0.1,
+                drag: 0.95
+            });
+        }
+
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.gravity;
+                p.vx *= p.drag;
+                p.vy *= p.drag;
+                
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (p.size > 0.1) p.size -= 0.08;
+                if (p.size <= 0.1) particles.splice(index, 1);
+            });
+            if (particles.length > 0) requestAnimationFrame(animate);
+        };
+        animate();
+    }, []);
+
+    return <canvas ref={canvasRef} className="absolute inset-0 z-50 pointer-events-none" />;
+};
+
+type VocabView = 'dashboard' | 'flashcards' | 'quiz' | 'match' | 'spell';
+
 const VocabularyStudio: React.FC<{ onBack: () => void }> = ({ onBack }) => {
-    const [mode, setMode] = useState<'study' | 'quiz'>('study');
+    const [view, setView] = useState<VocabView>('dashboard');
+    const [learnedWords, setLearnedWords] = useState<number[]>([]);
     
     // Quiz State
-    const [quizStarted, setQuizStarted] = useState(false);
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
-    const [timer, setTimer] = useState(15);
-    const [gameState, setGameState] = useState<'countdown' | 'question' | 'feedback' | 'finished'>('countdown');
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
-    const [isCorrect, setIsCorrect] = useState(false);
-    const [showConfetti, setShowConfetti] = useState(false);
+    const [streak, setStreak] = useState(0);
 
-    // Study State
-    const [studyIndex, setStudyIndex] = useState(0);
-    const [flipped, setFlipped] = useState(false);
-
-    // Audio Ref for sound effects (conceptually)
-    
-    useEffect(() => {
-        let interval: number;
-        if (gameState === 'question' && timer > 0) {
-            interval = window.setInterval(() => setTimer(t => t - 1), 1000);
-        } else if (gameState === 'question' && timer === 0) {
-            handleAnswer(-1); // Time out
-        }
-        return () => clearInterval(interval);
-    }, [gameState, timer]);
-
-    const startQuiz = () => {
-        setMode('quiz');
-        setQuizStarted(true);
-        setScore(0);
-        setCurrentQuestionIndex(0);
-        startQuestion();
+    const toggleLearned = (id: number) => {
+        setLearnedWords(prev => 
+            prev.includes(id) ? prev.filter(w => w !== id) : [...prev, id]
+        );
     };
-
-    const startQuestion = () => {
-        setGameState('countdown');
-        setTimer(3);
-        setTimeout(() => {
-            setGameState('question');
-            setTimer(15); // 15 seconds per question
-        }, 3000);
-    };
-
-    const handleAnswer = (optionIndex: number) => {
-        if (gameState !== 'question') return;
-        
-        setSelectedOption(optionIndex);
-        const correct = optionIndex === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex;
-        setIsCorrect(correct);
-        
-        if (correct) {
-            setScore(s => s + 100 + (timer * 10)); // Score based on speed
-            setShowConfetti(true);
-            setTimeout(() => setShowConfetti(false), 2000);
-        }
-
-        setGameState('feedback');
-
-        setTimeout(() => {
-            if (currentQuestionIndex < VOCAB_LIST.length - 1) {
-                setCurrentQuestionIndex(prev => prev + 1);
-                setSelectedOption(null);
-                startQuestion();
-            } else {
-                setGameState('finished');
-            }
-        }, 3000);
-    };
-
-    const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500'];
-    const icons = ['▲', '◆', '●', '■'];
 
     return (
-        <div className="h-screen w-full bg-[#333] text-white overflow-hidden flex flex-col font-sans">
-            {/* Header */}
-            <header className="h-16 bg-purple-800 flex items-center justify-between px-6 shadow-lg z-10">
-                <div className="flex items-center space-x-4">
-                    <button onClick={onBack} className="text-white hover:bg-purple-700 p-2 rounded-full transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="h-screen w-full bg-[#0b0c15] text-white overflow-hidden flex flex-col font-sans relative">
+            <ParticleBackground />
+            
+            {/* Holographic Header */}
+            <header className="h-20 glass flex items-center justify-between px-8 z-30 shrink-0 border-b border-white/5 relative">
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+                <div className="flex items-center space-x-6">
+                    <button onClick={onBack} className="text-white/70 hover:text-white hover:bg-white/10 p-2.5 rounded-full transition-all border border-white/10 hover:scale-110 hover:border-cyan-400/50 group">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover:text-cyan-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                     </button>
-                    <h1 className="text-xl font-bold tracking-wider">IELTS Vocab Master</h1>
+                    <div>
+                        <h1 className="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] animate-shimmer">
+                            NEURAL LEXICON
+                        </h1>
+                        <p className="text-[10px] text-cyan-200/60 font-mono tracking-[0.3em] uppercase">Simulation Module v4.2</p>
+                    </div>
                 </div>
-                <div className="flex space-x-2">
-                    <button 
-                        onClick={() => { setMode('study'); setQuizStarted(false); }}
-                        className={`px-4 py-2 rounded-full font-bold transition-all ${mode === 'study' ? 'bg-white text-purple-900 shadow-lg scale-105' : 'bg-purple-700 text-purple-200 hover:bg-purple-600'}`}
-                    >
-                        Study Mode
-                    </button>
-                    <button 
-                        onClick={() => { setMode('quiz'); setQuizStarted(false); }}
-                        className={`px-4 py-2 rounded-full font-bold transition-all ${mode === 'quiz' ? 'bg-white text-purple-900 shadow-lg scale-105' : 'bg-purple-700 text-purple-200 hover:bg-purple-600'}`}
-                    >
-                        Quiz Challenge
-                    </button>
+                
+                <div className="flex bg-black/40 p-1 rounded-full backdrop-blur-md border border-white/10">
+                    <TabButton active={view === 'dashboard'} onClick={() => setView('dashboard')} icon="dashboard">HUB</TabButton>
+                    <TabButton active={view === 'flashcards'} onClick={() => setView('flashcards')} icon="card">CARDS</TabButton>
+                    <TabButton active={view === 'quiz'} onClick={() => setView('quiz')} icon="lightning">SPEED</TabButton>
+                    <TabButton active={view === 'match'} onClick={() => setView('match')} icon="cube">MATCH</TabButton>
+                    <TabButton active={view === 'spell'} onClick={() => setView('spell')} icon="chat">SPELL</TabButton>
                 </div>
             </header>
 
-            {/* Content */}
-            <main className="flex-1 overflow-y-auto bg-gray-900 relative">
-                
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 20px 20px, #ffffff 2px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-
-                {mode === 'study' && (
-                    <div className="h-full flex flex-col items-center justify-center p-6">
-                         <div className="max-w-2xl w-full perspective-1000">
-                             
-                             {/* Progress Bar */}
-                             <div className="mb-6 flex justify-between items-center text-gray-400 text-sm font-bold">
-                                 <span>Word {studyIndex + 1} of {VOCAB_LIST.length}</span>
-                                 <div className="w-64 h-2 bg-gray-700 rounded-full ml-4 overflow-hidden">
-                                     <div className="h-full bg-green-400 transition-all duration-300" style={{ width: `${((studyIndex + 1) / VOCAB_LIST.length) * 100}%`}}></div>
-                                 </div>
-                             </div>
-
-                             {/* Flip Card Container */}
-                             <div 
-                                className="relative w-full aspect-[4/3] cursor-pointer group"
-                                onClick={() => setFlipped(!flipped)}
-                                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
-                             >
-                                 {/* Front of Card */}
-                                 <div className={`absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center backface-hidden transition-all duration-500 border-4 border-white/10 ${flipped ? 'rotate-y-180 opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                                     <span className="text-indigo-200 font-bold uppercase tracking-widest mb-4">Word</span>
-                                     <h2 className="text-6xl font-extrabold text-white mb-6 text-center drop-shadow-lg">{VOCAB_LIST[studyIndex].word}</h2>
-                                     <div className="bg-white/20 px-4 py-2 rounded-lg text-xl font-mono text-indigo-100">
-                                         {VOCAB_LIST[studyIndex].ipa}
-                                     </div>
-                                     <p className="mt-8 text-indigo-200 animate-pulse">Click to Reveal MFP & Meaning</p>
-                                 </div>
-
-                                 {/* Back of Card (MFP Mode) */}
-                                 <div className={`absolute inset-0 bg-white rounded-2xl shadow-2xl p-8 flex flex-col backface-hidden transition-all duration-500 text-gray-800 ${flipped ? 'rotate-y-0 opacity-100' : '-rotate-y-180 opacity-0 pointer-events-none'}`} style={{ transform: flipped ? 'rotateY(0deg)' : 'rotateY(180deg)' }}>
-                                     <div className="flex justify-between items-start mb-4 border-b pb-4">
-                                         <div>
-                                             <h2 className="text-3xl font-bold text-indigo-700">{VOCAB_LIST[studyIndex].word}</h2>
-                                             <span className="text-gray-500 italic">{VOCAB_LIST[studyIndex].form}</span>
-                                         </div>
-                                         <div className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded font-mono text-sm">
-                                            {VOCAB_LIST[studyIndex].ipa}
-                                         </div>
-                                     </div>
-
-                                     <div className="space-y-4 flex-1 overflow-y-auto pr-2">
-                                         <div>
-                                             <h3 className="text-sm font-bold text-gray-400 uppercase mb-1">Meaning</h3>
-                                             <p className="text-lg font-medium leading-relaxed">{VOCAB_LIST[studyIndex].definition}</p>
-                                         </div>
-                                         
-                                         <div>
-                                             <h3 className="text-sm font-bold text-gray-400 uppercase mb-1">Context</h3>
-                                             <p className="text-gray-600 bg-gray-50 p-3 rounded-lg border-l-4 border-indigo-400 italic">"{VOCAB_LIST[studyIndex].example}"</p>
-                                         </div>
-
-                                         <div className="mt-4 pt-4 border-t border-dashed border-gray-200">
-                                             <h3 className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center">
-                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                 </svg>
-                                                 Translations (Hover/Click to Reveal)
-                                             </h3>
-                                             <div className="grid grid-cols-2 gap-4">
-                                                 <div className="group/spoiler cursor-pointer">
-                                                     <span className="text-xs text-gray-400 block mb-1">Russian</span>
-                                                     <div className="bg-yellow-400 text-yellow-400 select-none rounded px-2 py-1 group-hover/spoiler:bg-transparent group-hover/spoiler:text-gray-800 transition-colors duration-300 font-bold">
-                                                         {VOCAB_LIST[studyIndex].translationRU}
-                                                     </div>
-                                                 </div>
-                                                 <div className="group/spoiler cursor-pointer">
-                                                     <span className="text-xs text-gray-400 block mb-1">Uzbek</span>
-                                                     <div className="bg-yellow-400 text-yellow-400 select-none rounded px-2 py-1 group-hover/spoiler:bg-transparent group-hover/spoiler:text-gray-800 transition-colors duration-300 font-bold">
-                                                         {VOCAB_LIST[studyIndex].translationUZ}
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             {/* Navigation */}
-                             <div className="flex justify-between mt-8">
-                                 <button 
-                                    onClick={() => {
-                                        setStudyIndex(prev => prev > 0 ? prev - 1 : prev);
-                                        setFlipped(false);
-                                    }}
-                                    disabled={studyIndex === 0}
-                                    className="px-6 py-3 bg-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-600 font-bold transition-colors"
-                                 >
-                                     Previous
-                                 </button>
-                                 <button 
-                                    onClick={() => {
-                                        setStudyIndex(prev => prev < VOCAB_LIST.length - 1 ? prev + 1 : prev);
-                                        setFlipped(false);
-                                    }}
-                                    disabled={studyIndex === VOCAB_LIST.length - 1}
-                                    className="px-6 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-500 font-bold shadow-lg transition-colors"
-                                 >
-                                     Next Word
-                                 </button>
-                             </div>
-                         </div>
-                    </div>
-                )}
-
-                {mode === 'quiz' && (
-                    <div className="h-full relative flex flex-col">
-                        {!quizStarted ? (
-                            <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-purple-900">
-                                <div className="animate-bounce mb-8 text-8xl">🎓</div>
-                                <h2 className="text-5xl font-extrabold mb-4 text-white">Vocabulary Challenge</h2>
-                                <p className="text-xl text-purple-200 mb-8 max-w-md">Test your mastery of the Passage 1 vocabulary. Speed matters! Are you ready?</p>
-                                <button 
-                                    onClick={startQuiz}
-                                    className="px-10 py-5 bg-green-500 text-white text-2xl font-bold rounded-xl shadow-[0_8px_0_rgb(21,128,61)] active:shadow-none active:translate-y-2 transition-all hover:bg-green-400"
-                                >
-                                    START QUIZ
-                                </button>
-                            </div>
-                        ) : gameState === 'finished' ? (
-                            <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-indigo-900">
-                                <h2 className="text-4xl font-bold mb-4">Quiz Complete!</h2>
-                                <div className="text-9xl font-extrabold text-yellow-400 mb-6 drop-shadow-lg">{score}</div>
-                                <p className="text-2xl text-white mb-8">Total Points</p>
-                                <div className="flex space-x-4">
-                                    <button onClick={startQuiz} className="px-6 py-3 bg-blue-600 rounded-lg font-bold hover:bg-blue-500">Play Again</button>
-                                    <button onClick={() => setMode('study')} className="px-6 py-3 bg-gray-600 rounded-lg font-bold hover:bg-gray-500">Back to Study</button>
-                                </div>
-                            </div>
-                        ) : gameState === 'countdown' ? (
-                            <div className="h-full flex items-center justify-center bg-purple-700">
-                                <div className="text-9xl font-black text-white animate-ping">{timer}</div>
-                            </div>
-                        ) : (
-                            // Active Quiz Question
-                            <div className="h-full flex flex-col relative">
-                                {/* Top Info Bar */}
-                                <div className="flex justify-between items-center px-6 py-4 bg-black/20">
-                                    <div className="bg-white/10 px-4 py-2 rounded-full font-bold">
-                                        Question {currentQuestionIndex + 1}/{VOCAB_LIST.length}
-                                    </div>
-                                    <div className="text-2xl font-bold text-white">{score} pts</div>
-                                </div>
-
-                                {/* Main Question Area */}
-                                <div className="flex-1 flex items-center justify-center p-6 bg-white">
-                                    <div className="text-center w-full max-w-4xl">
-                                        <h3 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
-                                            {VOCAB_LIST[currentQuestionIndex].quizQuestion}
-                                        </h3>
-                                        
-                                        {/* Timer Bar */}
-                                        <div className="mt-8 w-full h-4 bg-gray-200 rounded-full overflow-hidden">
-                                            <div 
-                                                className={`h-full ${timer < 5 ? 'bg-red-500' : 'bg-purple-600'} transition-all duration-1000 linear`} 
-                                                style={{ width: `${(timer / 15) * 100}%` }}
-                                            />
-                                        </div>
-                                        <div className="mt-2 font-mono text-gray-500 font-bold text-xl">{timer}</div>
-                                    </div>
-                                </div>
-
-                                {/* Options Grid (Kahoot Style) */}
-                                <div className="h-1/2 bg-gray-100 p-4 grid grid-cols-2 gap-4">
-                                    {VOCAB_LIST[currentQuestionIndex].quizOptions.map((opt, idx) => {
-                                        let btnClass = "transform transition-all duration-200 active:scale-95 flex items-center justify-between px-8 text-xl md:text-2xl font-bold text-white shadow-md";
-                                        
-                                        if (gameState === 'feedback') {
-                                            if (idx === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex) {
-                                                btnClass += " opacity-100 ring-4 ring-green-400 scale-105 z-10 brightness-110";
-                                            } else if (idx === selectedOption) {
-                                                btnClass += " opacity-50 bg-red-500 brightness-75"; // Wrong choice
-                                            } else {
-                                                btnClass += " opacity-30 grayscale";
-                                            }
-                                        } else {
-                                            btnClass += " hover:brightness-110 shadow-[0_6px_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1.5";
-                                        }
-
-                                        return (
-                                            <button
-                                                key={idx}
-                                                disabled={gameState === 'feedback'}
-                                                onClick={() => handleAnswer(idx)}
-                                                className={`${colors[idx]} ${btnClass}`}
-                                            >
-                                                <span className="text-3xl mr-4">{icons[idx]}</span>
-                                                <span className="flex-1 text-left">{opt}</span>
-                                                {gameState === 'feedback' && idx === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex && (
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                                    </svg>
-                                                )}
-                                                {gameState === 'feedback' && idx === selectedOption && idx !== VOCAB_LIST[currentQuestionIndex].quizCorrectIndex && (
-                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                                                    </svg>
-                                                )}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                        
-                        {/* Confetti / Feedback Overlay */}
-                        {showConfetti && (
-                            <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-50 overflow-hidden">
-                                <div className="text-6xl animate-bounce font-bold text-green-500 drop-shadow-2xl bg-white p-6 rounded-full">
-                                    Correct! +{100 + (timer * 10)}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )}
+            <main className="flex-1 relative z-10 flex flex-col overflow-hidden">
+                {view === 'dashboard' && <DashboardView learnedWords={learnedWords} onViewChange={setView} />}
+                {view === 'flashcards' && <FlashcardMode learnedWords={learnedWords} onToggleLearned={toggleLearned} />}
+                {view === 'quiz' && <QuizMode />}
+                {view === 'match' && <MatchMode />}
+                {view === 'spell' && <SpellMode />}
             </main>
         </div>
     );
 };
+
+const TabButton: React.FC<{ active: boolean; onClick: () => void; children: React.ReactNode; icon: string }> = ({ active, onClick, children, icon }) => {
+    return (
+        <button 
+            onClick={onClick}
+            className={`px-6 py-2 rounded-full font-bold text-xs tracking-wider transition-all duration-300 flex items-center border border-transparent ${
+                active 
+                ? 'bg-white/10 text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.2)] border-white/10' 
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
+            }`}
+        >
+           {getIcon(icon)}
+           <span className="ml-2">{children}</span>
+        </button>
+    );
+};
+
+const getIcon = (name: string) => {
+    switch(name) {
+        case 'dashboard': return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>;
+        case 'card': return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>;
+        case 'lightning': return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>;
+        case 'cube': return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>;
+        case 'chat': return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>;
+        default: return null;
+    }
+}
+
+// ---------------- VIEWS ----------------
+
+const DashboardView: React.FC<{ learnedWords: number[], onViewChange: (v: VocabView) => void }> = ({ learnedWords, onViewChange }) => {
+    const progress = Math.round((learnedWords.length / VOCAB_LIST.length) * 100);
+
+    return (
+        <div className="flex-1 p-10 overflow-y-auto">
+            <div className="max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    {/* Stats Card */}
+                    <div className="glass-card rounded-2xl p-6 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl group-hover:bg-cyan-500/20 transition-all"></div>
+                        <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Mastery Level</h3>
+                        <div className="flex items-end space-x-2">
+                            <span className="text-5xl font-black text-white">{progress}%</span>
+                            <span className="text-cyan-400 mb-2 font-mono">
+                                {learnedWords.length}/{VOCAB_LIST.length}
+                            </span>
+                        </div>
+                        <div className="w-full bg-white/10 h-1.5 rounded-full mt-4 overflow-hidden">
+                            <div className="h-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]" style={{ width: `${progress}%` }}></div>
+                        </div>
+                    </div>
+
+                    {/* Quick Action: Flashcards */}
+                    <button 
+                        onClick={() => onViewChange('flashcards')}
+                        className="glass-card rounded-2xl p-6 text-left hover:border-cyan-500/50 transition-all hover:-translate-y-1 group relative overflow-hidden"
+                    >
+                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                         <div className="relative z-10">
+                             <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mb-4 text-purple-300">
+                                 {getIcon('card')}
+                             </div>
+                             <h3 className="text-xl font-bold text-white mb-1">Study Cards</h3>
+                             <p className="text-xs text-gray-400">Review definitions and examples.</p>
+                         </div>
+                    </button>
+
+                     {/* Quick Action: Game */}
+                     <button 
+                        onClick={() => onViewChange('match')}
+                        className="glass-card rounded-2xl p-6 text-left hover:border-green-500/50 transition-all hover:-translate-y-1 group relative overflow-hidden"
+                    >
+                         <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                         <div className="relative z-10">
+                             <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center mb-4 text-green-300">
+                                 {getIcon('cube')}
+                             </div>
+                             <h3 className="text-xl font-bold text-white mb-1">Neural Match</h3>
+                             <p className="text-xs text-gray-400">Link words to meanings.</p>
+                         </div>
+                    </button>
+                </div>
+
+                <h2 className="text-xl font-bold text-white mb-6 flex items-center">
+                    <span className="w-1 h-6 bg-cyan-400 rounded-full mr-3"></span>
+                    Word Matrix
+                </h2>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {VOCAB_LIST.map((word) => {
+                        const isLearned = learnedWords.includes(word.id);
+                        return (
+                            <div 
+                                key={word.id} 
+                                className={`
+                                    p-4 rounded-xl border transition-all duration-300 group cursor-default relative overflow-hidden
+                                    ${isLearned 
+                                        ? 'bg-cyan-900/10 border-cyan-500/30 shadow-[0_0_15px_rgba(34,211,238,0.1)]' 
+                                        : 'bg-white/5 border-white/5 hover:border-white/20'
+                                    }
+                                `}
+                            >
+                                <div className="flex justify-between items-start mb-2">
+                                    <span className="text-xs font-mono text-gray-500">{word.id < 10 ? `0${word.id}` : word.id}</span>
+                                    {isLearned && <span className="text-cyan-400 text-[10px] font-bold uppercase tracking-wide">Mastered</span>}
+                                </div>
+                                <h4 className={`font-bold text-lg ${isLearned ? 'text-cyan-100' : 'text-gray-300'}`}>{word.word}</h4>
+                                <p className="text-xs text-gray-500 mt-1 truncate">{word.form}</p>
+                                
+                                {!isLearned && (
+                                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
+                                        <div className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 w-0 group-hover:w-full transition-all duration-700"></div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const FlashcardMode: React.FC<{ learnedWords: number[], onToggleLearned: (id: number) => void }> = ({ learnedWords, onToggleLearned }) => {
+    const [index, setIndex] = useState(0);
+    const [flipped, setFlipped] = useState(false);
+    const [showUnlearnedOnly, setShowUnlearnedOnly] = useState(false);
+
+    // Filter list based on settings
+    const filteredList = showUnlearnedOnly 
+        ? VOCAB_LIST.filter(w => !learnedWords.includes(w.id))
+        : VOCAB_LIST;
+
+    // Reset index if list shrinks
+    useEffect(() => {
+        if (index >= filteredList.length) setIndex(0);
+    }, [filteredList.length]);
+
+    const currentWord = filteredList[index];
+
+    // Tilt Logic
+    const cardRef = useRef<HTMLDivElement>(null);
+    const handleMouseMove = useCallback((e: React.MouseEvent) => {
+        if (!cardRef.current || flipped) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -10; 
+        const rotateY = ((x - centerX) / centerX) * 10;
+        cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    }, [flipped]);
+
+    const handleMouseLeave = () => {
+        if (cardRef.current) {
+            cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+        }
+    };
+
+    const nextCard = () => {
+        setFlipped(false);
+        setTimeout(() => setIndex(prev => (prev + 1) % filteredList.length), 300);
+    };
+
+    const prevCard = () => {
+        setFlipped(false);
+        setTimeout(() => setIndex(prev => (prev - 1 + filteredList.length) % filteredList.length), 300);
+    };
+
+    const speak = (text: string) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.9;
+        window.speechSynthesis.speak(u);
+    };
+
+    if (!currentWord) return (
+        <div className="flex-1 flex items-center justify-center text-gray-400">
+            <div>
+                <h2 className="text-2xl font-bold text-white mb-2">All words mastered!</h2>
+                <button onClick={() => setShowUnlearnedOnly(false)} className="text-cyan-400 underline">Show all cards</button>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="flex-1 flex flex-col items-center justify-center p-6">
+            <div className="mb-6 flex space-x-4">
+                 <label className="flex items-center cursor-pointer space-x-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:bg-white/10 transition-colors">
+                     <input type="checkbox" checked={showUnlearnedOnly} onChange={(e) => setShowUnlearnedOnly(e.target.checked)} className="accent-cyan-400" />
+                     <span className="text-xs font-bold uppercase tracking-wider text-gray-300">Unlearned Only</span>
+                 </label>
+                 <div className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-cyan-300">
+                     {index + 1} / {filteredList.length}
+                 </div>
+            </div>
+
+            <div 
+                className="relative w-full max-w-2xl aspect-[1.6/1] cursor-pointer group perspective-1000"
+                onClick={() => setFlipped(!flipped)}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+            >
+                <div ref={cardRef} className={`w-full h-full relative transition-all duration-700 transform-style-3d ease-[cubic-bezier(0.23,1,0.32,1)] ${flipped ? 'rotate-y-180' : ''}`}>
+                    
+                    {/* FRONT */}
+                    <div className="absolute inset-0 backface-hidden rounded-3xl overflow-hidden glass-card flex flex-col items-center justify-center p-12 text-center group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] transition-shadow">
+                        <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity text-xs text-gray-400 uppercase tracking-widest">Click to Flip</div>
+                        
+                        <h2 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 drop-shadow-xl mb-6">
+                            {currentWord.word}
+                        </h2>
+                        
+                        <button 
+                        onClick={(e) => { e.stopPropagation(); speak(currentWord.word); }}
+                        className="flex items-center space-x-3 bg-white/5 hover:bg-white/10 px-6 py-2 rounded-full backdrop-blur transition-all border border-white/10 hover:border-cyan-500/50 group/audio"
+                        >
+                            <span className="text-xl text-cyan-200 font-mono">{currentWord.ipa}</span>
+                            <div className="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-cyan-300" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 11H5a1 1 0 01-1-1V8a1 1 0 011-1h.414l3.707-3.707a1 1 0 011.272-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0117 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* BACK */}
+                    <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-3xl overflow-hidden glass-card p-10 flex flex-col items-start text-left bg-[#0f0f1a]">
+                        <div className="w-full flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+                            <h3 className="text-3xl font-bold text-white">{currentWord.word}</h3>
+                            <button 
+                                onClick={(e) => { e.stopPropagation(); onToggleLearned(currentWord.id); }}
+                                className={`px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all border ${
+                                    learnedWords.includes(currentWord.id) 
+                                    ? 'bg-green-500/20 text-green-400 border-green-500/30' 
+                                    : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10'
+                                }`}
+                            >
+                                {learnedWords.includes(currentWord.id) ? 'Mastered' : 'Mark Learned'}
+                            </button>
+                        </div>
+                        
+                        <div className="space-y-6 w-full">
+                             <div>
+                                 <span className="text-[10px] uppercase tracking-widest text-cyan-500 font-bold block mb-1">Definition</span>
+                                 <p className="text-lg text-gray-200 leading-relaxed font-medium">{currentWord.definition}</p>
+                             </div>
+                             <div>
+                                 <span className="text-[10px] uppercase tracking-widest text-purple-500 font-bold block mb-1">Context</span>
+                                 <p className="text-md text-gray-400 italic border-l-2 border-purple-500 pl-4">"{currentWord.example}"</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex items-center space-x-12 mt-10">
+                <button onClick={prevCard} className="p-4 rounded-full bg-white/5 hover:bg-white/10 hover:scale-110 transition-all border border-white/10">
+                    <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <div className="text-gray-500 text-xs font-mono uppercase">Navigate</div>
+                <button onClick={nextCard} className="p-4 rounded-full bg-white/5 hover:bg-white/10 hover:scale-110 transition-all border border-white/10">
+                    <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </div>
+        </div>
+    );
+}
+
+// "Match" Game Mode
+const MatchMode: React.FC = () => {
+    // Generate tiles: 4 pairs
+    const [tiles, setTiles] = useState<{id: string, text: string, type: 'word' | 'def', matchId: number, state: 'default' | 'selected' | 'matched' | 'wrong'}[]>([]);
+    const [selected, setSelected] = useState<string | null>(null);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [gameWon, setGameWon] = useState(false);
+
+    const initGame = () => {
+        // Pick 4 random words
+        const shuffled = [...VOCAB_LIST].sort(() => 0.5 - Math.random()).slice(0, 4);
+        const newTiles: typeof tiles = [];
+        
+        shuffled.forEach(w => {
+            newTiles.push({ id: `w-${w.id}`, text: w.word, type: 'word', matchId: w.id, state: 'default' });
+            newTiles.push({ id: `d-${w.id}`, text: w.definition.length > 50 ? w.definition.substring(0, 50) + '...' : w.definition, type: 'def', matchId: w.id, state: 'default' });
+        });
+
+        // Shuffle tiles
+        setTiles(newTiles.sort(() => 0.5 - Math.random()));
+        setGameWon(false);
+    };
+
+    useEffect(() => { initGame(); }, []);
+
+    const handleTileClick = (id: string) => {
+        if (isProcessing || tiles.find(t => t.id === id)?.state === 'matched') return;
+
+        // If clicking same tile
+        if (selected === id) {
+            setSelected(null);
+            setTiles(prev => prev.map(t => t.id === id ? { ...t, state: 'default' } : t));
+            return;
+        }
+
+        if (!selected) {
+            setSelected(id);
+            setTiles(prev => prev.map(t => t.id === id ? { ...t, state: 'selected' } : t));
+        } else {
+            // Check match
+            const first = tiles.find(t => t.id === selected);
+            const second = tiles.find(t => t.id === id);
+            
+            if (first && second && first.matchId === second.matchId) {
+                // Match!
+                setTiles(prev => prev.map(t => (t.id === selected || t.id === id) ? { ...t, state: 'matched' } : t));
+                setSelected(null);
+                
+                // Check win
+                if (tiles.filter(t => t.state === 'matched').length === tiles.length - 2) {
+                    setTimeout(() => setGameWon(true), 500);
+                }
+            } else {
+                // Wrong
+                setIsProcessing(true);
+                setTiles(prev => prev.map(t => (t.id === selected || t.id === id) ? { ...t, state: 'wrong' } : t));
+                setTimeout(() => {
+                    setTiles(prev => prev.map(t => (t.state === 'wrong') ? { ...t, state: 'default' } : t));
+                    setSelected(null);
+                    setIsProcessing(false);
+                }, 1000);
+            }
+        }
+    };
+
+    return (
+        <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
+            {gameWon && <ConfettiCanvas />}
+            <h2 className="text-2xl font-bold text-white mb-8 tracking-widest uppercase flex items-center">
+                <span className="text-cyan-400 mr-2">Neural Link:</span> Connect Concepts
+            </h2>
+
+            {gameWon ? (
+                <div className="text-center animate-pop-in">
+                    <h3 className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-cyan-300 mb-4">SYSTEM SYNCED</h3>
+                    <button onClick={initGame} className="px-8 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full font-bold transition-all">
+                        Initialize New Set
+                    </button>
+                </div>
+            ) : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl w-full">
+                    {tiles.map(tile => (
+                        <button
+                            key={tile.id}
+                            onClick={() => handleTileClick(tile.id)}
+                            className={`
+                                h-32 p-4 rounded-xl border-2 transition-all duration-300 relative overflow-hidden group flex items-center justify-center text-center
+                                ${tile.state === 'default' ? 'bg-white/5 border-white/10 hover:border-cyan-500/50 hover:bg-white/10' : ''}
+                                ${tile.state === 'selected' ? 'bg-cyan-500/20 border-cyan-400 scale-105 shadow-[0_0_20px_rgba(34,211,238,0.3)]' : ''}
+                                ${tile.state === 'matched' ? 'bg-green-500/10 border-green-500/50 opacity-50 scale-95' : ''}
+                                ${tile.state === 'wrong' ? 'bg-red-500/20 border-red-500 animate-shake' : ''}
+                            `}
+                        >
+                            <span className={`font-bold ${tile.type === 'word' ? 'text-xl text-white' : 'text-sm text-gray-300'}`}>
+                                {tile.text}
+                            </span>
+                            {tile.state === 'selected' && <div className="absolute inset-0 bg-cyan-400/10 animate-pulse"></div>}
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+};
+
+// "Spell" Mode
+const SpellMode: React.FC = () => {
+    const [index, setIndex] = useState(0);
+    const [input, setInput] = useState('');
+    const [status, setStatus] = useState<'idle' | 'correct' | 'wrong'>('idle');
+    const [revealed, setRevealed] = useState(false);
+
+    const currentWord = VOCAB_LIST[index];
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (input.toLowerCase().trim() === currentWord.word.toLowerCase()) {
+            setStatus('correct');
+            setTimeout(() => {
+                setIndex(prev => (prev + 1) % VOCAB_LIST.length);
+                setInput('');
+                setStatus('idle');
+                setRevealed(false);
+            }, 1000);
+        } else {
+            setStatus('wrong');
+            setTimeout(() => setStatus('idle'), 800);
+        }
+    };
+
+    const speak = () => {
+        const u = new SpeechSynthesisUtterance(currentWord.word);
+        window.speechSynthesis.speak(u);
+    };
+
+    return (
+        <div className="flex-1 flex flex-col items-center justify-center p-8">
+            <div className="w-full max-w-lg">
+                <div className="glass-card p-8 rounded-2xl border border-white/10 text-center relative overflow-hidden">
+                    <div className="mb-8">
+                        <button onClick={speak} className="w-20 h-20 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform group">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-cyan-300 group-hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                            </svg>
+                        </button>
+                        <p className="text-gray-400 text-sm mb-2 uppercase tracking-wide">Listen & Type</p>
+                        <p className="text-lg font-medium text-white italic">"{currentWord.definition}"</p>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="relative">
+                        <input 
+                            type="text" 
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            className={`w-full bg-black/30 border-2 rounded-lg px-4 py-4 text-center text-2xl font-bold tracking-widest outline-none transition-all
+                                ${status === 'correct' ? 'border-green-500 text-green-400' : ''}
+                                ${status === 'wrong' ? 'border-red-500 text-red-400 animate-shake' : 'border-white/20 focus:border-cyan-500'}
+                            `}
+                            placeholder="Type the word..."
+                            autoFocus
+                        />
+                    </form>
+
+                    <div className="mt-6 flex justify-between items-center">
+                        <span className="text-xs text-gray-500">{index + 1} / {VOCAB_LIST.length}</span>
+                        <button onClick={() => setRevealed(true)} className="text-xs text-gray-400 hover:text-white underline decoration-dotted">Reveal Answer</button>
+                    </div>
+
+                    {revealed && (
+                        <div className="mt-4 p-2 bg-red-500/10 border border-red-500/30 rounded text-red-300 font-bold animate-slide-up">
+                            {currentWord.word}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Existing Speed Quiz Mode (Refined)
+const QuizMode: React.FC = () => {
+    const [active, setActive] = useState(false);
+    const [qIndex, setQIndex] = useState(0);
+    const [timer, setTimer] = useState(10);
+    const [score, setScore] = useState(0);
+    const [gameState, setGameState] = useState<'idle' | 'playing' | 'end'>('idle');
+    const [feedback, setFeedback] = useState<'none' | 'correct' | 'wrong'>('none');
+    
+    // Quiz Timer
+    useEffect(() => {
+        let interval: number;
+        if (gameState === 'playing' && timer > 0 && feedback === 'none') {
+            interval = window.setInterval(() => setTimer(t => t - 1), 1000);
+        } else if (timer === 0 && feedback === 'none') {
+            handleAnswer(-1); // Timeout
+        }
+        return () => clearInterval(interval);
+    }, [gameState, timer, feedback]);
+
+    const startGame = () => {
+        setGameState('playing');
+        setScore(0);
+        setQIndex(0);
+        startRound();
+    };
+
+    const startRound = () => {
+        setTimer(10);
+        setFeedback('none');
+    };
+
+    const handleAnswer = (optionIndex: number) => {
+        const correct = optionIndex === VOCAB_LIST[qIndex].quizCorrectIndex;
+        if (correct) {
+            setScore(s => s + (timer * 10) + 50);
+            setFeedback('correct');
+        } else {
+            setFeedback('wrong');
+        }
+
+        setTimeout(() => {
+            if (qIndex < VOCAB_LIST.length - 1) {
+                setQIndex(prev => prev + 1);
+                startRound();
+            } else {
+                setGameState('end');
+            }
+        }, 1000);
+    };
+
+    if (gameState === 'idle') {
+        return (
+            <div className="flex-1 flex flex-col items-center justify-center p-8 animate-pop-in">
+                <div className="w-32 h-32 bg-cyan-500/10 rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(34,211,238,0.3)] mb-8 animate-float border border-cyan-500/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h2 className="text-5xl font-black text-white mb-2 tracking-tight">SPEED RUN</h2>
+                <p className="text-gray-400 mb-8">Score based on accuracy and time.</p>
+                <button onClick={startGame} className="px-10 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-full transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-y-1">
+                    INITIATE SEQUENCE
+                </button>
+            </div>
+        );
+    }
+
+    if (gameState === 'end') {
+        return (
+            <div className="flex-1 flex flex-col items-center justify-center p-8 animate-pop-in">
+                <ConfettiCanvas />
+                <h2 className="text-2xl text-gray-400 uppercase tracking-widest mb-4">Sequence Complete</h2>
+                <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 mb-8 drop-shadow-lg">{score}</div>
+                <button onClick={startGame} className="px-8 py-3 border border-white/20 hover:bg-white/10 rounded-full text-white transition-all">Retry</button>
+            </div>
+        );
+    }
+
+    const currentQ = VOCAB_LIST[qIndex];
+
+    return (
+        <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-6">
+            <div className="flex justify-between items-center mb-8">
+                 <div className="text-sm font-mono text-gray-500">Q {qIndex + 1}/{VOCAB_LIST.length}</div>
+                 <div className="text-xl font-black text-cyan-400">{score} PTS</div>
+            </div>
+
+            {/* Timer Bar */}
+            <div className="w-full h-2 bg-gray-800 rounded-full mb-8 overflow-hidden">
+                <div 
+                    className={`h-full transition-all duration-1000 linear ${timer < 4 ? 'bg-red-500' : 'bg-cyan-400'}`} 
+                    style={{ width: `${(timer / 10) * 100}%` }}
+                ></div>
+            </div>
+
+            <div className="flex-1 flex flex-col justify-center">
+                <h3 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 leading-snug">
+                    {currentQ.quizQuestion}
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {currentQ.quizOptions.map((opt, idx) => {
+                        let style = "bg-white/5 border-white/10 hover:bg-white/10 hover:border-cyan-500/50";
+                        if (feedback === 'correct' && idx === currentQ.quizCorrectIndex) style = "bg-green-500/20 border-green-500 text-green-300 shadow-[0_0_20px_rgba(34,197,94,0.3)]";
+                        if (feedback === 'wrong' && idx !== currentQ.quizCorrectIndex) style = "opacity-50";
+                        if (feedback === 'wrong' && idx === currentQ.quizCorrectIndex) style = "bg-green-500/20 border-green-500 text-green-300"; // Show correct one
+
+                        return (
+                            <button
+                                key={idx}
+                                disabled={feedback !== 'none'}
+                                onClick={() => handleAnswer(idx)}
+                                className={`p-6 rounded-xl border-2 text-lg font-bold transition-all duration-200 text-left ${style}`}
+                            >
+                                {opt}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 // Sub-component to render a group of questions
 const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, onAnswerChange, onFocus, activeQuestionId }) => {
