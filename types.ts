@@ -1,3 +1,4 @@
+
 export enum QuestionType {
   INPUT = 'INPUT',
   RADIO = 'RADIO',
@@ -53,4 +54,20 @@ export interface Test {
 
 export interface UserAnswers {
   [key: number]: string;
+}
+
+// --- New Vocabulary Types ---
+
+export interface VocabItem {
+  id: number;
+  word: string;
+  ipa: string;
+  form: string; // noun, verb, adj, etc.
+  definition: string;
+  example: string;
+  translationRU: string;
+  translationUZ: string;
+  quizQuestion: string;
+  quizOptions: string[];
+  quizCorrectIndex: number; // 0-3
 }

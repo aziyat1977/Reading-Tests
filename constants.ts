@@ -1,4 +1,4 @@
-import { Test, QuestionType } from './types';
+import { Test, QuestionType, VocabItem } from './types';
 
 export const TESTS: Test[] = [
   {
@@ -86,9 +86,9 @@ export const TESTS: Test[] = [
             questions: [
               { id: 8, label: "8", questionText: "The website www.newzealand.com aimed to provide ready-made itineraries and packages for travel companies and individual tourists.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
               { id: 9, label: "9", questionText: "It was found that most visitors started searching on the website by geographical location.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
-              { id: 10, label: "10", questionText: "According to research, 26% of visitor satisfaction is related to their accommodation.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 11, label: "11", questionText: "Visitors to New Zealand like to become involved in the local culture.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 12, label: "12", questionText: "Visitors like staying in small hotels in New Zealand rather than in larger ones.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 10, label: "10", questionText: "According to research, 26% of visitor satisfaction is related to their accommodation.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 11, label: "11", questionText: "Visitors to New Zealand like to become involved in the local culture.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 12, label: "12", questionText: "Visitors like staying in small hotels in New Zealand rather than in larger ones.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
               { id: 13, label: "13", questionText: "Many visitors feel it is unlikely that they will return to New Zealand after their visit.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
             ]
           }
@@ -100,7 +100,7 @@ export const TESTS: Test[] = [
         content: [
             "<span class='font-bold text-lg'>A</span> We all know how it feels – it’s impossible to keep your mind on anything, time stretches out, and all the things you could do seem equally unlikely to make you feel better. But defining boredom so that it can be studied in the lab has proved difficult. For a start, it can include a lot of other mental states, such as frustration, apathy, depression and indifference. There isn’t even agreement about what boredom actually is. There isn’t even agreement over whether boredom is always a low-energy, flat kind of emotion or whether feeling agitated and restless counts as boredom, too. In his book, <em>Boredom: A Lively History</em>, Peter Toohey at the University of Calgary, Canada, compares it to disgust – an emotion that motivates us to stay away from certain situations. ‘If disgust protects humans from infection, boredom may protect them from “infectious” social situations,’ he suggests.",
             "<span class='font-bold text-lg'>B</span> By asking people about their experiences of boredom, Thomas Goetz and his team at the University of Konstanz in Germany have recently identified five distinct types: indifferent, calibrating, searching, reactant and apathetic. These can be plotted on two axes – one running left to right, which measures low to high arousal, and the other from top to bottom, which measures how positive or negative the feeling is. Intriguingly, Goetz has found that while people experience all kinds of boredom, they tend to specialise in one. Of the five types, the most damaging is ‘reactant’ boredom with its explosive combination of high arousal and negative emotion. The most useful is what Goetz calls ‘indifferent’ boredom: someone isn’t engaged in anything satisfying but still feels relaxed and calm. However, it remains to be seen whether there are any character traits that predict the kind of boredom each of us might be prone to.",
-            "<span class='font-bold text-lg'>C</span> Psychologist Sandi Mann at the University of Central Lancashire, UK, goes further. ‘All emotions are there for a reason, including boredom,’ she says. Mann has found that being bored makes us more creative. ‘We’re all afraid of being bored but in actual fact it can lead to all kinds of amazing things,’ she says. In experiments published last year, Mann found that people who had been made to feel bored by copying numbers out of the phone book for 15 minutes came up with more creative ideas about how to use a pair of polystyrene cups than a control group. Mann concluded that a passive, boring activity is best for creativity because it allows the mind to wander. In fact, she goes so far as to suggest that we should seek out more boredom in our lives.",
+            "<span class='font-bold text-lg'>C</span> Psychologist Sandi Mann at the University of Central Lancashire, UK, goes further. ‘All emotions are there for a reason, including boredom,’ he says. Mann has found that being bored makes us more creative. ‘We’re all afraid of being bored but in actual fact it can lead to all kinds of amazing things,’ she says. In experiments published last year, Mann found that people who had been made to feel bored by copying numbers out of the phone book for 15 minutes came up with more creative ideas about how to use a pair of polystyrene cups than a control group. Mann concluded that a passive, boring activity is best for creativity because it allows the mind to wander. In fact, she goes so far as to suggest that we should seek out more boredom in our lives.",
             "<span class='font-bold text-lg'>D</span> Psychologist John Eastwood at York University in Toronto, Canada, isn’t convinced. ‘If you are in a state of mind-wandering you are not bored,’ he says. ‘In my view, by definition boredom is an undesirable state.’ That doesn’t necessarily mean that it isn’t adaptive, he adds. ‘Pain is an undesirable state, but it may be a useful adaptive response to something that is wrong with your body.’ Eastwood’s team is now trying to explore the reasons why our attention system fails. It has been suggested that our over-connected lifestyles might even be a new source of boredom. ‘In modern human society there is a lot of over-stimulation but still a lot of problems finding meaning,’ says Eastwood.",
             "<span class='font-bold text-lg'>E</span> Eastwood’s team is now trying to explore the reasons why our attention system fails. They have been using eye-tracking technology to observe the gaze of bored people. They have found that they don’t focus on things – their eyes just jump around. This suggests that the problem with boredom is an inability to focus our attention.",
             "<span class='font-bold text-lg'>F</span> Psychologist Françoise Wemelsfelder speculates that our over-connected lifestyles might even be a new source of boredom. ‘In modern human society there is a lot of over-stimulation but still a lot of problems finding meaning,’ she says. So instead of seeking yet more mental stimulation, perhaps we should leave our phones alone, and use boredom to motivate us to engage with the world in a more meaningful way."
@@ -153,10 +153,10 @@ export const TESTS: Test[] = [
                 `,
                 renderType: "LIST",
                 questions: [
-                    { id: 20, label: "20", questionText: "The encouragement to live in the present", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
+                    { id: 20, label: "20", questionText: "The encouragement to live in the present", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" },
                     { id: 21, label: "21", questionText: "The suggestion that one sort of boredom is worse than all the others", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }, 
-                    { id: 22, label: "22", questionText: "The view that boredom serves a function involving the avoidance of unpleasant situations", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
-                    { id: 23, label: "23", questionText: "The idea that the mind working together with a lack of stimulation can lead to creativity", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" }
+                    { id: 22, label: "22", questionText: "The view that boredom serves a function involving the avoidance of unpleasant situations", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
+                    { id: 23, label: "23", questionText: "The idea that the mind working together with a lack of stimulation can lead to creativity", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" }
                 ]
             },
             {
@@ -183,8 +183,8 @@ export const TESTS: Test[] = [
                 },
                 questions: [
                     { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "focus" },
-                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "distractions" },
-                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "creative" }
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "pleasure" },
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "curiosity" }
                 ]
             }
         ]
@@ -212,7 +212,7 @@ export const TESTS: Test[] = [
                         questionText: "What point does the writer make about computer artists in the first paragraph?", 
                         type: QuestionType.RADIO, 
                         options: ["They are currently less creative than human artists.", "They have the potential to exceed human creativity.", "They have already produced works that are indistinguishable from human art.", "They are limited by the programming they receive."], 
-                        correctAnswer: "They have already produced works that are indistinguishable from human art." 
+                        correctAnswer: "They have the potential to exceed human creativity." 
                     },
                     { 
                         id: 28, 
@@ -220,7 +220,7 @@ export const TESTS: Test[] = [
                         questionText: "According to Geraint Wiggins, why are many people afraid of computer creativity?", 
                         type: QuestionType.RADIO, 
                         options: ["It will lead to computers taking over the world.", "It undermines a fundamental human quality.", "It will make human art obsolete.", "It is difficult to understand."], 
-                        correctAnswer: "It undermines a fundamental human quality." 
+                        correctAnswer: "It will make human art obsolete." 
                     },
                     { 
                         id: 29, 
@@ -236,7 +236,7 @@ export const TESTS: Test[] = [
                         questionText: "Simon Colton argues that public reaction to the Painting Fool's work", 
                         type: QuestionType.RADIO, 
                         options: ["is based on a misunderstanding of how the software works.", "shows that people are prejudiced against computer art.", "proves that computers can be creative.", "highlights the need for better computer art software."], 
-                        correctAnswer: "shows that people are prejudiced against computer art." 
+                        correctAnswer: "highlights the need for better computer art software." 
                     }
                 ]
             },
@@ -269,7 +269,7 @@ export const TESTS: Test[] = [
                     ]
                 },
                 questions: [
-                    { id: 37, label: "37", questionText: "Simon Colton says that the Painting Fool", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "F" },
+                    { id: 37, label: "37", questionText: "Simon Colton says that the Painting Fool", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "B" },
                     { id: 38, label: "38", questionText: "David Cope's EMI software", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "A" },
                     { id: 39, label: "39", questionText: "Geraint Wiggins criticized David Cope for", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "D" },
                     { id: 40, label: "40", questionText: "Douglas Hofstadter claimed that EMI", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "C" }
@@ -278,5 +278,139 @@ export const TESTS: Test[] = [
         ]
       }
     ]
+  }
+];
+
+// Vocabulary List for Passage 1
+export const VOCAB_LIST: VocabItem[] = [
+  {
+    id: 1,
+    word: "Long-haul flight",
+    ipa: "/ˌlɒŋ ˈhɔːl flaɪt/",
+    form: "Noun Phrase",
+    definition: "A flight that covers a long distance, usually between continents.",
+    example: "Travelers from Europe face a **long-haul flight** to reach New Zealand.",
+    translationRU: "Дальнемагистральный рейс",
+    translationUZ: "Uzoq masofali parvoz",
+    quizQuestion: "What kind of flight would you take from London to Sydney?",
+    quizOptions: ["Domestic flight", "Long-haul flight", "Charter flight", "Short-haul flight"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 2,
+    word: "Gross Domestic Product",
+    ipa: "/ˌɡrəʊs dəˌmestɪk ˈprɒdʌkt/",
+    form: "Noun Phrase (Collocation)",
+    definition: "The total value of goods produced and services provided in a country during one year.",
+    example: "Tourism contributes significantly to the country's **Gross Domestic Product**.",
+    translationRU: "Валовой внутренний продукт",
+    translationUZ: "Yalpi Ichki Mahsulot",
+    quizQuestion: "GDP stands for...",
+    quizOptions: ["Global Domestic Profit", "Gross Domestic Product", "Great Domestic Power", "Gross Development Plan"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 3,
+    word: "Exhilarating",
+    ipa: "/ɪɡˈzɪləreɪtɪŋ/",
+    form: "Adjective",
+    definition: "Making you feel very happy, animated, and energetic.",
+    example: "Visitors can enjoy **exhilarating** outdoor activities like bungee jumping.",
+    translationRU: "Захватывающий",
+    translationUZ: "Hayajonli / Zavqli",
+    quizQuestion: "Which word describes a roller coaster ride?",
+    quizOptions: ["Boring", "Exhilarating", "Depressing", "Calm"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 4,
+    word: "Authentic",
+    ipa: "/ɔːˈθɛntɪk/",
+    form: "Adjective",
+    definition: "Of undisputed origin; genuine.",
+    example: "The campaign promoted **authentic** Maori culture.",
+    translationRU: "Подлинный / Аутентичный",
+    translationUZ: "Haqiqiy / Asl",
+    quizQuestion: "If something is 'fake', it is NOT...",
+    quizOptions: ["Expensive", "Authentic", "Modern", "Beautiful"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 5,
+    word: "Blockbuster",
+    ipa: "/ˈblɒkbʌstə/",
+    form: "Noun (Collocation: Blockbuster films)",
+    definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
+    example: "New Zealand scenery was used in several **blockbuster** films.",
+    translationRU: "Кассовый хит (фильм)",
+    translationUZ: "Kassabop film",
+    quizQuestion: "A very popular and successful movie is often called a...",
+    quizOptions: ["Flop", "Indie", "Blockbuster", "Short"],
+    quizCorrectIndex: 2
+  },
+  {
+    id: 6,
+    word: "Scenic beauty",
+    ipa: "/ˈsiːnɪk ˈbjuːti/",
+    form: "Noun Phrase",
+    definition: "Beautiful natural scenery.",
+    example: "The **scenic beauty** of the mountains attracts many photographers.",
+    translationRU: "Живописная красота",
+    translationUZ: "Go'zal manzara",
+    quizQuestion: "We stopped the car to admire the...",
+    quizOptions: ["Traffic", "Scenic beauty", "Noise", "Pollution"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 7,
+    word: "Customised",
+    ipa: "/ˈkʌstəmaɪzd/",
+    form: "Adjective",
+    definition: "Modified or built according to individual or personal specifications.",
+    example: "The website helps travelers create **customised** itineraries.",
+    translationRU: "Индивидуальный / Настроенный",
+    translationUZ: "Moslashtirilgan",
+    quizQuestion: "A suit made exactly for your measurements is...",
+    quizOptions: ["Standard", "Customised", "Cheap", "Random"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 8,
+    word: "Devise",
+    ipa: "/dɪˈvaɪz/",
+    form: "Verb",
+    definition: "Plan or invent (a complex procedure, system, or mechanism) by careful thought.",
+    example: "They needed to **devise** a plan to increase tourism.",
+    translationRU: "Разрабатывать / Придумывать",
+    translationUZ: "O'ylab topmoq / Tuzmoq",
+    quizQuestion: "Synonym for 'create' or 'invent' a plan:",
+    quizOptions: ["Destroy", "Devise", "Ignore", "Forget"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 9,
+    word: "Catalogued",
+    ipa: "/ˈkat(ə)lɒɡd/",
+    form: "Verb (Past Participle)",
+    definition: "Make a systematic list of (items of the same type).",
+    example: "The website **catalogued** the most popular driving routes.",
+    translationRU: "Каталогизированный",
+    translationUZ: "Kataloglashtirilgan",
+    quizQuestion: "If books are listed systematically in a library, they are...",
+    quizOptions: ["Lost", "Catalogued", "Thrown away", "Hidden"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 10,
+    word: "Interactive",
+    ipa: "/ˌɪntərˈaktɪv/",
+    form: "Adjective",
+    definition: "Allowing a two-way flow of information between a computer and a computer-user.",
+    example: "The website features an **interactive** map.",
+    translationRU: "Интерактивный",
+    translationUZ: "Interaktiv",
+    quizQuestion: "Video games are usually...",
+    quizOptions: ["Passive", "Interactive", "Boring", "Silent"],
+    quizCorrectIndex: 1
   }
 ];

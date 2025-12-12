@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TESTS } from './constants';
-import { QuestionGroup, Question, QuestionType, UserAnswers, TableData } from './types';
+import { TESTS, VOCAB_LIST } from './constants';
+import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabItem } from './types';
 
 const TOTAL_TIME_SECONDS = 60 * 60; // 60 minutes
 
@@ -25,8 +25,15 @@ export default function App() {
   const [isTestStarted, setIsTestStarted] = useState(false);
   
   const [fontSize, setFontSize] = useState<'standard' | 'large' | 'xlarge'>('standard');
+  const [lineSpacing, setLineSpacing] = useState<'compact' | 'standard' | 'loose'>('standard');
+  const [paragraphIndent, setParagraphIndent] = useState(false);
+  
   const [showHelp, setShowHelp] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Vocabulary App State
+  const [showVocabApp, setShowVocabApp] = useState(false);
 
   // Derived state
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
@@ -107,6 +114,15 @@ export default function App() {
     }
   };
 
+  // Line spacing classes
+  const getLineSpacingClass = () => {
+    switch (lineSpacing) {
+      case 'compact': return 'leading-normal';
+      case 'loose': return 'leading-9'; // Using numeric value for extra looseness
+      default: return 'leading-relaxed'; // standard
+    }
+  };
+
   const toggleReview = () => {
     if (focusedQuestionId !== null) {
         setReviewStatus(prev => ({
@@ -130,6 +146,10 @@ export default function App() {
     setTimeLeft(TOTAL_TIME_SECONDS);
   };
 
+  if (showVocabApp) {
+      return <VocabularyStudio onBack={() => setShowVocabApp(false)} />;
+  }
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 text-gray-900 font-sans overflow-hidden">
       {/* Top Bar (Always Visible) */}
@@ -149,9 +169,27 @@ export default function App() {
               
               {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded shadow-xl py-2 text-gray-900 z-50 border border-gray-200 animate-in fade-in slide-in-from-top-2 duration-150">
+                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100">
+                           <button 
+                             onClick={() => {
+                                 setShowVocabApp(true);
+                                 setIsMenuOpen(false);
+                             }}
+                             className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
+                           >
+                               <span className="font-bold flex items-center">
+                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                   </svg>
+                                   Study Vocab (Passage 1)
+                               </span>
+                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs">New</span>
+                           </button>
+                       </div>
+
                        {currentTest && (
                          <>
-                           <div className="px-4 py-2 text-sm font-bold text-gray-500 uppercase tracking-wider border-b bg-gray-50">
+                           <div className="px-4 py-2 text-sm font-bold text-gray-500 uppercase tracking-wider border-b bg-gray-50 mt-2">
                                Current: {currentTest.title}
                            </div>
                            <div className="py-2">
@@ -241,6 +279,16 @@ export default function App() {
 
           <div className="flex space-x-2">
             <button 
+                onClick={() => setShowSettings(!showSettings)}
+                className={`px-3 py-1.5 rounded text-sm font-medium transition-colors border border-gray-600 flex items-center space-x-1 ${showSettings ? 'bg-gray-600 text-white' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'}`}
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Settings</span>
+            </button>
+            <button 
                 onClick={() => setShowHelp(!showHelp)}
                 className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors border border-gray-600"
             >
@@ -294,6 +342,67 @@ export default function App() {
             </div>
         )}
 
+        {/* Settings Modal */}
+        {showSettings && (
+            <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                <div className="bg-white rounded-lg shadow-2xl max-w-sm w-full text-gray-900 overflow-hidden animate-in fade-in zoom-in duration-200">
+                     <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200 bg-gray-50">
+                        <h3 className="text-lg font-bold text-gray-800">Display Settings</h3>
+                        <button onClick={() => setShowSettings(false)} className="text-gray-400 hover:text-gray-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                     </div>
+
+                     <div className="p-6 space-y-6">
+                         {/* Line Spacing Control */}
+                         <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Line Spacing</label>
+                            <div className="flex bg-gray-100 p-1 rounded-md">
+                                <button 
+                                    onClick={() => setLineSpacing('compact')}
+                                    className={`flex-1 py-1.5 text-sm font-medium rounded transition-all ${lineSpacing === 'compact' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    Compact
+                                </button>
+                                <button 
+                                    onClick={() => setLineSpacing('standard')}
+                                    className={`flex-1 py-1.5 text-sm font-medium rounded transition-all ${lineSpacing === 'standard' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    Normal
+                                </button>
+                                <button 
+                                    onClick={() => setLineSpacing('loose')}
+                                    className={`flex-1 py-1.5 text-sm font-medium rounded transition-all ${lineSpacing === 'loose' ? 'bg-white text-blue-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                                >
+                                    Loose
+                                </button>
+                            </div>
+                         </div>
+
+                         {/* Indentation Control */}
+                         <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                            <label htmlFor="indent-toggle" className="text-sm font-bold text-gray-700 cursor-pointer">Paragraph Indentation</label>
+                            <button 
+                                id="indent-toggle"
+                                onClick={() => setParagraphIndent(!paragraphIndent)}
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${paragraphIndent ? 'bg-blue-600' : 'bg-gray-200'}`}
+                            >
+                                <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${paragraphIndent ? 'translate-x-6' : 'translate-x-1'}`} />
+                            </button>
+                         </div>
+                     </div>
+
+                     <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end">
+                         <button onClick={() => setShowSettings(false)} className="px-6 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition-colors">
+                             Done
+                         </button>
+                     </div>
+                </div>
+            </div>
+        )}
+
         {/* Help Modal */}
         {showHelp && (
             <div className="absolute inset-0 bg-black/50 z-40 flex items-center justify-center p-4">
@@ -334,7 +443,11 @@ export default function App() {
             <div className={`flex-1 overflow-y-auto p-8 reading-text ${getTextSizeClass()}`}>
                 <h2 className="text-2xl font-bold mb-6 text-black border-b pb-4">{activePassage.title}</h2>
                 {activePassage.content.map((paragraph, idx) => (
-                <p key={idx} className="mb-4 text-justify text-gray-800 leading-relaxed" dangerouslySetInnerHTML={{__html: paragraph}} />
+                <p 
+                    key={idx} 
+                    className={`mb-4 text-justify text-gray-800 transition-all ${getLineSpacingClass()} ${paragraphIndent ? 'indent-10' : ''}`} 
+                    dangerouslySetInnerHTML={{__html: paragraph}} 
+                />
                 ))}
             </div>
             </section>
@@ -368,47 +481,56 @@ export default function App() {
         )}
       </main>
 
-      {/* Footer Navigation (Always Visible but interactive only if test is active) */}
-      <footer className="h-20 bg-white border-t border-gray-300 flex items-center justify-between px-4 shrink-0 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-20">
+      {/* Footer Navigation */}
+      <footer className="h-20 bg-white border-t border-gray-300 flex items-center justify-between px-6 shrink-0 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-20">
          {currentTest ? (
          <>
-         <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar max-w-4xl py-2 px-2">
-           <span className="text-sm font-bold text-gray-500 mr-2 shrink-0">Q:</span>
-           {passages.flatMap(p => p.questionGroups.flatMap(g => g.questions)).map((q) => {
-             const isAnswered = !!answers[q.id];
-             const isReview = !!reviewStatus[q.id];
-             const isFocused = focusedQuestionId === q.id;
-             
-             return (
-             <button
-               key={q.id}
-               onClick={() => {
-                 const pId = passages.find(p => p.questionGroups.some(g => g.questions.some(qn => qn.id === q.id)))?.id || 1;
-                 setActivePassageId(pId);
-                 setFocusedQuestionId(q.id);
-                 setTimeout(() => scrollToQuestion(q.id), 100);
-               }}
-               className={`relative w-9 h-9 flex items-center justify-center text-sm font-bold rounded border transition-all shrink-0
-                 ${isFocused ? 'ring-2 ring-black border-black z-10' : ''}
-                 ${isReview ? 'rounded-full' : 'rounded-md'}
-                 ${isAnswered 
-                    ? 'bg-gray-700 text-white border-gray-700' 
-                    : 'bg-white text-gray-700 border-gray-400 hover:bg-gray-100'
-                 }
-               `}
-             >
-               {q.label}
-               {isReview && <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full border-2 border-white"></div>}
-             </button>
-           )})}
+         {/* Question Palette - Enhanced Scrollable Bar */}
+         <div className="flex-1 flex items-center overflow-hidden mr-6">
+           <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">Questions:</span>
+           <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
+             {passages.flatMap(p => p.questionGroups.flatMap(g => g.questions)).map((q) => {
+               const isAnswered = !!answers[q.id];
+               const isReview = !!reviewStatus[q.id];
+               const isFocused = focusedQuestionId === q.id;
+               
+               return (
+               <button
+                 key={q.id}
+                 onClick={() => {
+                   const pId = passages.find(p => p.questionGroups.some(g => g.questions.some(qn => qn.id === q.id)))?.id || 1;
+                   if (pId !== activePassageId) {
+                       setActivePassageId(pId);
+                   }
+                   setFocusedQuestionId(q.id);
+                   setTimeout(() => scrollToQuestion(q.id), 50);
+                 }}
+                 className={`
+                    relative w-10 h-10 flex items-center justify-center text-sm font-bold rounded-md border transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500
+                    ${isFocused 
+                        ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300 z-10 scale-105 shadow-md' 
+                        : isAnswered 
+                            ? 'bg-gray-700 text-white border-gray-700 hover:bg-gray-600' 
+                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400'
+                    }
+                    ${isReview ? 'ring-2 ring-yellow-400 ring-offset-1' : ''}
+                 `}
+                 title={`Question ${q.label}`}
+               >
+                 {q.label}
+                 {isReview && <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>}
+               </button>
+             )})}
+           </div>
          </div>
          
-         <div className="flex items-center space-x-4 ml-4 shrink-0">
-             <div className="flex items-center space-x-2 mr-4 bg-gray-100 px-3 py-1.5 rounded">
+         {/* Navigation Controls */}
+         <div className="flex items-center space-x-4 shrink-0 border-l pl-6 border-gray-200">
+             <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
                  <input 
                     type="checkbox" 
                     id="review" 
-                    className="w-4 h-4 accent-blue-600 cursor-pointer" 
+                    className="w-4 h-4 accent-yellow-500 cursor-pointer" 
                     checked={focusedQuestionId !== null ? !!reviewStatus[focusedQuestionId] : false}
                     onChange={toggleReview}
                     disabled={focusedQuestionId === null}
@@ -419,7 +541,7 @@ export default function App() {
              <button 
                 onClick={handleBack}
                 disabled={activePassageIndex === 0}
-                className={`flex items-center px-4 py-2 font-bold rounded transition-colors ${activePassageIndex === 0 ? 'bg-gray-100 text-gray-300' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
              >
                <span className="mr-1">←</span> Back
              </button>
@@ -427,7 +549,7 @@ export default function App() {
              <button 
                 onClick={handleNext}
                 disabled={activePassageIndex === passages.length - 1}
-                className={`flex items-center px-4 py-2 font-bold rounded transition-colors ${activePassageIndex === passages.length - 1 ? 'bg-gray-100 text-gray-300' : 'bg-blue-700 text-white hover:bg-blue-800'}`}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${activePassageIndex === passages.length - 1 ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
              >
                Next <span className="ml-1">→</span>
              </button>
@@ -440,6 +562,339 @@ export default function App() {
     </div>
   );
 }
+
+// ----------------------------------------------------------------------------
+// VOCABULARY STUDIO COMPONENT
+// ----------------------------------------------------------------------------
+
+const VocabularyStudio: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+    const [mode, setMode] = useState<'study' | 'quiz'>('study');
+    
+    // Quiz State
+    const [quizStarted, setQuizStarted] = useState(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [score, setScore] = useState(0);
+    const [timer, setTimer] = useState(15);
+    const [gameState, setGameState] = useState<'countdown' | 'question' | 'feedback' | 'finished'>('countdown');
+    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+    const [isCorrect, setIsCorrect] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
+
+    // Study State
+    const [studyIndex, setStudyIndex] = useState(0);
+    const [flipped, setFlipped] = useState(false);
+
+    // Audio Ref for sound effects (conceptually)
+    
+    useEffect(() => {
+        let interval: number;
+        if (gameState === 'question' && timer > 0) {
+            interval = window.setInterval(() => setTimer(t => t - 1), 1000);
+        } else if (gameState === 'question' && timer === 0) {
+            handleAnswer(-1); // Time out
+        }
+        return () => clearInterval(interval);
+    }, [gameState, timer]);
+
+    const startQuiz = () => {
+        setMode('quiz');
+        setQuizStarted(true);
+        setScore(0);
+        setCurrentQuestionIndex(0);
+        startQuestion();
+    };
+
+    const startQuestion = () => {
+        setGameState('countdown');
+        setTimer(3);
+        setTimeout(() => {
+            setGameState('question');
+            setTimer(15); // 15 seconds per question
+        }, 3000);
+    };
+
+    const handleAnswer = (optionIndex: number) => {
+        if (gameState !== 'question') return;
+        
+        setSelectedOption(optionIndex);
+        const correct = optionIndex === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex;
+        setIsCorrect(correct);
+        
+        if (correct) {
+            setScore(s => s + 100 + (timer * 10)); // Score based on speed
+            setShowConfetti(true);
+            setTimeout(() => setShowConfetti(false), 2000);
+        }
+
+        setGameState('feedback');
+
+        setTimeout(() => {
+            if (currentQuestionIndex < VOCAB_LIST.length - 1) {
+                setCurrentQuestionIndex(prev => prev + 1);
+                setSelectedOption(null);
+                startQuestion();
+            } else {
+                setGameState('finished');
+            }
+        }, 3000);
+    };
+
+    const colors = ['bg-red-500', 'bg-blue-500', 'bg-yellow-500', 'bg-green-500'];
+    const icons = ['▲', '◆', '●', '■'];
+
+    return (
+        <div className="h-screen w-full bg-[#333] text-white overflow-hidden flex flex-col font-sans">
+            {/* Header */}
+            <header className="h-16 bg-purple-800 flex items-center justify-between px-6 shadow-lg z-10">
+                <div className="flex items-center space-x-4">
+                    <button onClick={onBack} className="text-white hover:bg-purple-700 p-2 rounded-full transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+                    <h1 className="text-xl font-bold tracking-wider">IELTS Vocab Master</h1>
+                </div>
+                <div className="flex space-x-2">
+                    <button 
+                        onClick={() => { setMode('study'); setQuizStarted(false); }}
+                        className={`px-4 py-2 rounded-full font-bold transition-all ${mode === 'study' ? 'bg-white text-purple-900 shadow-lg scale-105' : 'bg-purple-700 text-purple-200 hover:bg-purple-600'}`}
+                    >
+                        Study Mode
+                    </button>
+                    <button 
+                        onClick={() => { setMode('quiz'); setQuizStarted(false); }}
+                        className={`px-4 py-2 rounded-full font-bold transition-all ${mode === 'quiz' ? 'bg-white text-purple-900 shadow-lg scale-105' : 'bg-purple-700 text-purple-200 hover:bg-purple-600'}`}
+                    >
+                        Quiz Challenge
+                    </button>
+                </div>
+            </header>
+
+            {/* Content */}
+            <main className="flex-1 overflow-y-auto bg-gray-900 relative">
+                
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 20px 20px, #ffffff 2px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+
+                {mode === 'study' && (
+                    <div className="h-full flex flex-col items-center justify-center p-6">
+                         <div className="max-w-2xl w-full perspective-1000">
+                             
+                             {/* Progress Bar */}
+                             <div className="mb-6 flex justify-between items-center text-gray-400 text-sm font-bold">
+                                 <span>Word {studyIndex + 1} of {VOCAB_LIST.length}</span>
+                                 <div className="w-64 h-2 bg-gray-700 rounded-full ml-4 overflow-hidden">
+                                     <div className="h-full bg-green-400 transition-all duration-300" style={{ width: `${((studyIndex + 1) / VOCAB_LIST.length) * 100}%`}}></div>
+                                 </div>
+                             </div>
+
+                             {/* Flip Card Container */}
+                             <div 
+                                className="relative w-full aspect-[4/3] cursor-pointer group"
+                                onClick={() => setFlipped(!flipped)}
+                                style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+                             >
+                                 {/* Front of Card */}
+                                 <div className={`absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl p-8 flex flex-col items-center justify-center backface-hidden transition-all duration-500 border-4 border-white/10 ${flipped ? 'rotate-y-180 opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                                     <span className="text-indigo-200 font-bold uppercase tracking-widest mb-4">Word</span>
+                                     <h2 className="text-6xl font-extrabold text-white mb-6 text-center drop-shadow-lg">{VOCAB_LIST[studyIndex].word}</h2>
+                                     <div className="bg-white/20 px-4 py-2 rounded-lg text-xl font-mono text-indigo-100">
+                                         {VOCAB_LIST[studyIndex].ipa}
+                                     </div>
+                                     <p className="mt-8 text-indigo-200 animate-pulse">Click to Reveal MFP & Meaning</p>
+                                 </div>
+
+                                 {/* Back of Card (MFP Mode) */}
+                                 <div className={`absolute inset-0 bg-white rounded-2xl shadow-2xl p-8 flex flex-col backface-hidden transition-all duration-500 text-gray-800 ${flipped ? 'rotate-y-0 opacity-100' : '-rotate-y-180 opacity-0 pointer-events-none'}`} style={{ transform: flipped ? 'rotateY(0deg)' : 'rotateY(180deg)' }}>
+                                     <div className="flex justify-between items-start mb-4 border-b pb-4">
+                                         <div>
+                                             <h2 className="text-3xl font-bold text-indigo-700">{VOCAB_LIST[studyIndex].word}</h2>
+                                             <span className="text-gray-500 italic">{VOCAB_LIST[studyIndex].form}</span>
+                                         </div>
+                                         <div className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded font-mono text-sm">
+                                            {VOCAB_LIST[studyIndex].ipa}
+                                         </div>
+                                     </div>
+
+                                     <div className="space-y-4 flex-1 overflow-y-auto pr-2">
+                                         <div>
+                                             <h3 className="text-sm font-bold text-gray-400 uppercase mb-1">Meaning</h3>
+                                             <p className="text-lg font-medium leading-relaxed">{VOCAB_LIST[studyIndex].definition}</p>
+                                         </div>
+                                         
+                                         <div>
+                                             <h3 className="text-sm font-bold text-gray-400 uppercase mb-1">Context</h3>
+                                             <p className="text-gray-600 bg-gray-50 p-3 rounded-lg border-l-4 border-indigo-400 italic">"{VOCAB_LIST[studyIndex].example}"</p>
+                                         </div>
+
+                                         <div className="mt-4 pt-4 border-t border-dashed border-gray-200">
+                                             <h3 className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center">
+                                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                 </svg>
+                                                 Translations (Hover/Click to Reveal)
+                                             </h3>
+                                             <div className="grid grid-cols-2 gap-4">
+                                                 <div className="group/spoiler cursor-pointer">
+                                                     <span className="text-xs text-gray-400 block mb-1">Russian</span>
+                                                     <div className="bg-yellow-400 text-yellow-400 select-none rounded px-2 py-1 group-hover/spoiler:bg-transparent group-hover/spoiler:text-gray-800 transition-colors duration-300 font-bold">
+                                                         {VOCAB_LIST[studyIndex].translationRU}
+                                                     </div>
+                                                 </div>
+                                                 <div className="group/spoiler cursor-pointer">
+                                                     <span className="text-xs text-gray-400 block mb-1">Uzbek</span>
+                                                     <div className="bg-yellow-400 text-yellow-400 select-none rounded px-2 py-1 group-hover/spoiler:bg-transparent group-hover/spoiler:text-gray-800 transition-colors duration-300 font-bold">
+                                                         {VOCAB_LIST[studyIndex].translationUZ}
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             {/* Navigation */}
+                             <div className="flex justify-between mt-8">
+                                 <button 
+                                    onClick={() => {
+                                        setStudyIndex(prev => prev > 0 ? prev - 1 : prev);
+                                        setFlipped(false);
+                                    }}
+                                    disabled={studyIndex === 0}
+                                    className="px-6 py-3 bg-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-600 font-bold transition-colors"
+                                 >
+                                     Previous
+                                 </button>
+                                 <button 
+                                    onClick={() => {
+                                        setStudyIndex(prev => prev < VOCAB_LIST.length - 1 ? prev + 1 : prev);
+                                        setFlipped(false);
+                                    }}
+                                    disabled={studyIndex === VOCAB_LIST.length - 1}
+                                    className="px-6 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-500 font-bold shadow-lg transition-colors"
+                                 >
+                                     Next Word
+                                 </button>
+                             </div>
+                         </div>
+                    </div>
+                )}
+
+                {mode === 'quiz' && (
+                    <div className="h-full relative flex flex-col">
+                        {!quizStarted ? (
+                            <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-purple-900">
+                                <div className="animate-bounce mb-8 text-8xl">🎓</div>
+                                <h2 className="text-5xl font-extrabold mb-4 text-white">Vocabulary Challenge</h2>
+                                <p className="text-xl text-purple-200 mb-8 max-w-md">Test your mastery of the Passage 1 vocabulary. Speed matters! Are you ready?</p>
+                                <button 
+                                    onClick={startQuiz}
+                                    className="px-10 py-5 bg-green-500 text-white text-2xl font-bold rounded-xl shadow-[0_8px_0_rgb(21,128,61)] active:shadow-none active:translate-y-2 transition-all hover:bg-green-400"
+                                >
+                                    START QUIZ
+                                </button>
+                            </div>
+                        ) : gameState === 'finished' ? (
+                            <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-indigo-900">
+                                <h2 className="text-4xl font-bold mb-4">Quiz Complete!</h2>
+                                <div className="text-9xl font-extrabold text-yellow-400 mb-6 drop-shadow-lg">{score}</div>
+                                <p className="text-2xl text-white mb-8">Total Points</p>
+                                <div className="flex space-x-4">
+                                    <button onClick={startQuiz} className="px-6 py-3 bg-blue-600 rounded-lg font-bold hover:bg-blue-500">Play Again</button>
+                                    <button onClick={() => setMode('study')} className="px-6 py-3 bg-gray-600 rounded-lg font-bold hover:bg-gray-500">Back to Study</button>
+                                </div>
+                            </div>
+                        ) : gameState === 'countdown' ? (
+                            <div className="h-full flex items-center justify-center bg-purple-700">
+                                <div className="text-9xl font-black text-white animate-ping">{timer}</div>
+                            </div>
+                        ) : (
+                            // Active Quiz Question
+                            <div className="h-full flex flex-col relative">
+                                {/* Top Info Bar */}
+                                <div className="flex justify-between items-center px-6 py-4 bg-black/20">
+                                    <div className="bg-white/10 px-4 py-2 rounded-full font-bold">
+                                        Question {currentQuestionIndex + 1}/{VOCAB_LIST.length}
+                                    </div>
+                                    <div className="text-2xl font-bold text-white">{score} pts</div>
+                                </div>
+
+                                {/* Main Question Area */}
+                                <div className="flex-1 flex items-center justify-center p-6 bg-white">
+                                    <div className="text-center w-full max-w-4xl">
+                                        <h3 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
+                                            {VOCAB_LIST[currentQuestionIndex].quizQuestion}
+                                        </h3>
+                                        
+                                        {/* Timer Bar */}
+                                        <div className="mt-8 w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                                            <div 
+                                                className={`h-full ${timer < 5 ? 'bg-red-500' : 'bg-purple-600'} transition-all duration-1000 linear`} 
+                                                style={{ width: `${(timer / 15) * 100}%` }}
+                                            />
+                                        </div>
+                                        <div className="mt-2 font-mono text-gray-500 font-bold text-xl">{timer}</div>
+                                    </div>
+                                </div>
+
+                                {/* Options Grid (Kahoot Style) */}
+                                <div className="h-1/2 bg-gray-100 p-4 grid grid-cols-2 gap-4">
+                                    {VOCAB_LIST[currentQuestionIndex].quizOptions.map((opt, idx) => {
+                                        let btnClass = "transform transition-all duration-200 active:scale-95 flex items-center justify-between px-8 text-xl md:text-2xl font-bold text-white shadow-md";
+                                        
+                                        if (gameState === 'feedback') {
+                                            if (idx === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex) {
+                                                btnClass += " opacity-100 ring-4 ring-green-400 scale-105 z-10 brightness-110";
+                                            } else if (idx === selectedOption) {
+                                                btnClass += " opacity-50 bg-red-500 brightness-75"; // Wrong choice
+                                            } else {
+                                                btnClass += " opacity-30 grayscale";
+                                            }
+                                        } else {
+                                            btnClass += " hover:brightness-110 shadow-[0_6px_0_rgba(0,0,0,0.2)] active:shadow-none active:translate-y-1.5";
+                                        }
+
+                                        return (
+                                            <button
+                                                key={idx}
+                                                disabled={gameState === 'feedback'}
+                                                onClick={() => handleAnswer(idx)}
+                                                className={`${colors[idx]} ${btnClass}`}
+                                            >
+                                                <span className="text-3xl mr-4">{icons[idx]}</span>
+                                                <span className="flex-1 text-left">{opt}</span>
+                                                {gameState === 'feedback' && idx === VOCAB_LIST[currentQuestionIndex].quizCorrectIndex && (
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                                {gameState === 'feedback' && idx === selectedOption && idx !== VOCAB_LIST[currentQuestionIndex].quizCorrectIndex && (
+                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                    </svg>
+                                                )}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+                        
+                        {/* Confetti / Feedback Overlay */}
+                        {showConfetti && (
+                            <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-50 overflow-hidden">
+                                <div className="text-6xl animate-bounce font-bold text-green-500 drop-shadow-2xl bg-white p-6 rounded-full">
+                                    Correct! +{100 + (timer * 10)}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </main>
+        </div>
+    );
+};
 
 // Sub-component to render a group of questions
 const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, onAnswerChange, onFocus, activeQuestionId }) => {
@@ -460,7 +915,7 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
       ) : (
         <div className="space-y-6">
             {group.questions.map((q) => (
-            <div key={q.id} id={`question-${q.id}`} className={`flex flex-col space-y-2 p-3 rounded transition-colors ${activeQuestionId === q.id ? 'bg-yellow-50' : ''}`}>
+            <div key={q.id} id={`question-${q.id}`} className={`flex flex-col space-y-2 p-3 rounded transition-colors ${activeQuestionId === q.id ? 'bg-yellow-50 ring-2 ring-yellow-200' : ''}`}>
                 <div className="flex items-baseline space-x-3">
                 <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-800 font-bold rounded-full text-sm">
                     {q.label}
@@ -512,7 +967,7 @@ const TableRenderer: React.FC<{
                                 value={answers[question.id] || ''}
                                 onFocus={() => onFocus(question.id)}
                                 onChange={(e) => onAnswerChange(question.id, e.target.value)}
-                                className={`border-2 rounded px-2 py-1 w-32 font-semibold text-gray-800 uppercase text-sm transition-colors ${isActive ? 'border-black bg-yellow-50' : 'border-gray-300 focus:border-blue-500'}`}
+                                className={`border-2 rounded px-2 py-1 w-32 font-semibold text-gray-800 uppercase text-sm transition-colors ${isActive ? 'border-black bg-yellow-50 ring-2 ring-yellow-200' : 'border-gray-300 focus:border-blue-500'}`}
                             />
                         </span>
                     );
