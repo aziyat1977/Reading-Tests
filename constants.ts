@@ -304,45 +304,39 @@ export const TESTS: Test[] = [
                         {
                             cells: [
                                 { text: "Biblical Times" },
-                                { bulletPoints: true, text: "added to {{1}}" }
+                                { bulletPoints: true, text: "added to {{1}}<br/>used to show {{2}} between people" }
                             ]
                         },
                         {
                             cells: [
                                 { text: "Ancient Rome" },
-                                { bulletPoints: true, text: "used at {{2}}" }
+                                { bulletPoints: true, text: "used at {{3}}" }
                             ]
                         },
                         {
                             cells: [
                                 { text: "Middle Ages" },
-                                { bulletPoints: true, text: "an indication of {{3}}<br/>known as a treatment for {{4}}" }
+                                { bulletPoints: true, text: "an indication of {{4}}<br/>known as a treatment for {{5}}" }
                             ]
                         },
                         {
                             cells: [
                                 { text: "Late Middle Ages" },
-                                { bulletPoints: true, text: "grown in {{5}}<br/>transported to the Mediterranean by {{6}}<br/>arrived in {{7}}<br/>taken to {{8}}" }
-                            ]
-                        },
-                        {
-                            cells: [
-                                { text: "16th Century" },
-                                { bulletPoints: true, text: "Portuguese traders arrived in {{9}}" }
+                                { bulletPoints: true, text: "grown in {{6}}<br/>transported to the Mediterranean by {{7}}<br/>arrived in {{8}}<br/>taken to {{9}}" }
                             ]
                         }
                     ]
                 },
                 questions: [
                     { id: 1, label: "1", type: QuestionType.INPUT, correctAnswer: "oils" },
-                    { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "funerals" },
-                    { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "wealth" },
-                    { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "indigestion" },
-                    { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "India" },
-                    { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "camels" },
-                    { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "Alexandria" },
-                    { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "Venice" },
-                    { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "Ceylon" }
+                    { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "friendship" },
+                    { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "funerals" },
+                    { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "wealth" },
+                    { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "indigestion" },
+                    { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "India" },
+                    { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "camels" },
+                    { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "Alexandria" },
+                    { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "Venice" }
                 ]
             },
             {
@@ -352,7 +346,7 @@ export const TESTS: Test[] = [
                 questions: [
                     { id: 10, label: "10", questionText: "The Portuguese established a monopoly on the European cinnamon trade in the 16th century.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
                     { id: 11, label: "11", questionText: "The Dutch took control of the cinnamon trade from the Portuguese as soon as they arrived in the Indian Ocean.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-                    { id: 12, label: "12", questionText: "The Dutch treated the native people of Ceylon more kindly than the Portuguese had.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+                    { id: 12, label: "12", questionText: "The Dutch treated the native people of Ceylon more kindly than the Portuguese had.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
                     { id: 13, label: "13", questionText: "The Dutch began cultivating cinnamon trees because the wild trees were running out.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
                 ]
             }
@@ -366,18 +360,19 @@ export const TESTS: Test[] = [
             "<span class='font-bold text-lg'>B</span> Oxytocin’s role in human behaviour first emerged in 2005. In a groundbreaking experiment, Markus Heinrichs and his colleagues at the University of Freiburg, Germany, asked volunteers to do an activity in which they could invest money with an anonymous person who was not guaranteed to be honest. The team found that participants who had sniffed oxytocin via a nasal spray beforehand invested more money than those who received a placebo instead. The study was the start of research into the effects of oxytocin on human interactions. 'For eight years, it was quite a lonesome field,' Heinrichs recalls. 'Now, everyone is interested.' These follow-up studies have shown that after a sniff of the hormone, people become more charitable, better at reading emotions on others’ faces and at communicating constructively in arguments. Together, the results fuelled the view that oxytocin universally enhanced the positive aspects of our social nature.",
             "<span class='font-bold text-lg'>C</span> Then, after a few years, contrasting findings began to emerge. Simone Shamay-Tsoory at the University of Haifa, Israel, found that when volunteers played a competitive game, those who inhaled the hormone showed more pleasure when they beat other players, and felt more envy when others won. What’s more, administering oxytocin also has sharply contrasting outcomes depending on a person’s disposition. Jennifer Bartz from Mount Sinai School of Medicine, New York, found that it improved the ability of people with autism to read emotions, but decreased it in those without the condition.",
             "<span class='font-bold text-lg'>D</span> Another discovery is that oxytocin’s effects vary depending on who we are interacting with. Studies conducted by Carolyn DeClerck of the University of Antwerp, Belgium, revealed that people who had received a dose of oxytocin actually became less cooperative when dealing with complete strangers. Meanwhile, Carsten De Dreu at the University of Amsterdam in the Netherlands discovered that volunteers given oxytocin showed favouritism: Dutch men became quicker to associate positive words with Dutch names than with foreign ones, for example. According to De Dreu, oxytocin drives people to care for those in their social circles and defend them from outside dangers. So, it appears that oxytocin strengthens biases, rather than promoting general goodwill, as was previously thought.",
-            "<span class='font-bold text-lg'>E</span> There were signs of these subtleties from the start. Bartz has recently shown that in almost half of the existing research results, oxytocin influenced only certain individuals or in certain circumstances. Where once researchers took no notice of such findings, now a more nuanced understanding of oxytocin’s effects is propelling investigations down new lines. To Bartz, the key to understanding what the hormone does lies in pinpointing its core function rather than in cataloguing its seemingly endless effects. There are several hypotheses which are not mutually exclusive. Oxytocin could help to reduce anxiety and fear. Or it could simply motivate people to seek out social connections and improve their interactions with others."
+            "<span class='font-bold text-lg'>E</span> There were signs of these subtleties from the start. Bartz has recently shown that in almost half of the existing research results, oxytocin influenced only certain individuals or in certain circumstances. Where once researchers took no notice of such findings, now a more nuanced understanding of oxytocin’s effects is propelling investigations down new lines.",
+            "<span class='font-bold text-lg'>F</span> To Bartz, the key to understanding what the hormone does lies in pinpointing its core function rather than in cataloguing its seemingly endless effects. There are several hypotheses which are not mutually exclusive. Oxytocin could help to reduce anxiety and fear. Or it could simply motivate people to seek out social connections and improve their interactions with others."
         ],
         questionGroups: [
             {
                 id: "group2-1",
-                instruction: "Reading Passage 2 has five paragraphs, A-E. Which paragraph contains the following information?",
+                instruction: "Reading Passage 2 has six paragraphs, A-F. Which paragraph contains the following information?",
                 renderType: "LIST",
                 questions: [
-                    { id: 14, label: "14", questionText: "Reference to research which suggests that oxytocin may lead people to treat those from other groups unfairly.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
-                    { id: 15, label: "15", questionText: "Mention of the fact that the effects of oxytocin can differ from one individual to another.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
-                    { id: 16, label: "16", questionText: "Description of an experiment in which people were given oxytocin before making a financial decision.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" },
-                    { id: 17, label: "17", questionText: "Explanation of why research into oxytocin has become more popular in recent years.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }
+                    { id: 14, label: "14", questionText: "Reference to research showing the beneficial effects of oxytocin on people", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "B" },
+                    { id: 15, label: "15", questionText: "Reasons why the effects of oxytocin are complex", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "F" },
+                    { id: 16, label: "16", questionText: "Mention of a period in which oxytocin attracted little scientific attention", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "B" },
+                    { id: 17, label: "17", questionText: "Reference to people ignoring certain aspects of their research data", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "E" }
                 ]
             },
             {
@@ -385,11 +380,9 @@ export const TESTS: Test[] = [
                 instruction: "Look at the following researchers and the list of findings below. Match each researcher with the correct finding.",
                 renderType: "LIST",
                 questions: [
-                    { id: 18, label: "18", questionText: "Markus Heinrichs", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
-                    { id: 19, label: "19", questionText: "Simone Shamay-Tsoory", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
-                    { id: 20, label: "20", questionText: "Jennifer Bartz", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" },
-                    { id: 21, label: "21", questionText: "Carolyn DeClerck", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
-                    { id: 22, label: "22", questionText: "Carsten De Dreu", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }
+                    { id: 18, label: "18", questionText: "People are more trusting when affected by oxytocin.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
+                    { id: 19, label: "19", questionText: "Oxytocin increases people's feelings of jealousy.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" },
+                    { id: 20, label: "20", questionText: "The effect of oxytocin varies from one type of person to another.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" }
                 ]
             },
             {
@@ -405,7 +398,22 @@ export const TESTS: Test[] = [
                           text: `
                           <h4 class='font-bold mb-2'>Oxytocin research</h4>
                           <p class='mb-4 leading-relaxed'>
-                          The earliest findings about oxytocin came from research involving {{23}}. It was also discovered that humans produce oxytocin during {{24}}. A more recent study suggests that oxytocin may increase a person's {{25}} in others. However, it can also affect our feelings of {{26}} towards people we consider to be outsiders.
+                          The earliest findings about oxytocin came from research involving {{21}}. It was also discovered that humans produce oxytocin during {{22}}. A more recent study suggests that oxytocin may increase a person's {{23}} in others. However, it can also affect our feelings of {{24}} towards people we consider to be outsiders.
+                          </p>
+                          `,
+                          bulletPoints: false
+                        }
+                      ]
+                    },
+                     {
+                      cells: [
+                        {
+                          text: `
+                          <p class='mb-4 leading-relaxed'>
+                          In 2005, a study was carried out in Germany which showed that people who were given oxytocin were more likely to trust strangers with their money than those who were given a {{23}}. Another experiment showed that participants in a {{24}} felt more pleasure when they won than when they lost. 
+                          </p>
+                          <p class='mb-4 leading-relaxed'>
+                          Later research has challenged the idea that oxytocin always has a positive effect. For example, a study at the University of Antwerp showed that people were less willing to help {{25}} when under the influence of oxytocin. Another study in Amsterdam showed that men associated positive words with {{26}} that were familiar to them.
                           </p>
                           `,
                           bulletPoints: false
@@ -415,10 +423,12 @@ export const TESTS: Test[] = [
                   ]
                 },
                 questions: [
-                    { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "animals" },
-                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "childbirth" },
-                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "trust" },
-                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "envy" }
+                    { id: 21, label: "21", type: QuestionType.INPUT, correctAnswer: "animals" },
+                    { id: 22, label: "22", type: QuestionType.INPUT, correctAnswer: "childbirth" },
+                    { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "placebo" },
+                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "game" },
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "strangers" },
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "names" }
                 ]
             }
         ]
@@ -428,10 +438,11 @@ export const TESTS: Test[] = [
         title: "Reading Passage 3: Making the most of trends",
         content: [
            "Managers who want to succeed in business need to spot trends and then work out how to use them to their advantage. A trend is not just a fad or a temporary fashion; it is a significant change in the way people live or work. Trends can be demographic, such as the aging population in many developed countries, or technological, such as the rise of smartphones and social media. They can also be social, such as the increasing concern for the environment and sustainability.",
-           "One way to spot trends is to look for anomalies or things that do not fit the established pattern. For example, the rise of low-cost airlines was an anomaly in the airline industry, which had previously been dominated by large, full-service carriers. Another way to spot trends is to look for convergences, where two or more trends come together to create a new opportunity. For example, the convergence of mobile technology and social media has created new opportunities for businesses to engage with customers.",
-           "Once a trend has been identified, managers need to decide how to respond to it. One option is to ignore it, but this can be risky if the trend turns out to be significant. Another option is to adapt to the trend, by changing products or services to meet the new demand. A third option is to innovate, by creating new products or services that take advantage of the trend. Finally, managers can try to influence the trend, by shaping consumer perceptions or government policy.",
-           "Companies that fail to respond to trends risk being left behind. For example, Kodak failed to respond to the trend towards digital photography, and as a result, it lost its dominant position in the photography market. On the other hand, companies that successfully respond to trends can gain a significant competitive advantage. For example, Apple successfully responded to the trend towards mobile computing with the iPhone and iPad, and as a result, it became one of the most valuable companies in the world.",
-           "In conclusion, spotting and responding to trends is a key skill for managers in today's fast-changing business environment. By looking for anomalies and convergences, and by choosing the right response strategy, managers can help their companies to succeed and grow."
+           "One way to spot trends is to look for anomalies or things that do not fit the established pattern. For example, the rise of low-cost airlines was an anomaly in the airline industry, which had previously been dominated by large, full-service carriers. Another way to spot trends is to look for convergences, where two or more trends come together to create a new opportunity. For example, the convergence of mobile technology and social media has created new opportunities for businesses to engage with customers. Kodak failed to respond to the trend towards digital photography, and as a result, it lost its dominant position.",
+           "Once a trend has been identified, managers need to decide how to respond to it. One strategy, known as 'infuse and augment', is to design a product or service that retains most of the attributes and functions of existing products in the category but adds others that address the needs and desires triggered by a new trend. A case in point is the Poppy line of handbags, which the firm **Coach** created in response to the economic downturn of 2008. The Coach brand had been a symbol of opulence and luxury for nearly 70 years, and the most obvious reaction to the downturn would have been to lower prices. However, that would have risked cheapening the brand’s image. Instead, they initiated a consumer-research project which revealed that customers were eager to lift themselves and the country out of tough times. Using these insights, Coach launched the new line, which was affordable but still carried the brand's prestige, successfully avoiding the need to cut prices on its core products.",
+           "Another strategy is to 'combine and transcend'. This is a great strategy for integrating work and life, or two distinct worlds. **Nike**’s move to integrate the digital revolution into its reputation for high-performance athletic footwear is a perfect example. In 2006, they teamed up with technology company Apple to launch Nike+, a digital sports kit comprising a sensor that attaches to a running shoe and a wireless receiver that connects to an iPod. This allowed runners to track their performance and listen to music simultaneously.",
+           "The 'counteract and affirm' strategy involves developing products or services that stress the values traditionally associated with the category in ways that allow consumers to oppose—or at least temporarily escape from—the aspects of trends they view as negative. **iToys** used this strategy with its ME2, a video game controller that counteracts the perceived negative effects of digital gaming, such as physical inactivity. The ME2 controller allows players to use their physical movement to control the game, turning the notion that gaming is lazy to its own advantage.",
+           "Finally, **Tesco**, the UK retailer, used a strategy to respond to the growing lifestyle trend of environmental responsibility in the grocery sector. Their 'Greener Living' program demonstrated that the company cared about the environment by implementing an incentive scheme where customers earned points for reusing bags and recycling. This allowed them to respond to a trend in a sector unrelated to their core product of selling food, showing corporate social responsibility."
         ],
         questionGroups: [
              {
@@ -462,27 +473,67 @@ export const TESTS: Test[] = [
                         type: QuestionType.RADIO, 
                         options: ["It tried to influence government policy.", "It ignored a significant trend.", "It adapted too slowly to change.", "It focused too much on innovation."], 
                         correctAnswer: "It ignored a significant trend." 
+                    },
+                    { 
+                        id: 30, 
+                        label: "30", 
+                        questionText: "The 'infuse and augment' strategy involves", 
+                        type: QuestionType.RADIO, 
+                        options: ["completely replacing existing products.", "ignoring new market trends.", "lowering prices to attract customers.", "adding new features to an existing product."], 
+                        correctAnswer: "adding new features to an existing product." 
+                    },
+                    { 
+                        id: 31, 
+                        label: "31", 
+                        questionText: "The 'combine and transcend' strategy", 
+                        type: QuestionType.RADIO, 
+                        options: ["focuses on traditional values.", "creates a new product by joining two existing ones.", "keeps the product price high.", "targets only one specific market segment."], 
+                        correctAnswer: "creates a new product by joining two existing ones." 
                     }
                 ]
             },
             {
                 id: "group3-2",
-                instruction: "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+                instruction: `
+                    <p class='mb-2'>Look at the following statements (Questions 32-37) and the list of companies below.</p>
+                    <p class='mb-4'>Match each statement with the correct company, <strong>A, B, C or D</strong>.</p>
+                    <div class='border border-gray-300 p-3 bg-gray-50 text-sm w-1/2'>
+                        <h5 class='font-bold mb-2'>List of Companies</h5>
+                        <ul class='space-y-1'>
+                            <li><strong>A</strong> Coach</li>
+                            <li><strong>B</strong> Tesco</li>
+                            <li><strong>C</strong> Nike</li>
+                            <li><strong>D</strong> iToys</li>
+                        </ul>
+                    </div>
+                `,
+                renderType: "LIST",
+                questions: [
+                   { id: 32, label: "32", questionText: "It turned the notion that its products could have harmful effects to its own advantage.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" },
+                   { id: 33, label: "33", questionText: "It extended its offering by collaborating with another manufacturer.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 34, label: "34", questionText: "It implemented an incentive scheme to demonstrate its corporate social responsibility.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "B" },
+                   { id: 35, label: "35", questionText: "It discovered that customers had a positive attitude towards dealing with difficult circumstances.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "A" },
+                   { id: 36, label: "36", questionText: "It responded to a growing lifestyle trend in an unrelated product sector.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 37, label: "37", questionText: "It successfully avoided having to charge its customers less for its core products.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "A" }
+                ]
+            },
+            {
+                id: "group3-3",
+                instruction: "Complete each sentence with the correct ending, A, B, C or D below.",
                 renderType: "TABLE",
                 tableData: {
-                  headers: [],
-                  rows: [
-                    { cells: [{ text: "Managers can look for {{30}} to identify potential new trends." }] },
-                    { cells: [{ text: "The combination of mobile tech and {{31}} is an example of convergence." }] },
-                    { cells: [{ text: "One strategy for responding to a trend is to {{32}} by developing new offerings." }] },
-                    { cells: [{ text: "Apple's success with the iPhone demonstrates the value of responding to {{33}} computing." }] }
-                  ]
+                    headers: [],
+                    rows: [
+                        { cells: [{ text: "<strong>A</strong> employ a combination of strategies to maintain your consumer base." }] },
+                        { cells: [{ text: "<strong>B</strong> identify the most appropriate innovation strategy to use." }] },
+                        { cells: [{ text: "<strong>C</strong> emphasise your brand's traditional values with the counteract-and-affirm strategy." }] },
+                        { cells: [{ text: "<strong>D</strong> use the combine-and-transcend strategy to integrate the two worlds." }] }
+                    ]
                 },
                 questions: [
-                   { id: 30, label: "30", type: QuestionType.INPUT, correctAnswer: "anomalies" },
-                   { id: 31, label: "31", type: QuestionType.INPUT, correctAnswer: "social media" },
-                   { id: 32, label: "32", type: QuestionType.INPUT, correctAnswer: "innovate" },
-                   { id: 33, label: "33", type: QuestionType.INPUT, correctAnswer: "mobile" }
+                   { id: 38, label: "38", questionText: "If there are any trend-related changes impacting on your category, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "B" },
+                   { id: 39, label: "39", questionText: "If a current trend highlights a negative aspect of your category, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 40, label: "40", questionText: "If the consumers' new focus has an increasing lack of connection with your offering, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" }
                 ]
             }
         ]
