@@ -84,12 +84,12 @@ export const TESTS: Test[] = [
             instruction: "Do the following statements agree with the information given in Reading Passage 1? In boxes 8-13 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 8, label: "8", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 9, label: "9", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
-              { id: 10, label: "10", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 11, label: "11", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 12, label: "12", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 13, label: "13", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+              { id: 8, label: "8", questionText: "The website www.newzealand.com aimed to provide ready-made itineraries and packages for travel companies and individual tourists.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 9, label: "9", questionText: "It was found that most visitors started searching on the website by geographical location.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 10, label: "10", questionText: "According to research, 26% of visitor satisfaction is related to their accommodation.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 11, label: "11", questionText: "Visitors to New Zealand like to become involved in the local culture.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 12, label: "12", questionText: "Visitors like staying in small hotels in New Zealand rather than in larger ones.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 13, label: "13", questionText: "Many visitors feel it is unlikely that they will return to New Zealand after their visit.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
             ]
           }
         ]
@@ -153,10 +153,10 @@ export const TESTS: Test[] = [
                 `,
                 renderType: "LIST",
                 questions: [
-                    { id: 20, label: "20", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" }, // live today encourages
-                    { id: 21, label: "21", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }, // one sort is worse
-                    { id: 22, label: "22", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" }, // avoid unpleasant
-                    { id: 23, label: "23", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" }  // mind working together (creativity/Mann)
+                    { id: 20, label: "20", questionText: "The encouragement to live in the present", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
+                    { id: 21, label: "21", questionText: "The suggestion that one sort of boredom is worse than all the others", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }, 
+                    { id: 22, label: "22", questionText: "The view that boredom serves a function involving the avoidance of unpleasant situations", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
+                    { id: 23, label: "23", questionText: "The idea that the mind working together with a lack of stimulation can lead to creativity", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" }
                 ]
             },
             {
@@ -185,6 +185,94 @@ export const TESTS: Test[] = [
                     { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "focus" },
                     { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "distractions" },
                     { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "creative" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 3,
+        title: "Reading Passage 3: Artificial artists",
+        content: [
+            "The Painting Fool is one of a growing number of computer programs which, so their makers claim, possess creative talents. Classical music by an artificial composer has had audiences enraptured, and even tricked them into believing a human was behind the score. Artworks painted by a robot have sold for thousands of dollars and been hung in prestigious galleries. And software has been built which creates art that could not have been imagined by the programmer.",
+            "Human beings are the only species to perform sophisticated creative acts regularly. If we can break this process down into computer code, where does that leave human creativity? ‘This is a question at the very core of humanity,’ says Geraint Wiggins, a computational creativity researcher at Goldsmiths, University of London. ‘It scares a lot of people. They are worried that it is taking something special away from what it means to be human.’",
+            "To some extent, we are all familiar with computerised art. The question is: where does the work of the artist stop and the creativity of the computer begin? Consider one of the oldest machine artists, Aaron, a robot that has had paintings exhibited in London’s Tate Modern and the San Francisco Museum of Modern Art. Aaron can pick up a paintbrush and paint on canvas on its own. Impressive perhaps, but it is still little more than a tool to realise the programmer’s own creative ideas.",
+            "Simon Colton, the designer of the Painting Fool, is keen to make sure his creation doesn’t attract the same criticism. Unlike earlier ‘artists’ such as Aaron, the Painting Fool only needs minimal direction and can come up with its own concepts by going online for material. The software runs its own web searches and trawls through social media sites. It is now beginning to display a kind of imagination too, creating pictures from scratch. One of its original works is a series of fuzzy landscapes, depicting trees and sky. While some might say they have a mechanical look, Colton argues that such reactions arise from people’s double standards towards software-produced and human-produced art. After all, he says, consider that the Painting Fool painted the landscapes without referring to a photo. ‘If a child painted a new scene from its head, you’d say it has a certain level of imagination,’ he points out. ‘The same should be true of a machine.’ Software bugs can also lead to unexpected results. Some of the Painting Fool’s paintings of a chair came out in black and white, thanks to a technical glitch. This gives the work an eerie, ghostlike quality. Human artists like the renowned Ellsworth Kelly are lauded for limiting their colour palette – so why should computers be any different?",
+            "Researchers like Colton don’t believe it is right to measure machine creativity directly to that of humans who ‘have had millennia to develop our skills’. Others, though, are fascinated by the prospect that a computer might create something as original and subtle as our best artists. So far, only one has come close. Composer David Cope invented a program called Experiments in Musical Intelligence, or EMI. Not only did EMI create compositions in Cope’s style, but also that of the most revered classical composers, including Bach, Chopin and Mozart. Audiences were moved to tears, and EMI even fooled classical music experts into thinking they were hearing genuine Bach. Not everyone was impressed however. Some, such as Wiggins, have blasted Cope’s work as pseudoscience, and condemned him for his deliberately vague explanation of how the software worked. Meanwhile, Douglas Hofstadter of Indiana University said EMI created replicas which still rely completely on the original artist’s creative impulses. When audiences found out the truth they were often outraged with Cope, and one music lover even tried to punch him. Amid such controversy, Cope destroyed EMI’s vital databases.",
+            "But why did so many people love the music, yet recoil when they discovered how it was composed? A study by computer scientist David Moffat of Glasgow Caledonian University provides a clue. He asked both expert musicians and non-experts to assess six compositions. The participants weren’t told beforehand whether the tunes were composed by humans or computers, but were asked to guess, and then rate how much they liked each one. People who thought the composer was a computer tended to dislike the piece more than those who believed it was human. This was true even among the experts, who might have been expected to be more objective in their analyses. Where does this prejudice come from? Paul Bloom of Yale University has a suggestion: he reckons part of the pleasure we get from art stems from our creative process behind the work. This can give it an ‘irresistible essence’, says Bloom. Experiments with children show that they are ready to call something an artwork only if they know it was created with a specific intent to be art. Consider the work of the Painting Fool. The software is programmed to follow a set of rules, but it has no intent of its own. It is just following instructions."
+        ],
+        questionGroups: [
+            {
+                id: "group6",
+                instruction: "Choose the correct letter, A, B, C or D.",
+                renderType: "LIST",
+                questions: [
+                    { 
+                        id: 27, 
+                        label: "27", 
+                        questionText: "What point does the writer make about computer artists in the first paragraph?", 
+                        type: QuestionType.RADIO, 
+                        options: ["They are currently less creative than human artists.", "They have the potential to exceed human creativity.", "They have already produced works that are indistinguishable from human art.", "They are limited by the programming they receive."], 
+                        correctAnswer: "They have already produced works that are indistinguishable from human art." 
+                    },
+                    { 
+                        id: 28, 
+                        label: "28", 
+                        questionText: "According to Geraint Wiggins, why are many people afraid of computer creativity?", 
+                        type: QuestionType.RADIO, 
+                        options: ["It will lead to computers taking over the world.", "It undermines a fundamental human quality.", "It will make human art obsolete.", "It is difficult to understand."], 
+                        correctAnswer: "It undermines a fundamental human quality." 
+                    },
+                    { 
+                        id: 29, 
+                        label: "29", 
+                        questionText: "In the third paragraph, the writer refers to Aaron to illustrate that", 
+                        type: QuestionType.RADIO, 
+                        options: ["computer art can be as good as human art.", "computers can learn to paint without instruction.", "current computer art is dependent on human programming.", "the distinction between human and computer art is becoming blurred."], 
+                        correctAnswer: "current computer art is dependent on human programming." 
+                    },
+                    { 
+                        id: 30, 
+                        label: "30", 
+                        questionText: "Simon Colton argues that public reaction to the Painting Fool's work", 
+                        type: QuestionType.RADIO, 
+                        options: ["is based on a misunderstanding of how the software works.", "shows that people are prejudiced against computer art.", "proves that computers can be creative.", "highlights the need for better computer art software."], 
+                        correctAnswer: "shows that people are prejudiced against computer art." 
+                    }
+                ]
+            },
+            {
+                id: "group7",
+                instruction: "Do the following statements agree with the claims of the writer in Reading Passage 3? In boxes 32-36 on your answer sheet, write YES, NO or NOT GIVEN.",
+                renderType: "LIST",
+                questions: [
+                    { id: 32, label: "32", questionText: "The Painting Fool has been criticized for being too similar to Aaron.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" },
+                    { id: 33, label: "33", questionText: "The Painting Fool accesses the internet to find subject matter for its paintings.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "YES" },
+                    { id: 34, label: "34", questionText: "The Painting Fool's 'fuzzy landscapes' were created by accident.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" },
+                    { id: 35, label: "35", questionText: "The 'fuzzy landscapes' series has been sold for a high price.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+                    { id: 36, label: "36", questionText: "People's reaction to the Painting Fool's work is consistent with their reaction to human art.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" }
+                ]
+            },
+            {
+                id: "group8",
+                instruction: "Complete each sentence with the correct ending, A-G, below.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [
+                        { cells: [{ text: "<strong>A</strong> generated work that was indistinguishable from that of human composers." }] },
+                        { cells: [{ text: "<strong>B</strong> was programmed to create original compositions." }] },
+                        { cells: [{ text: "<strong>C</strong> relied too heavily on the style of specific human composers." }] },
+                        { cells: [{ text: "<strong>D</strong> failing to explain the technical details of his project." }] },
+                        { cells: [{ text: "<strong>E</strong> producing work that was superior to that of human composers." }] },
+                        { cells: [{ text: "<strong>F</strong> created a series of landscapes without human intervention." }] },
+                        { cells: [{ text: "<strong>G</strong> was merely a tool for the programmer's creativity." }] }
+                    ]
+                },
+                questions: [
+                    { id: 37, label: "37", questionText: "Simon Colton says that the Painting Fool", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "F" },
+                    { id: 38, label: "38", questionText: "David Cope's EMI software", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "A" },
+                    { id: 39, label: "39", questionText: "Geraint Wiggins criticized David Cope for", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "D" },
+                    { id: 40, label: "40", questionText: "Douglas Hofstadter claimed that EMI", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "C" }
                 ]
             }
         ]

@@ -7,6 +7,7 @@ export enum QuestionType {
 export interface Question {
   id: number;
   label?: string; // e.g., "1" or "24"
+  questionText?: string; // The text content of the question (e.g. "What is the writer suggesting...?")
   type: QuestionType;
   options?: string[]; // For dropdowns or radio
   correctAnswer: string;
