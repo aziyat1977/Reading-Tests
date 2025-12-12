@@ -31,6 +31,7 @@ export default function App() {
   const [showHelp, setShowHelp] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [contentLang, setContentLang] = useState<'EN' | 'RU' | 'UZ'>('EN');
 
   // Vocabulary App State
   const [vocabMode, setVocabMode] = useState<'none' | 'p1' | 'p2' | 'p3'>('none');
@@ -38,6 +39,7 @@ export default function App() {
   // Derived state
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
   const passages = currentTest ? currentTest.passages : [];
+  const isTFNG = currentTestId === 'news-tfng-2025';
 
   // Reset state when test changes
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function App() {
       setIsTestStarted(false);
       setIsTimerRunning(false);
       setTimeLeft(TOTAL_TIME_SECONDS);
+      setContentLang('EN');
     }
   }, [currentTestId]); // Only trigger when the ID changes
 
@@ -134,7 +137,9 @@ export default function App() {
 
   const startTest = () => {
       setIsTestStarted(true);
-      setIsTimerRunning(true);
+      if (!isTFNG) {
+        setIsTimerRunning(true);
+      }
   };
 
   const toggleTimer = () => {
@@ -144,6 +149,13 @@ export default function App() {
   const restartTimer = () => {
     setIsTimerRunning(false);
     setTimeLeft(TOTAL_TIME_SECONDS);
+  };
+
+  // Determine content based on selected language
+  const getContent = () => {
+    if (contentLang === 'RU' && activePassage.contentRU) return activePassage.contentRU;
+    if (contentLang === 'UZ' && activePassage.contentUZ) return activePassage.contentUZ;
+    return activePassage.content;
   };
 
   if (vocabMode !== 'none') {
@@ -300,44 +312,45 @@ export default function App() {
         <div className="flex items-center space-x-6">
           <div className="text-sm text-gray-300 hidden md:block">Candidate: <span className="text-white font-semibold">John Doe</span></div>
           
-          <div className="flex items-center space-x-3">
-              {/* Timer Controls */}
-              <div className="flex items-center space-x-1">
-                  <button 
-                    onClick={restartTimer}
-                    title="Restart Timer"
-                    className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
-                  >
-                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                  </button>
-                  <button 
-                    onClick={toggleTimer}
-                    title={isTimerRunning ? "Pause Timer" : "Resume Timer"}
-                    className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
-                  >
-                     {isTimerRunning ? (
-                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                         </svg>
-                     ) : (
-                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                         </svg>
-                     )}
-                  </button>
-              </div>
+          {/* Timer Display - HIDE IF TFNG MODE */}
+          {!isTFNG && (
+            <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-1">
+                    <button 
+                        onClick={restartTimer}
+                        title="Restart Timer"
+                        className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                    </button>
+                    <button 
+                        onClick={toggleTimer}
+                        title={isTimerRunning ? "Pause Timer" : "Resume Timer"}
+                        className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+                    >
+                        {isTimerRunning ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        )}
+                    </button>
+                </div>
 
-              {/* Timer Display */}
-              <div className="flex items-center space-x-2 text-yellow-400 bg-gray-800 px-3 py-1 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="text-xl font-mono font-bold">{formatTime(timeLeft)}</span>
-              </div>
-          </div>
+                <div className="flex items-center space-x-2 text-yellow-400 bg-gray-800 px-3 py-1 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-xl font-mono font-bold">{formatTime(timeLeft)}</span>
+                </div>
+            </div>
+          )}
 
           <div className="flex space-x-2">
             <button 
@@ -388,7 +401,11 @@ export default function App() {
                   <div className="bg-blue-50 p-6 rounded-md mb-8 text-left border border-blue-100">
                       <h2 className="font-bold text-blue-800 mb-3">Instructions:</h2>
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
-                          <li>The test duration is <strong>60 minutes</strong>.</li>
+                          {isTFNG ? (
+                              <li>These are rapid-fire True/False/Not Given drills.</li>
+                          ) : (
+                              <li>The test duration is <strong>60 minutes</strong>.</li>
+                          )}
                           <li>There are <strong>{passages.length} Passages</strong> in this test.</li>
                           <li>Questions are displayed on the right side of the screen.</li>
                           <li>Click <strong>Start Test</strong> when you are ready to begin.</li>
@@ -489,6 +506,7 @@ export default function App() {
                     onClick={() => {
                         setActivePassageId(passage.id);
                         setFocusedQuestionId(null);
+                        setContentLang('EN'); // Reset language on passage switch? Or keep preference? Let's reset for clarity.
                     }}
                     className={`px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap ${
                     activePassageId === passage.id
@@ -503,8 +521,33 @@ export default function App() {
             
             {/* Text Content */}
             <div className={`flex-1 overflow-y-auto p-8 reading-text ${getTextSizeClass()}`}>
-                <h2 className="text-2xl font-bold mb-6 text-black border-b pb-4">{activePassage.title}</h2>
-                {activePassage.content.map((paragraph, idx) => (
+                <div className="flex justify-between items-start border-b pb-4 mb-6">
+                    <h2 className="text-2xl font-bold text-black">{activePassage.title}</h2>
+                    {isTFNG && (activePassage.contentRU || activePassage.contentUZ) && (
+                        <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg shrink-0 ml-4">
+                            <button 
+                                onClick={() => setContentLang('EN')} 
+                                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${contentLang === 'EN' ? 'bg-blue-600 text-white shadow' : 'text-gray-500 hover:bg-white'}`}
+                            >
+                                EN
+                            </button>
+                            <button 
+                                onClick={() => setContentLang('RU')} 
+                                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${contentLang === 'RU' ? 'bg-blue-600 text-white shadow' : 'text-gray-500 hover:bg-white'}`}
+                            >
+                                RU
+                            </button>
+                            <button 
+                                onClick={() => setContentLang('UZ')} 
+                                className={`px-3 py-1 text-xs font-bold rounded transition-colors ${contentLang === 'UZ' ? 'bg-blue-600 text-white shadow' : 'text-gray-500 hover:bg-white'}`}
+                            >
+                                UZ
+                            </button>
+                        </div>
+                    )}
+                </div>
+
+                {getContent().map((paragraph, idx) => (
                 <p 
                     key={idx} 
                     className={`mb-4 text-justify text-gray-800 transition-all ${getLineSpacingClass()} ${paragraphIndent ? 'indent-10' : ''}`} 

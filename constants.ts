@@ -550,6 +550,12 @@ export const TESTS: Test[] = [
         content: [
           "Recent data from NASA’s Parker Solar Probe has provided unprecedented insights into the behaviour of the solar wind. For the first time, the probe observed a magnetic 'U-turn' in the stream of charged particles emanating from the Sun. Previously, astronomers believed these reversals—known as 'switchbacks'—were rare anomalies confined to the Sun's outer corona. However, the new findings suggest they are a fundamental feature of solar wind acceleration. The probe’s proximity to the star allowed it to detect that these magnetic kinks release large bursts of energy, potentially solving the long-standing mystery of why the Sun's atmosphere is millions of degrees hotter than its surface."
         ],
+        contentRU: [
+           "Недавние данные с солнечного зонда NASA Parker Solar Probe позволили получить беспрецедентное представление о поведении солнечного ветра. Впервые зонд наблюдал магнитный «разворот» в потоке заряженных частиц, исходящих от Солнца. Ранее астрономы полагали, что эти развороты, известные как «switchbacks» (обратные переключения), были редкими аномалиями, ограниченными внешней короной Солнца. Однако новые данные свидетельствуют о том, что они являются фундаментальной особенностью ускорения солнечного ветра. Близость зонда к звезде позволила обнаружить, что эти магнитные изгибы высвобождают большие всплески энергии, что потенциально может решить давнюю загадку того, почему атмосфера Солнца на миллионы градусов горячее его поверхности."
+        ],
+        contentUZ: [
+           "NASAning Parker quyosh zondi tomonidan olingan so'nggi ma'lumotlar quyosh shamolining harakati haqida misli ko'rilmagan tushunchalarni taqdim etdi. Zond birinchi marta Quyoshdan chiqadigan zaryadlangan zarralar oqimida magnitli 'burilish'ni kuzatdi. Ilgari astronomlar 'switchbacks' (qayta ulanishlar) deb nomlanuvchi ushbu teskari burilishlar Quyoshning tashqi toji bilan cheklangan noyob anomaliyalar deb hisoblashgan. Biroq, yangi topilmalar shuni ko'rsatadiki, ular quyosh shamolining tezlashishining asosiy xususiyatidir. Zondning yulduzga yaqinligi ushbu magnit burilishlar katta energiya portlashlarini chiqarishini aniqlashga imkon berdi, bu esa Quyosh atmosferasi nima uchun uning sirtidan millionlab daraja issiqroq ekanligi haqidagi uzoq yillik sirni hal qilishi mumkin."
+        ],
         questionGroups: [
           {
             id: "tfng-1",
@@ -568,6 +574,12 @@ export const TESTS: Test[] = [
         title: "Passage 2: AI and The Labour Market",
         content: [
           "The narrative that artificial intelligence will inevitably lead to mass unemployment is being challenged by leading economists, including Nobel laureate Peter Howitt. While generative AI tools like ChatGPT have sparked fears of redundancy among white-collar workers, historical precedents suggest a different outcome. Much like the steam engine or electrification, AI is likely to act as a 'general-purpose technology,' creating new categories of employment that are currently unimaginable. However, Howitt warns that this transition will not be painless. Without targeted government policies to retrain displaced workers, the immediate result may be a sharp rise in income inequality, as the financial benefits of increased productivity disproportionately accrue to those who own the technology."
+        ],
+        contentRU: [
+            "Мнение о том, что искусственный интеллект неизбежно приведет к массовой безработице, оспаривается ведущими экономистами, в том числе нобелевским лауреатом Питером Хауиттом. В то время как генеративные инструменты ИИ, такие как ChatGPT, вызвали опасения по поводу сокращения штатов среди офисных работников, исторические прецеденты предполагают другой исход. Подобно паровому двигателю или электрификации, ИИ, вероятно, будет действовать как «технология общего назначения», создавая новые категории занятости, которые в настоящее время невообразимы. Однако Хауитт предупреждает, что этот переход не будет безболезненным. Без целенаправленной государственной политики по переподготовке уволенных работников немедленным результатом может стать резкий рост неравенства доходов, поскольку финансовые выгоды от повышения производительности несоразмерно достаются тем, кто владеет технологией."
+        ],
+        contentUZ: [
+            "Sun'iy intellekt muqarrar ravishda ommaviy ishsizlikka olib kelishi haqidagi qarashlar yetakchi iqtisodchilar, jumladan Nobel mukofoti laureati Piter Xouitt tomonidan shubha ostiga olinmoqda. ChatGPT kabi generativ sun'iy intellekt vositalari ofis xodimlari orasida qisqartirish qo'rquvini keltirib chiqargan bo'lsa-da, tarixiy misollar boshqacha natijani taxmin qilmoqda. Bug' dvigateli yoki elektrlashtirish singari, sun'iy intellekt ham 'umumiy maqsadli texnologiya' sifatida harakat qilib, hozirda tasavvur qilib bo'lmaydigan yangi ish o'rinlari toifalarini yaratishi mumkin. Biroq, Xouitt bu o'tish og'riqsiz bo'lmasligidan ogohlantirmoqda. Ishdan bo'shatilgan xodimlarni qayta tayyorlash bo'yicha maqsadli davlat siyosatisiz, uning bevosita natijasi daromadlar tengsizligining keskin o'sishi bo'lishi mumkin, chunki samaradorlikni oshirishdan keladigan moliyaviy foyda asosan texnologiyaga egalik qiluvchilarga to'g'ri keladi."
         ],
         questionGroups: [
           {
@@ -588,6 +600,12 @@ export const TESTS: Test[] = [
         content: [
           "A groundbreaking study from an archaeological site at East Farm, England, has pushed back the timeline of human fire-making by nearly 250,000 years. Researchers discovered flint handaxes that had been shattered by intense heat, alongside fragments of iron pyrite—a mineral used to create sparks. This evidence suggests that Neanderthals were not merely scavenging fire from natural wildfires, as previously thought, but were deliberately manufacturing it as early as 400,000 years ago. If verified, this would indicate that Neanderthals possessed a level of cognitive planning and technical skill that was once considered exclusive to <em>Homo sapiens</em>."
         ],
+        contentRU: [
+            "Новаторское исследование археологического памятника Ист-Фарм в Англии отодвинуло хронологию добывания огня человеком почти на 250 000 лет назад. Исследователи обнаружили кремневые рубила, расколотые сильным жаром, наряду с фрагментами пирита — минерала, используемого для высекания искр. Это свидетельство говорит о том, что неандертальцы не просто собирали огонь от природных пожаров, как считалось ранее, а намеренно добывали его уже 400 000 лет назад. Если это подтвердится, это будет указывать на то, что неандертальцы обладали уровнем когнитивного планирования и технических навыков, которые когда-то считались исключительными для <em>Homo sapiens</em>."
+        ],
+        contentUZ: [
+            "Angliyadagi East Farm arxeologik yodgorligidagi yangi tadqiqot inson tomonidan olov yaratish vaqtini qariyb 250 000 yilga ortga surdi. Tadqiqotchilar kuchli issiqlik ta'sirida singan chaqmoqtosh boltalarini, shuningdek, uchqun chiqarish uchun ishlatiladigan mineral — pirit parchalarini topdilar. Ushbu dalil neandertallarning ilgari o'ylanganidek shunchaki tabiiy yong'inlardan olov olmaganliklarini, balki 400 000 yil oldin uni ataylab yaratganliklarini ko'rsatadi. Agar bu tasdiqlansa, neandertallar bir vaqtlar faqat <em>Homo sapiens</em>ga xos deb hisoblangan kognitiv rejalashtirish va texnik mahorat darajasiga ega bo'lganligini anglatadi."
+        ],
         questionGroups: [
           {
             id: "tfng-3",
@@ -607,6 +625,12 @@ export const TESTS: Test[] = [
         content: [
           "Despite the escalating severity of global weather events, a recent critique by film director Adam McKay highlights a persistent failure in mainstream media coverage. McKay argues that while outlets like the BBC and <em>The New York Times</em> employ dedicated climate reporters, the broader news cycle often fails to connect breaking news—such as wildfires or floods—to their root cause: climate change. He advocates for a more 'alarmist' approach, suggesting that the fear of appearing biased has led journalists to underplay the urgency of the crisis. Conversely, some communication experts warn that inducing panic can lead to 'news avoidance,' where audiences tune out negative information entirely."
         ],
+        contentRU: [
+            "Несмотря на возрастающую суровость глобальных погодных явлений, недавняя критика режиссера Адама Маккея подчеркивает постоянный провал в освещении событий основными СМИ. Маккей утверждает, что, хотя такие издания, как BBC и <em>The New York Times</em>, нанимают специальных репортеров по вопросам климата, более широкий новостной цикл часто не связывает срочные новости, такие как лесные пожары или наводнения, с их первопричиной: изменением климата. Он выступает за более «паникерский» подход, предполагая, что страх показаться предвзятым заставляет журналистов преуменьшать остроту кризиса. Напротив, некоторые эксперты по коммуникациям предупреждают, что нагнетание паники может привести к «избеганию новостей», когда аудитория полностью отключается от негативной информации."
+        ],
+        contentUZ: [
+            "Global ob-havo hodisalarining keskinlashuviga qaramay, kinorejissyor Adam Makkeyning yaqinda bildirgan tanqidi asosiy ommaviy axborot vositalarida yoritishdagi doimiy muvaffaqiyatsizlikni ta'kidlaydi. Makkeyning ta'kidlashicha, BBC va <em>The New York Times</em> kabi nashrlar iqlim bo'yicha maxsus muxbirlarni ishga olgan bo'lsa-da, kengroq yangiliklar oqimi o'rmon yong'inlari yoki toshqinlar kabi tezkor xabarlarni ularning asl sababi: iqlim o'zgarishi bilan bog'lay olmaydi. U yanada 'vahimali' yondashuvni yoqlab chiqmoqda va xolis emasdek ko'rinishdan qo'rqish jurnalistlarni inqirozning dolzarbligini pasaytirib ko'rsatishga majbur qilayotganini taxmin qilmoqda. Aksincha, ba'zi kommunikatsiya bo'yicha mutaxassislar vahima qo'zg'atish 'yangiliklardan qochish'ga olib kelishi mumkinligidan ogohlantirmoqda, bunda auditoriya salbiy ma'lumotlarni butunlay rad etadi."
+        ],
         questionGroups: [
           {
             id: "tfng-4",
@@ -625,6 +649,12 @@ export const TESTS: Test[] = [
         title: "Passage 5: AI and Loneliness",
         content: [
           "As AI chatbots become increasingly sophisticated, a growing number of individuals are turning to them for emotional support. While these systems can offer a semblance of companionship to the socially isolated, psychologists have raised concerns about the long-term effects of 'artificial intimacy.' A recent feature in <em>The BMJ</em> suggests that relying on AI for social interaction may atrophy human social skills, much like a muscle that is rarely used. Furthermore, because chatbots are programmed to be relentlessly agreeable, they create an unrealistic expectation of relationships, potentially making real-world human interactions—which require compromise and conflict resolution—feel frustratingly difficult by comparison."
+        ],
+        contentRU: [
+            "По мере того как чат-боты с искусственным интеллектом становятся все более совершенными, все больше людей обращаются к ним за эмоциональной поддержкой. Хотя эти системы могут предложить подобие общения социально изолированным людям, психологи высказывают опасения по поводу долгосрочных последствий «искусственной близости». В недавней статье в <em>The BMJ</em> предполагается, что опора на ИИ для социального взаимодействия может атрофировать социальные навыки человека, подобно мышце, которая редко используется. Кроме того, поскольку чат-боты запрограммированы быть неизменно приятными, они создают нереалистичные ожидания от отношений, потенциально делая реальное человеческое взаимодействие, которое требует компромиссов и разрешения конфликтов, разочаровывающе трудным по сравнению с ними."
+        ],
+        contentUZ: [
+            "Sun'iy intellekt chatbotlari tobora takomillashib borayotgani sari, ko'proq odamlar hissiy yordam uchun ularga murojaat qilmoqdalar. Ushbu tizimlar ijtimoiy yakkalanib qolganlarga hamrohlik qilish ko'rinishini taklif qilishi mumkin bo'lsa-da, psixologlar 'sun'iy yaqinlik'ning uzoq muddatli oqibatlari haqida xavotir bildirmoqdalar. <em>The BMJ</em> nashridagi yaqinda chop etilgan maqolada aytilishicha, ijtimoiy o'zaro ta'sir uchun sun'iy intellektga tayanish, kam ishlatiladigan mushak kabi, insonning ijtimoiy ko'nikmalarini susaytirishi mumkin. Bundan tashqari, chatbotlar doimo yoqimli bo'lishga dasturlashtirilgani sababli, ular munosabatlar haqida noreal umidlarni yaratadi va bu esa murosaga kelish va nizolarni hal qilishni talab qiladigan haqiqiy insoniy munosabatlarni, taqqoslaganda, juda qiyin his qilishiga olib kelishi mumkin."
         ],
         questionGroups: [
           {
