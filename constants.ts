@@ -289,147 +289,211 @@ export const TESTS: Test[] = [
         content: [
           "Cinnamon is a sweet, fragrant spice produced from the inner bark of trees of the genus Cinnamomum, which is native to the Indian sub-continent. It was known in biblical times, and is mentioned in several books of the Bible, both as an ingredient that was mixed with oils for anointing people’s bodies, and also as a token indicating friendship among lovers and friends. In ancient Rome, mourners attending funerals burnt cinnamon to create a pleasant scent. Most often, however, the spice found its primary use as an additive to food and drink. In the Middle Ages, Europeans who could afford the spice used it to flavour food, particularly meat, and to impress those around them with their ability to purchase an expensive condiment from the ‘exotic’ East. At a banquet, a host would offer guests a plate with various spices piled upon it as a sign of the wealth at his or her disposal. Cinnamon was also reported to have health benefits, and was thought to cure various ailments, such as indigestion.",
           "Toward the end of the Middle Ages, the European middle classes began to desire the lifestyle of the elite, including their consumption of spices. This led to a growth in demand for cinnamon and other spices. At that time, cinnamon was transported by Arab merchants, who closely guarded the secret of the source of the spice from potential rivals. They took it from India, where it was grown, on camels via an overland route to the Mediterranean. Their journey ended when they reached Alexandria. European traders sailed there to purchase their supply of cinnamon, then brought it back to Venice. The spice then travelled from that great trading city to markets all around Europe. Because the overland trade route allowed for only small quantities of the spice to reach Europe, and because Venice had a virtual monopoly of the trade, the Venetians could set the price of cinnamon exorbitantly high. These prices, coupled with the increasing demand, spurred the search for new routes to Asia by Europeans eager to take part in the spice trade.",
-          "Seeking the high profits promised by the cinnamon market, Portuguese traders finally landed on the island of Ceylon in the Indian Ocean towards the end of the 15th century. Before this, the Venetians had held a monopoly on the spice trade in Europe, selling cinnamon at very high prices. The Portuguese established a base in Ceylon, but were later ousted by the Dutch, who then took control of the cinnamon trade."
+          "Seeking the high profits promised by the cinnamon market, Portuguese traders finally landed on the island of Ceylon in the Indian Ocean towards the end of the 15th century. Before this, the Venetians had held a monopoly on the spice trade in Europe, selling cinnamon at very high prices. The Portuguese established a base in Ceylon, but were later ousted by the Dutch, who then took control of the cinnamon trade. Before Europeans arrived on the island, the state had organized the cultivation of cinnamon. People belonging to the ethnic group called the Salagama would peel the bark off young shoots of the cinnamon plant in the rainy season, when the wet bark was more pliable. During the peeling process, they curled the bark into the 'stick' shape still associated with the spice today. The Salagama then gave the finished product to the king as a form of tribute. When the Portuguese arrived, they needed to increase production significantly, and so enslaved many other members of the Ceylonese native population, forcing them to work in cinnamon harvesting. In 1518, the Portuguese built a fort on Ceylon, which enabled them to protect the island, so helping them to develop a monopoly in the cinnamon trade. In the late 16th century, for example, they enjoyed a tenfold profit when shipping cinnamon over a journey of eight days from Ceylon to India.",
+          "When the Dutch arrived off the coast of southern Asia at the very beginning of the 17th century, they set their sights on displacing the Portuguese as kings of cinnamon. The Dutch allied themselves with Kandy, an inland kingdom on Ceylon. In return for payments of elephants and cinnamon, they protected the native king from the Portuguese. By 1640, the Dutch broke the 150-year Portuguese monopoly when they overran and occupied their factories. By 1658, they had permanently expelled the Portuguese from the island, thereby gaining control of the lucrative cinnamon trade.",
+          "In order to protect their hold on the market, the Dutch, like the Portuguese before them, treated the native inhabitants harshly. Because of the need to boost production and satisfy Europe's ever-increasing appetite for cinnamon, the Dutch began to alter the harvesting practices of the Ceylonese. Over time, the supply of cinnamon trees on the island became nearly exhausted, due to systematic stripping of the bark. Eventually, the Dutch began cultivating their own trees to supplement the wild supply."
         ],
-        questionGroups: []
+        questionGroups: [
+            {
+                id: "group1",
+                instruction: "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: ["Time Period", "Details"],
+                    rows: [
+                        {
+                            cells: [
+                                { text: "Biblical Times" },
+                                { bulletPoints: true, text: "added to {{1}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Ancient Rome" },
+                                { bulletPoints: true, text: "used at {{2}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Middle Ages" },
+                                { bulletPoints: true, text: "an indication of {{3}}<br/>known as a treatment for {{4}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Late Middle Ages" },
+                                { bulletPoints: true, text: "grown in {{5}}<br/>transported to the Mediterranean by {{6}}<br/>arrived in {{7}}<br/>taken to {{8}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "16th Century" },
+                                { bulletPoints: true, text: "Portuguese traders arrived in {{9}}" }
+                            ]
+                        }
+                    ]
+                },
+                questions: [
+                    { id: 1, label: "1", type: QuestionType.INPUT, correctAnswer: "oils" },
+                    { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "funerals" },
+                    { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "wealth" },
+                    { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "indigestion" },
+                    { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "India" },
+                    { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "camels" },
+                    { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "Alexandria" },
+                    { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "Venice" },
+                    { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "Ceylon" }
+                ]
+            },
+            {
+                id: "group2",
+                instruction: "Do the following statements agree with the information given in Reading Passage 1? In boxes 10-13 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+                renderType: "LIST",
+                questions: [
+                    { id: 10, label: "10", questionText: "The Portuguese established a monopoly on the European cinnamon trade in the 16th century.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+                    { id: 11, label: "11", questionText: "The Dutch took control of the cinnamon trade from the Portuguese as soon as they arrived in the Indian Ocean.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+                    { id: 12, label: "12", questionText: "The Dutch treated the native people of Ceylon more kindly than the Portuguese had.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+                    { id: 13, label: "13", questionText: "The Dutch began cultivating cinnamon trees because the wild trees were running out.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+                ]
+            }
+        ]
       }
     ]
   }
 ];
 
-// Vocabulary Lists for the Vocab Studio
 export const VOCAB_LIST: VocabItem[] = [
-    {
-        id: 1,
-        word: "Exhilarating",
-        ipa: "/ɪgˈzɪləreɪtɪŋ/",
-        form: "adj",
-        definition: "Making one feel very happy, animated, or elated.",
-        example: "The campaign focused on New Zealand’s scenic beauty and exhilarating outdoor activities.",
-        translationRU: "волнующий",
-        translationUZ: "hayajonli",
-        quizQuestion: "Which word describes an activity that makes you feel very happy and energetic?",
-        quizOptions: ["Boring", "Exhilarating", "Calming", "Tedious"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 2,
-        word: "Authentic",
-        ipa: "/ɔːˈθɛntɪk/",
-        form: "adj",
-        definition: "Of undisputed origin; genuine.",
-        example: "The website highlighted the authentic Maori culture of New Zealand.",
-        translationRU: "подлинный",
-        translationUZ: "haqiqiy",
-        quizQuestion: "If something is genuine and true to its origin, it is:",
-        quizOptions: ["Fake", "Authentic", "Expensive", "Modern"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 3,
-        word: "Itinerary",
-        ipa: "/aɪˈtɪnərəri/",
-        form: "noun",
-        definition: "A planned route or journey.",
-        example: "The site helped independent travellers devise their own customised itineraries.",
-        translationRU: "маршрут",
-        translationUZ: "sayohat yo'nalishi",
-        quizQuestion: "A plan of a journey, including the route and the places that you visit:",
-        quizOptions: ["Map", "Itinerary", "Ticket", "Passport"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 4,
-        word: "Blockbuster",
-        ipa: "/ˈblɒkbʌstə/",
-        form: "noun",
-        definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
-        example: "Locations chosen for blockbuster films which had made use of New Zealand’s stunning scenery.",
-        translationRU: "блокбастер",
-        translationUZ: "mashhur film",
-        quizQuestion: "A very successful film or book is often called a:",
-        quizOptions: ["Flop", "Indie", "Blockbuster", "Short"],
-        quizCorrectIndex: 2
-    },
-    {
-        id: 5,
-        word: "Backdrop",
-        ipa: "/ˈbakdrɒp/",
-        form: "noun",
-        definition: "The setting or background for a scene, event, or situation.",
-        example: "Using the stunning scenery as a backdrop for the movie.",
-        translationRU: "фон",
-        translationUZ: "orqa fon",
-        quizQuestion: "What is the background or setting for an event called?",
-        quizOptions: ["Foreground", "Backdrop", "Sideline", "Center"],
-        quizCorrectIndex: 1
-    }
+  {
+    id: 1,
+    word: "exhilarating",
+    ipa: "/ɪgˈzɪləreɪtɪŋ/",
+    form: "adj.",
+    definition: "Making one feel very happy, animated, or elated; thrilling.",
+    example: "The campaign focused on New Zealand’s scenic beauty, exhilarating outdoor activities and authentic Maori culture.",
+    translationRU: "волнующий",
+    translationUZ: "hayajonli",
+    quizQuestion: "Which word describes a thrilling experience?",
+    quizOptions: ["Boring", "Exhilarating", "Calm", "Depressing"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 2,
+    word: "authentic",
+    ipa: "/ɔːˈθɛntɪk/",
+    form: "adj.",
+    definition: "Of undisputed origin; genuine.",
+    example: "The campaign highlighted authentic Maori culture.",
+    translationRU: "подлинный",
+    translationUZ: "haqiqiy",
+    quizQuestion: "What is a synonym for authentic?",
+    quizOptions: ["Fake", "Genuine", "Expensive", "New"],
+    quizCorrectIndex: 1
+  },
+  {
+      id: 3,
+      word: "gateway",
+      ipa: "/ˈgeɪtweɪ/",
+      form: "noun",
+      definition: "A means of access or entry to a place.",
+      example: "The website provided a single gateway to everything the destination had to offer.",
+      translationRU: "шлюз / ворота",
+      translationUZ: "darvoza",
+      quizQuestion: "A gateway acts as a...",
+      quizOptions: ["Barrier", "Entrance", "Exit", "Wall"],
+      quizCorrectIndex: 1
+  },
+  {
+      id: 4,
+      word: "blockbuster",
+      ipa: "/ˈblɒkbʌstər/",
+      form: "noun",
+      definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
+      example: "Locations chosen for blockbuster films.",
+      translationRU: "блокбастер",
+      translationUZ: "ommabop film",
+      quizQuestion: "A blockbuster is usually...",
+      quizOptions: ["A failure", "A huge success", "Unknown", "Cheap"],
+      quizCorrectIndex: 1
+  },
+  {
+      id: 5,
+      word: "itinerary",
+      ipa: "/aɪˈtɪnərəri/",
+      form: "noun",
+      definition: "A planned route or journey.",
+      example: "Help independent travellers devise their own customised itineraries.",
+      translationRU: "маршрут",
+      translationUZ: "yo'nalish",
+      quizQuestion: "An itinerary is a plan for...",
+      quizOptions: ["Cooking", "Travel", "Sleeping", "Studying"],
+      quizCorrectIndex: 1
+  }
 ];
 
 export const VOCAB_LIST_2: VocabItem[] = [
     {
         id: 1,
-        word: "Apathy",
-        ipa: "/ˈapəθi/",
+        word: "stimulation",
+        ipa: "/ˌstɪmjʊˈleɪʃən/",
         form: "noun",
-        definition: "Lack of interest, enthusiasm, or concern.",
-        example: "Boredom can include other mental states such as frustration and apathy.",
-        translationRU: "апатия",
-        translationUZ: "loqaydlik",
-        quizQuestion: "Which word means a lack of interest or feeling?",
-        quizOptions: ["Empathy", "Apathy", "Sympathy", "Energy"],
+        definition: "The action of arousing interest, enthusiasm, or excitement.",
+        example: "Why being bored is stimulating – and useful, too.",
+        translationRU: "стимуляция",
+        translationUZ: "rag'batlantirish",
+        quizQuestion: "Stimulation leads to...",
+        quizOptions: ["Sleep", "Activity/Excitement", "Boredom", "Silence"],
         quizCorrectIndex: 1
     },
     {
         id: 2,
-        word: "Stimulating",
-        ipa: "/ˈstɪmjʊleɪtɪŋ/",
-        form: "adj",
-        definition: "Encouraging or arousing interest or enthusiasm.",
-        example: "Why being bored is stimulating – and useful, too.",
-        translationRU: "стимулирующий",
-        translationUZ: "rag'batlantiruvchi",
-        quizQuestion: "Something that makes you feel interested and full of energy is:",
-        quizOptions: ["Boring", "Stimulating", "Tiring", "Calming"],
+        word: "apathy",
+        ipa: "/ˈæpəθi/",
+        form: "noun",
+        definition: "Lack of interest, enthusiasm, or concern.",
+        example: "It can include a lot of other mental states, such as frustration, apathy, depression.",
+        translationRU: "апатия",
+        translationUZ: "befarqlik",
+        quizQuestion: "Apathy is the opposite of...",
+        quizOptions: ["Indifference", "Enthusiasm", "Sleepiness", "Calmness"],
         quizCorrectIndex: 1
     },
     {
         id: 3,
-        word: "Agitated",
-        ipa: "/ˈadʒɪteɪtɪd/",
-        form: "adj",
+        word: "agitated",
+        ipa: "/ˈædʒɪteɪtɪd/",
+        form: "adj.",
         definition: "Feeling or appearing troubled or nervous.",
-        example: "Whether feeling agitated and restless counts as boredom, too.",
+        example: "Whether feeling agitated and restless counts as boredom.",
         translationRU: "взволнованный",
         translationUZ: "bezovta",
-        quizQuestion: "If you are feeling nervous and restless, you are:",
-        quizOptions: ["Calm", "Agitated", "Happy", "Sleepy"],
+        quizQuestion: "If you are agitated, you are...",
+        quizOptions: ["Calm", "Restless/Troubled", "Happy", "Asleep"],
         quizCorrectIndex: 1
     },
     {
         id: 4,
-        word: "Adaptive",
-        ipa: "/əˈdaptɪv/",
-        form: "adj",
-        definition: "Characterized by or showing adaptation; serving to adapt.",
-        example: "That doesn’t necessarily mean that boredom isn’t adaptive.",
-        translationRU: "адаптивный",
-        translationUZ: "moslashuvchan",
-        quizQuestion: "Able to change or be changed in order to deal with new situations:",
-        quizOptions: ["Fixed", "Adaptive", "Rigid", "Static"],
+        word: "intriguingly",
+        ipa: "/ɪnˈtriːɡɪŋli/",
+        form: "adv.",
+        definition: "In a way that arouses curiosity or interest; fascinatingly.",
+        example: "Intriguingly, Goetz has found that while people experience all kinds of boredom...",
+        translationRU: "интригующе",
+        translationUZ: "qiziqarli tarzda",
+        quizQuestion: "Something intriguing is...",
+        quizOptions: ["Boring", "Interesting", "Scary", "Ugly"],
         quizCorrectIndex: 1
     },
     {
         id: 5,
-        word: "Wander",
-        ipa: "/ˈwɒndə/",
-        form: "verb",
-        definition: "Walk or move in a leisurely, casual, or aimless way.",
-        example: "A boring activity is best for creativity because it allows the mind to wander.",
-        translationRU: "бродить",
-        translationUZ: "aylanib yurmoq",
-        quizQuestion: "To let your mind or feet move without a specific destination:",
-        quizOptions: ["Run", "Wander", "Focus", "Stay"],
+        word: "adaptive",
+        ipa: "/əˈdæptɪv/",
+        form: "adj.",
+        definition: "Characterized by or given to adaptation.",
+        example: "That doesn’t necessarily mean that it isn’t adaptive.",
+        translationRU: "адаптивный",
+        translationUZ: "moslashuvchan",
+        quizQuestion: "An adaptive response helps you...",
+        quizOptions: ["Fail", "Adjust to conditions", "Stay the same", "Give up"],
         quizCorrectIndex: 1
     }
 ];
@@ -437,67 +501,67 @@ export const VOCAB_LIST_2: VocabItem[] = [
 export const VOCAB_LIST_3: VocabItem[] = [
     {
         id: 1,
-        word: "Enraptured",
-        ipa: "/ɪnˈraptʃəd/",
-        form: "verb (past)",
+        word: "enraptured",
+        ipa: "/ɪnˈræptʃərd/",
+        form: "adj.",
         definition: "Give intense pleasure or joy to.",
         example: "Classical music by an artificial composer has had audiences enraptured.",
-        translationRU: "восхищенный",
+        translationRU: "восторженный",
         translationUZ: "maftun bo'lgan",
-        quizQuestion: "To be filled with delight means to be:",
-        quizOptions: ["Bored", "Enraptured", "Annoyed", "Scared"],
+        quizQuestion: "If someone is enraptured, they are...",
+        quizOptions: ["Bored", "Delighted", "Angry", "Sad"],
         quizCorrectIndex: 1
     },
     {
         id: 2,
-        word: "Prestigious",
+        word: "prestigious",
         ipa: "/prɛˈstɪdʒəs/",
-        form: "adj",
+        form: "adj.",
         definition: "Inspiring respect and admiration; having high status.",
-        example: "Artworks have been hung in prestigious galleries.",
+        example: "Artworks painted by a robot have been hung in prestigious galleries.",
         translationRU: "престижный",
         translationUZ: "nufuzli",
-        quizQuestion: "Having a high status and admired by others:",
-        quizOptions: ["Common", "Prestigious", "Cheap", "Unknown"],
+        quizQuestion: "A prestigious award is...",
+        quizOptions: ["Common", "Highly respected", "Cheap", "Unwanted"],
         quizCorrectIndex: 1
     },
     {
         id: 3,
-        word: "Sophisticated",
+        word: "sophisticated",
         ipa: "/səˈfɪstɪkeɪtɪd/",
-        form: "adj",
+        form: "adj.",
         definition: "Developed to a high degree of complexity.",
         example: "Human beings are the only species to perform sophisticated creative acts regularly.",
-        translationRU: "сложный",
+        translationRU: "сложный / утонченный",
         translationUZ: "murakkab",
-        quizQuestion: "Highly developed and complex:",
-        quizOptions: ["Simple", "Sophisticated", "Basic", "Raw"],
+        quizQuestion: "Sophisticated technology is...",
+        quizOptions: ["Simple", "Complex/Advanced", "Old", "Broken"],
         quizCorrectIndex: 1
     },
     {
         id: 4,
-        word: "Glitch",
-        ipa: "/ɡlɪtʃ/",
-        form: "noun",
-        definition: "A sudden, usually temporary malfunction or irregularity of equipment.",
-        example: "Thanks to a technical glitch, some paintings came out in black and white.",
-        translationRU: "глюк",
-        translationUZ: "nosozlik",
-        quizQuestion: "A sudden, temporary fault in a system:",
-        quizOptions: ["Feature", "Glitch", "Upgrade", "Design"],
+        word: "lauded",
+        ipa: "/ˈlɔːdɪd/",
+        form: "verb (past)",
+        definition: "Praised highly, especially in a public context.",
+        example: "Human artists like the renowned Ellsworth Kelly are lauded for limiting their colour palette.",
+        translationRU: "прославленный",
+        translationUZ: "maqtovga sazovor",
+        quizQuestion: "If you are lauded, you are...",
+        quizOptions: ["Ignored", "Praised", "Punished", "Hated"],
         quizCorrectIndex: 1
     },
     {
         id: 5,
-        word: "Replica",
-        ipa: "/ˈrɛplɪkə/",
+        word: "pseudoscience",
+        ipa: "/ˌsuːdəʊˈsaɪəns/",
         form: "noun",
-        definition: "An exact copy or model of something.",
-        example: "EMI created replicas which still rely completely on the original artist’s creative impulses.",
-        translationRU: "копия",
-        translationUZ: " nusxa",
-        quizQuestion: "An exact copy of something:",
-        quizOptions: ["Original", "Replica", "Draft", "Sketch"],
+        definition: "A collection of beliefs or practices mistakenly regarded as being based on scientific method.",
+        example: "Wiggins has blasted Cope’s work as pseudoscience.",
+        translationRU: "лженаука",
+        translationUZ: "soxta fan",
+        quizQuestion: "Pseudoscience is...",
+        quizOptions: ["Real science", "Fake science", "Math", "History"],
         quizCorrectIndex: 1
     }
 ];
