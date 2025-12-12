@@ -414,3 +414,137 @@ export const VOCAB_LIST: VocabItem[] = [
     quizCorrectIndex: 1
   }
 ];
+
+// Vocabulary List for Passage 2
+export const VOCAB_LIST_2: VocabItem[] = [
+  {
+    id: 11,
+    word: "Stimulating",
+    ipa: "/ˈstɪmjʊleɪtɪŋ/",
+    form: "Adjective",
+    definition: "Encouraging or arousing interest or enthusiasm.",
+    example: "The article argues that being bored can actually be **stimulating**.",
+    translationRU: "Стимулирующий",
+    translationUZ: "Rag'batlantiruvchi",
+    quizQuestion: "Something that makes you feel interested and energetic is...",
+    quizOptions: ["Boring", "Stimulating", "Tiring", "Annoying"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 12,
+    word: "Apathy",
+    ipa: "/ˈapəθi/",
+    form: "Noun",
+    definition: "Lack of interest, enthusiasm, or concern.",
+    example: "Boredom can include mental states such as frustration and **apathy**.",
+    translationRU: "Апатия",
+    translationUZ: "Befarqlik",
+    quizQuestion: "A feeling of not caring about anything:",
+    quizOptions: ["Energy", "Empathy", "Apathy", "Anger"],
+    quizCorrectIndex: 2
+  },
+  {
+    id: 13,
+    word: "Indifference",
+    ipa: "/ɪnˈdɪfrəns/",
+    form: "Noun",
+    definition: "Lack of interest, concern, or sympathy.",
+    example: "He showed total **indifference** to the outcome of the match.",
+    translationRU: "Безразличие",
+    translationUZ: "Loqaydlik",
+    quizQuestion: "If you don't care one way or the other, you show...",
+    quizOptions: ["Love", "Hate", "Indifference", "Passion"],
+    quizCorrectIndex: 2
+  },
+  {
+    id: 14,
+    word: "Agitated",
+    ipa: "/ˈadʒɪteɪtɪd/",
+    form: "Adjective",
+    definition: "Feeling or appearing troubled or nervous.",
+    example: "There is debate over whether feeling **agitated** counts as boredom.",
+    translationRU: "Взволнованный / Возбужденный",
+    translationUZ: "Bezovta",
+    quizQuestion: "When you are restless and anxious, you are...",
+    quizOptions: ["Calm", "Agitated", "Sleepy", "Happy"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 15,
+    word: "Infectious",
+    ipa: "/ɪnˈfɛkʃəs/",
+    form: "Adjective",
+    definition: "(of a disease or germ) likely to be transmitted to people, organisms, etc., through the environment.",
+    example: "Boredom may protect humans from **infectious** social situations.",
+    translationRU: "Инфекционный / Заразный",
+    translationUZ: "Yuqumli",
+    quizQuestion: "A disease that spreads easily is...",
+    quizOptions: ["Healthy", "Infectious", "Safe", "Rare"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 16,
+    word: "Calibrate",
+    ipa: "/ˈkalɪbreɪt/",
+    form: "Verb",
+    definition: "To mark (a gauge or instrument) with a standard scale of readings.",
+    example: "One type of boredom is described as **calibrating**.",
+    translationRU: "Калибровать",
+    translationUZ: "Sozlamoq",
+    quizQuestion: "To adjust an instrument for accuracy:",
+    quizOptions: ["Break", "Calibrate", "Guess", "Ignore"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 17,
+    word: "Reactant",
+    ipa: "/riˈakt(ə)nt/",
+    form: "Adjective (in context)",
+    definition: "Reacting; characterized by reaction. (In chemistry: a substance that takes part in and undergoes change during a reaction).",
+    example: "The most damaging type is **reactant** boredom.",
+    translationRU: "Реагирующий",
+    translationUZ: "Reaksiyaga kirishuvchi",
+    quizQuestion: "A type of boredom characterized by high arousal and negative emotion:",
+    quizOptions: ["Indifferent", "Reactant", "Calming", "Searching"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 18,
+    word: "Trait",
+    ipa: "/treɪt/",
+    form: "Noun",
+    definition: "A distinguishing quality or characteristic, typically one belonging to a person.",
+    example: "Researchers look for character **traits** that predict boredom types.",
+    translationRU: "Черта (характера)",
+    translationUZ: "Xususiyat",
+    quizQuestion: "Honesty is a good character...",
+    quizOptions: ["Trait", "Flaw", "Mistake", "Job"],
+    quizCorrectIndex: 0
+  },
+  {
+    id: 19,
+    word: "Adaptive",
+    ipa: "/əˈdaptɪv/",
+    form: "Adjective",
+    definition: "Characterized by or given to adaptation.",
+    example: "Boredom might be an **adaptive** response to a problem.",
+    translationRU: "Адаптивный",
+    translationUZ: "Moslashuvchan",
+    quizQuestion: "Able to change to suit different conditions:",
+    quizOptions: ["Rigid", "Adaptive", "Broken", "Fixed"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 20,
+    word: "Stimulation",
+    ipa: "/ˌstɪmjʊˈleɪʃn/",
+    form: "Noun",
+    definition: "Action of arousing interest, enthusiasm, or excitement.",
+    example: "In modern society there is a lot of over-**stimulation**.",
+    translationRU: "Стимуляция",
+    translationUZ: "Rag'batlantirish",
+    quizQuestion: "Coffee provides mental...",
+    quizOptions: ["Sleep", "Stimulation", "Boredom", "Silence"],
+    quizCorrectIndex: 1
+  }
+];

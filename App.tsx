@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { TESTS, VOCAB_LIST } from './constants';
+import { TESTS, VOCAB_LIST, VOCAB_LIST_2 } from './constants';
 import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabItem } from './types';
 
 const TOTAL_TIME_SECONDS = 60 * 60; // 60 minutes
@@ -33,7 +33,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Vocabulary App State
-  const [showVocabApp, setShowVocabApp] = useState(false);
+  const [vocabMode, setVocabMode] = useState<'none' | 'p1' | 'p2'>('none');
 
   // Derived state
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
@@ -146,8 +146,10 @@ export default function App() {
     setTimeLeft(TOTAL_TIME_SECONDS);
   };
 
-  if (showVocabApp) {
-      return <VocabularyStudio onBack={() => setShowVocabApp(false)} />;
+  if (vocabMode !== 'none') {
+      const data = vocabMode === 'p1' ? VOCAB_LIST : VOCAB_LIST_2;
+      const title = vocabMode === 'p1' ? 'Tourism New Zealand' : 'The Science of Boredom';
+      return <VocabularyStudio onBack={() => setVocabMode('none')} data={data} title={title} />;
   }
 
   return (
@@ -169,10 +171,10 @@ export default function App() {
               
               {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded shadow-xl py-2 text-gray-900 z-50 border border-gray-200 animate-in fade-in slide-in-from-top-2 duration-150">
-                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100">
+                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100 space-y-2">
                            <button 
                              onClick={() => {
-                                 setShowVocabApp(true);
+                                 setVocabMode('p1');
                                  setIsMenuOpen(false);
                              }}
                              className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
@@ -182,6 +184,22 @@ export default function App() {
                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                    </svg>
                                    Vocab Studio (Passage 1)
+                               </span>
+                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
+                           </button>
+
+                           <button 
+                             onClick={() => {
+                                 setVocabMode('p2');
+                                 setIsMenuOpen(false);
+                             }}
+                             className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-cyan-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
+                           >
+                               <span className="font-bold flex items-center">
+                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                   </svg>
+                                   Vocab Studio (Passage 2)
                                </span>
                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
                            </button>
@@ -564,6 +582,211 @@ export default function App() {
 }
 
 // ----------------------------------------------------------------------------
+// HELPER COMPONENTS FOR READING TEST
+// ----------------------------------------------------------------------------
+
+const QuestionItem: React.FC<{
+  question: Question;
+  answer: string;
+  onChange: (val: string) => void;
+  onFocus: () => void;
+  isActive: boolean;
+}> = ({ question, answer, onChange, onFocus, isActive }) => {
+  return (
+    <div 
+        id={`question-${question.id}`}
+        className={`p-4 rounded-lg border transition-all ${isActive ? 'bg-blue-50 border-blue-400 ring-2 ring-blue-100' : 'bg-white border-gray-200 hover:border-gray-300 shadow-sm'}`}
+        onClick={onFocus}
+    >
+      <div className="flex items-start">
+        <span className={`flex-shrink-0 w-8 h-8 flex items-center justify-center font-bold rounded-full text-sm mr-3 transition-colors ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+            {question.label}
+        </span>
+        <div className="flex-1">
+            {question.questionText && <p className="mb-3 text-gray-800 font-medium leading-relaxed" dangerouslySetInnerHTML={{__html: question.questionText}} />}
+            
+            {question.type === QuestionType.INPUT && (
+                <input 
+                    id={`input-q-${question.id}`}
+                    type="text" 
+                    className="w-full p-2.5 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-shadow"
+                    placeholder="Type your answer..."
+                    value={answer || ''}
+                    onChange={(e) => onChange(e.target.value)}
+                    onFocus={onFocus}
+                />
+            )}
+
+            {question.type === QuestionType.DROPDOWN && (
+                <div className="relative">
+                    <select
+                        id={`input-q-${question.id}`}
+                        className="w-full p-2.5 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none bg-white appearance-none cursor-pointer transition-shadow"
+                        value={answer || ''}
+                        onChange={(e) => onChange(e.target.value)}
+                        onFocus={onFocus}
+                    >
+                        <option value="">Select an answer...</option>
+                        {question.options?.map(opt => (
+                            <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            )}
+
+            {question.type === QuestionType.RADIO && (
+                <div className="space-y-2 mt-2">
+                    {question.options?.map(opt => (
+                        <label key={opt} className={`flex items-center space-x-3 p-2 rounded cursor-pointer border border-transparent hover:bg-gray-50 ${answer === opt ? 'bg-blue-50 border-blue-200' : ''}`}>
+                            <input 
+                                type="radio" 
+                                name={`q-${question.id}`} 
+                                value={opt} 
+                                checked={answer === opt} 
+                                onChange={(e) => onChange(e.target.value)}
+                                onFocus={onFocus}
+                                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                            />
+                            <span className="text-gray-700">{opt}</span>
+                        </label>
+                    ))}
+                </div>
+            )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TableQuestionRenderer: React.FC<{
+  data: TableData;
+  questions: Question[];
+  answers: UserAnswers;
+  onAnswerChange: (id: number, val: string) => void;
+  onFocus: (id: number) => void;
+  activeQuestionId: number | null;
+}> = ({ data, questions, answers, onAnswerChange, onFocus, activeQuestionId }) => {
+    
+    const renderCellContent = (text: string) => {
+        if (!text) return null;
+        
+        // Simple parser for {{id}} pattern
+        const parts = text.split(/(\{\{\d+\}\})/);
+        
+        return (
+            <span className="leading-relaxed">
+                {parts.map((part, idx) => {
+                    const match = part.match(/\{\{(\d+)\}\}/);
+                    if (match) {
+                        const label = match[1];
+                        const question = questions.find(q => q.label === label); // Matching by label as per constants.ts usage
+                        
+                        if (question) {
+                            const isActive = activeQuestionId === question.id;
+                            return (
+                                <span key={idx} className="inline-flex flex-col mx-1 align-bottom">
+                                    <input
+                                        id={`input-q-${question.id}`}
+                                        type="text"
+                                        className={`
+                                            border-b-2 bg-transparent outline-none w-24 px-1 text-center font-medium transition-colors text-blue-900
+                                            ${isActive ? 'border-blue-500 bg-blue-50' : 'border-gray-400 focus:border-blue-500 hover:border-gray-500'}
+                                        `}
+                                        value={answers[question.id] || ''}
+                                        onChange={(e) => onAnswerChange(question.id, e.target.value)}
+                                        onFocus={() => onFocus(question.id)}
+                                    />
+                                    <span className={`text-[10px] text-center font-bold ${isActive ? 'text-blue-600' : 'text-gray-400'}`}>({question.label})</span>
+                                </span>
+                            );
+                        }
+                        return <span key={idx} className="text-red-500 font-bold">?</span>;
+                    }
+                    return <span key={idx} dangerouslySetInnerHTML={{ __html: part }} />;
+                })}
+            </span>
+        );
+    };
+
+    return (
+        <div className="overflow-x-auto border border-gray-200 rounded-lg shadow-sm mb-4">
+            <table className="min-w-full divide-y divide-gray-200">
+                {data.headers.length > 0 && (
+                    <thead className="bg-gray-50">
+                        <tr>
+                            {data.headers.map((h, i) => (
+                                <th key={i} className="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider border-r last:border-r-0 border-gray-200">
+                                    {h}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                )}
+                <tbody className="bg-white divide-y divide-gray-200">
+                    {data.rows.map((row, rIdx) => (
+                        <tr key={rIdx} className="hover:bg-gray-50 transition-colors">
+                            {row.cells.map((cell, cIdx) => (
+                                <td 
+                                    key={cIdx} 
+                                    className="px-4 py-3 align-top border-r last:border-r-0 border-gray-200 text-sm text-gray-700"
+                                    colSpan={cell.colSpan}
+                                    rowSpan={cell.rowSpan}
+                                >
+                                    {cell.bulletPoints ? (
+                                        <div className="space-y-1">
+                                            {renderCellContent(cell.text || '')}
+                                        </div>
+                                    ) : (
+                                        renderCellContent(cell.text || '')
+                                    )}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, onAnswerChange, onFocus, activeQuestionId }) => {
+  return (
+    <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="mb-4 bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+          <div className="text-gray-800 font-medium text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: group.instruction }} />
+      </div>
+      
+      {group.renderType === 'TABLE' && group.tableData ? (
+        <TableQuestionRenderer 
+          data={group.tableData} 
+          questions={group.questions} 
+          answers={answers} 
+          onAnswerChange={onAnswerChange}
+          onFocus={onFocus}
+          activeQuestionId={activeQuestionId}
+        />
+      ) : (
+        <div className="space-y-4">
+          {group.questions.map(q => (
+            <QuestionItem 
+              key={q.id} 
+              question={q} 
+              answer={answers[q.id] || ''} 
+              onChange={(val) => onAnswerChange(q.id, val)}
+              onFocus={() => onFocus(q.id)}
+              isActive={activeQuestionId === q.id}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ----------------------------------------------------------------------------
 // ULTRA VOCABULARY STUDIO COMPONENT
 // ----------------------------------------------------------------------------
 
@@ -658,7 +881,7 @@ const ConfettiCanvas = () => {
 
 type VocabView = 'dashboard' | 'flashcards' | 'quiz' | 'match' | 'spell';
 
-const VocabularyStudio: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+const VocabularyStudio: React.FC<{ onBack: () => void; data: VocabItem[]; title: string }> = ({ onBack, data, title }) => {
     const [view, setView] = useState<VocabView>('dashboard');
     const [learnedWords, setLearnedWords] = useState<number[]>([]);
     
@@ -689,7 +912,7 @@ const VocabularyStudio: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                         <h1 className="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300 uppercase drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] animate-shimmer">
                             NEURAL LEXICON
                         </h1>
-                        <p className="text-[10px] text-cyan-200/60 font-mono tracking-[0.3em] uppercase">Simulation Module v4.2</p>
+                        <p className="text-[10px] text-cyan-200/60 font-mono tracking-[0.3em] uppercase">Simulating: {title}</p>
                     </div>
                 </div>
                 
@@ -703,11 +926,11 @@ const VocabularyStudio: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             </header>
 
             <main className="flex-1 relative z-10 flex flex-col overflow-hidden">
-                {view === 'dashboard' && <DashboardView learnedWords={learnedWords} onViewChange={setView} />}
-                {view === 'flashcards' && <FlashcardMode learnedWords={learnedWords} onToggleLearned={toggleLearned} />}
-                {view === 'quiz' && <QuizMode />}
-                {view === 'match' && <MatchMode />}
-                {view === 'spell' && <SpellMode />}
+                {view === 'dashboard' && <DashboardView vocabList={data} learnedWords={learnedWords} onViewChange={setView} />}
+                {view === 'flashcards' && <FlashcardMode vocabList={data} learnedWords={learnedWords} onToggleLearned={toggleLearned} />}
+                {view === 'quiz' && <QuizMode vocabList={data} />}
+                {view === 'match' && <MatchMode vocabList={data} />}
+                {view === 'spell' && <SpellMode vocabList={data} />}
             </main>
         </div>
     );
@@ -742,8 +965,8 @@ const getIcon = (name: string) => {
 
 // ---------------- VIEWS ----------------
 
-const DashboardView: React.FC<{ learnedWords: number[], onViewChange: (v: VocabView) => void }> = ({ learnedWords, onViewChange }) => {
-    const progress = Math.round((learnedWords.length / VOCAB_LIST.length) * 100);
+const DashboardView: React.FC<{ vocabList: VocabItem[], learnedWords: number[], onViewChange: (v: VocabView) => void }> = ({ vocabList, learnedWords, onViewChange }) => {
+    const progress = Math.round((learnedWords.length / vocabList.length) * 100);
 
     return (
         <div className="flex-1 p-10 overflow-y-auto">
@@ -756,7 +979,7 @@ const DashboardView: React.FC<{ learnedWords: number[], onViewChange: (v: VocabV
                         <div className="flex items-end space-x-2">
                             <span className="text-5xl font-black text-white">{progress}%</span>
                             <span className="text-cyan-400 mb-2 font-mono">
-                                {learnedWords.length}/{VOCAB_LIST.length}
+                                {learnedWords.length}/{vocabList.length}
                             </span>
                         </div>
                         <div className="w-full bg-white/10 h-1.5 rounded-full mt-4 overflow-hidden">
@@ -801,7 +1024,7 @@ const DashboardView: React.FC<{ learnedWords: number[], onViewChange: (v: VocabV
                 </h2>
 
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {VOCAB_LIST.map((word) => {
+                    {vocabList.map((word) => {
                         const isLearned = learnedWords.includes(word.id);
                         return (
                             <div 
@@ -835,15 +1058,15 @@ const DashboardView: React.FC<{ learnedWords: number[], onViewChange: (v: VocabV
     );
 }
 
-const FlashcardMode: React.FC<{ learnedWords: number[], onToggleLearned: (id: number) => void }> = ({ learnedWords, onToggleLearned }) => {
+const FlashcardMode: React.FC<{ vocabList: VocabItem[], learnedWords: number[], onToggleLearned: (id: number) => void }> = ({ vocabList, learnedWords, onToggleLearned }) => {
     const [index, setIndex] = useState(0);
     const [flipped, setFlipped] = useState(false);
     const [showUnlearnedOnly, setShowUnlearnedOnly] = useState(false);
 
     // Filter list based on settings
     const filteredList = showUnlearnedOnly 
-        ? VOCAB_LIST.filter(w => !learnedWords.includes(w.id))
-        : VOCAB_LIST;
+        ? vocabList.filter(w => !learnedWords.includes(w.id))
+        : vocabList;
 
     // Reset index if list shrinks
     useEffect(() => {
@@ -980,7 +1203,7 @@ const FlashcardMode: React.FC<{ learnedWords: number[], onToggleLearned: (id: nu
 }
 
 // "Match" Game Mode
-const MatchMode: React.FC = () => {
+const MatchMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
     // Generate tiles: 4 pairs
     const [tiles, setTiles] = useState<{id: string, text: string, type: 'word' | 'def', matchId: number, state: 'default' | 'selected' | 'matched' | 'wrong'}[]>([]);
     const [selected, setSelected] = useState<string | null>(null);
@@ -989,7 +1212,7 @@ const MatchMode: React.FC = () => {
 
     const initGame = () => {
         // Pick 4 random words
-        const shuffled = [...VOCAB_LIST].sort(() => 0.5 - Math.random()).slice(0, 4);
+        const shuffled = [...vocabList].sort(() => 0.5 - Math.random()).slice(0, 4);
         const newTiles: typeof tiles = [];
         
         shuffled.forEach(w => {
@@ -1085,20 +1308,20 @@ const MatchMode: React.FC = () => {
 };
 
 // "Spell" Mode
-const SpellMode: React.FC = () => {
+const SpellMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
     const [index, setIndex] = useState(0);
     const [input, setInput] = useState('');
     const [status, setStatus] = useState<'idle' | 'correct' | 'wrong'>('idle');
     const [revealed, setRevealed] = useState(false);
 
-    const currentWord = VOCAB_LIST[index];
+    const currentWord = vocabList[index];
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (input.toLowerCase().trim() === currentWord.word.toLowerCase()) {
             setStatus('correct');
             setTimeout(() => {
-                setIndex(prev => (prev + 1) % VOCAB_LIST.length);
+                setIndex(prev => (prev + 1) % vocabList.length);
                 setInput('');
                 setStatus('idle');
                 setRevealed(false);
@@ -1143,7 +1366,7 @@ const SpellMode: React.FC = () => {
                     </form>
 
                     <div className="mt-6 flex justify-between items-center">
-                        <span className="text-xs text-gray-500">{index + 1} / {VOCAB_LIST.length}</span>
+                        <span className="text-xs text-gray-500">{index + 1} / {vocabList.length}</span>
                         <button onClick={() => setRevealed(true)} className="text-xs text-gray-400 hover:text-white underline decoration-dotted">Reveal Answer</button>
                     </div>
 
@@ -1159,7 +1382,7 @@ const SpellMode: React.FC = () => {
 };
 
 // Existing Speed Quiz Mode (Refined)
-const QuizMode: React.FC = () => {
+const QuizMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
     const [active, setActive] = useState(false);
     const [qIndex, setQIndex] = useState(0);
     const [timer, setTimer] = useState(10);
@@ -1191,7 +1414,7 @@ const QuizMode: React.FC = () => {
     };
 
     const handleAnswer = (optionIndex: number) => {
-        const correct = optionIndex === VOCAB_LIST[qIndex].quizCorrectIndex;
+        const correct = optionIndex === vocabList[qIndex].quizCorrectIndex;
         if (correct) {
             setScore(s => s + (timer * 10) + 50);
             setFeedback('correct');
@@ -1200,7 +1423,7 @@ const QuizMode: React.FC = () => {
         }
 
         setTimeout(() => {
-            if (qIndex < VOCAB_LIST.length - 1) {
+            if (qIndex < vocabList.length - 1) {
                 setQIndex(prev => prev + 1);
                 startRound();
             } else {
@@ -1237,12 +1460,12 @@ const QuizMode: React.FC = () => {
         );
     }
 
-    const currentQ = VOCAB_LIST[qIndex];
+    const currentQ = vocabList[qIndex];
 
     return (
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full p-6">
             <div className="flex justify-between items-center mb-8">
-                 <div className="text-sm font-mono text-gray-500">Q {qIndex + 1}/{VOCAB_LIST.length}</div>
+                 <div className="text-sm font-mono text-gray-500">Q {qIndex + 1}/{vocabList.length}</div>
                  <div className="text-xl font-black text-cyan-400">{score} PTS</div>
             </div>
 
@@ -1282,183 +1505,3 @@ const QuizMode: React.FC = () => {
         </div>
     );
 };
-
-
-// Sub-component to render a group of questions
-const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, onAnswerChange, onFocus, activeQuestionId }) => {
-  return (
-    <div className="mb-8 bg-white p-6 rounded shadow-sm border border-gray-200">
-      <h3 className="text-lg font-bold mb-2 text-gray-800 border-b pb-2">Questions {group.questions[0]?.label} - {group.questions[group.questions.length - 1]?.label}</h3>
-      <div className="mb-6 font-medium text-gray-700 bg-gray-50 p-2 rounded" dangerouslySetInnerHTML={{__html: group.instruction}} />
-      
-      {group.renderType === 'TABLE' && group.tableData ? (
-        <TableRenderer 
-            data={group.tableData} 
-            questions={group.questions} 
-            answers={answers} 
-            onAnswerChange={onAnswerChange} 
-            onFocus={onFocus}
-            activeQuestionId={activeQuestionId}
-        />
-      ) : (
-        <div className="space-y-6">
-            {group.questions.map((q) => (
-            <div key={q.id} id={`question-${q.id}`} className={`flex flex-col space-y-2 p-3 rounded transition-colors ${activeQuestionId === q.id ? 'bg-yellow-50 ring-2 ring-yellow-200' : ''}`}>
-                <div className="flex items-baseline space-x-3">
-                <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-800 font-bold rounded-full text-sm">
-                    {q.label}
-                </span>
-                <div className="flex-1">
-                    {/* Render specific question text if available */}
-                    {q.questionText && <p className="mb-2 font-medium text-gray-800">{q.questionText}</p>}
-                    {renderQuestionInput(q, answers[q.id] || '', (val) => onAnswerChange(q.id, val), () => onFocus(q.id))}
-                </div>
-                </div>
-            </div>
-            ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Specialized Table Renderer
-const TableRenderer: React.FC<{
-    data: TableData;
-    questions: Question[];
-    answers: UserAnswers;
-    onAnswerChange: (id: number, val: string) => void;
-    onFocus: (id: number) => void;
-    activeQuestionId: number | null;
-}> = ({ data, questions, answers, onAnswerChange, onFocus, activeQuestionId }) => {
-    
-    // Helper to replace {{id}} with Input Component
-    const renderCellContent = (text: string | undefined, isBullet: boolean | undefined) => {
-        if (!text) return null;
-        
-        // Split text by placeholder pattern {{number}}
-        const parts = text.split(/(\{\{\d+\}\})/g);
-        
-        const content = parts.map((part, idx) => {
-            const match = part.match(/\{\{(\d+)\}\}/);
-            if (match) {
-                const qLabel = match[1];
-                const question = questions.find(q => q.label === qLabel);
-                if (question) {
-                    const isActive = activeQuestionId === question.id;
-                    return (
-                        <span key={idx} className="inline-flex items-center mx-1 align-middle">
-                            <span className="text-xs font-bold text-blue-600 mr-1 bg-blue-100 px-1.5 rounded-full">{qLabel}</span>
-                            <input
-                                id={`input-q-${question.id}`}
-                                type="text"
-                                value={answers[question.id] || ''}
-                                onFocus={() => onFocus(question.id)}
-                                onChange={(e) => onAnswerChange(question.id, e.target.value)}
-                                className={`border-2 rounded px-2 py-1 w-32 font-semibold text-gray-800 uppercase text-sm transition-colors ${isActive ? 'border-black bg-yellow-50 ring-2 ring-yellow-200' : 'border-gray-300 focus:border-blue-500'}`}
-                            />
-                        </span>
-                    );
-                }
-            }
-            return <span key={idx} dangerouslySetInnerHTML={{__html: part}} />;
-        });
-
-        if (isBullet) {
-            // Split by <br/> logic if manual break, or just wrap
-            return <div className="leading-7">{content}</div>;
-        }
-        return <div className="font-semibold text-gray-800">{content}</div>;
-    };
-
-    return (
-        <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse border border-gray-300">
-                {data.headers.length > 0 && (
-                    <thead>
-                        <tr>
-                            {data.headers.map((h, i) => (
-                                <th key={i} className="border border-gray-300 bg-gray-100 px-4 py-2 text-left text-sm font-bold text-gray-700 w-1/3">
-                                    {h}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                )}
-                <tbody>
-                    {data.rows.map((row, rIdx) => (
-                        <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                            {row.cells.map((cell, cIdx) => (
-                                <td key={cIdx} className="border border-gray-300 px-4 py-3 text-sm text-gray-800 align-top">
-                                    {renderCellContent(cell.text, cell.bulletPoints)}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
-};
-
-function renderQuestionInput(question: Question, value: string, onChange: (val: string) => void, onFocus: () => void) {
-  switch (question.type) {
-    case QuestionType.INPUT:
-      return (
-        <div className="flex items-center">
-            <span className="mr-2 text-gray-700 font-medium">Answer:</span>
-            <input
-            type="text"
-            value={value}
-            onFocus={onFocus}
-            onChange={(e) => onChange(e.target.value)}
-            className="border-2 border-gray-300 rounded px-3 py-1.5 focus:border-blue-500 focus:outline-none w-full max-w-xs font-semibold text-gray-800 uppercase"
-            placeholder="..."
-            />
-        </div>
-      );
-    case QuestionType.RADIO:
-      return (
-        <div className="flex flex-col space-y-2 mt-1">
-          {question.options?.map((opt) => (
-            <label key={opt} className="flex items-center space-x-3 cursor-pointer group p-1 hover:bg-gray-50 rounded" onClick={onFocus}>
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${value === opt ? 'border-blue-600' : 'border-gray-400 group-hover:border-blue-400'}`}>
-                {value === opt && <div className="w-2.5 h-2.5 bg-blue-600 rounded-full" />}
-              </div>
-              <input
-                type="radio"
-                name={`q-${question.id}`}
-                value={opt}
-                checked={value === opt}
-                onChange={() => {
-                    onChange(opt);
-                    onFocus();
-                }}
-                className="hidden"
-              />
-              <span className={`text-gray-700 font-medium ${value === opt ? 'text-blue-900' : ''}`}>{opt}</span>
-            </label>
-          ))}
-        </div>
-      );
-    case QuestionType.DROPDOWN:
-      return (
-        <div className="flex items-center">
-            <span className="mr-3 text-gray-600 text-sm">Select:</span>
-            <select
-            value={value}
-            onFocus={onFocus}
-            onChange={(e) => onChange(e.target.value)}
-            className={`border-2 border-gray-300 rounded px-3 py-2 focus:border-blue-500 focus:outline-none bg-white w-full max-w-xs font-semibold ${value ? 'text-blue-900' : 'text-gray-500'}`}
-            >
-            <option value="">-</option>
-            {question.options?.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-            ))}
-            </select>
-        </div>
-      );
-    default:
-      return null;
-  }
-}
