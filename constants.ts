@@ -439,7 +439,7 @@ export const TESTS: Test[] = [
         content: [
            "Managers who want to succeed in business need to spot trends and then work out how to use them to their advantage. A trend is not just a fad or a temporary fashion; it is a significant change in the way people live or work. Trends can be demographic, such as the aging population in many developed countries, or technological, such as the rise of smartphones and social media. They can also be social, such as the increasing concern for the environment and sustainability.",
            "One way to spot trends is to look for anomalies or things that do not fit the established pattern. For example, the rise of low-cost airlines was an anomaly in the airline industry, which had previously been dominated by large, full-service carriers. Another way to spot trends is to look for convergences, where two or more trends come together to create a new opportunity. For example, the convergence of mobile technology and social media has created new opportunities for businesses to engage with customers. Kodak failed to respond to the trend towards digital photography, and as a result, it lost its dominant position.",
-           "Once a trend has been identified, managers need to decide how to respond to it. One strategy, known as 'infuse and augment', is to design a product or service that retains most of the attributes and functions of existing products in the category but adds others that address the needs and desires triggered by a new trend. A case in point is the Poppy line of handbags, which the firm **Coach** created in response to the economic downturn of 2008. The Coach brand had been a symbol of opulence and luxury for nearly 70 years, and the most obvious reaction to the downturn would have been to lower prices. However, that would have risked cheapening the brand’s image. Instead, they initiated a consumer-research project which revealed that customers were eager to lift themselves and the country out of tough times. Using these insights, Coach launched the new line, which was affordable but still carried the brand's prestige, successfully avoiding the need to cut prices on its core products.",
+           "Once a trend has been identified, managers need to decide how to respond to it. One strategy, known as 'infuse and augment', is to design a product or service that retains most of the attributes and functions of existing products in the category but adds others that address the needs and desires triggered by a new trend. A case in point is the Poppy line of handbags, which the firm **Coach** created in response to the economic downturn of 2008. The Coach brand had been a symbol of opulence and luxury for nearly 70 years, and the most obvious reaction to the downturn would have been to lower prices. However, that would have risked cheapening the brand’s image. Instead, they initiated a consumer-research project which revealed that customers were eager to lift themselves and the country out of tough times. Using these insights, Coach launched the new line, which was affordable but still carried the brand's prestige, successfully avoiding the need to cut prices. on its core products.",
            "Another strategy is to 'combine and transcend'. This is a great strategy for integrating work and life, or two distinct worlds. **Nike**’s move to integrate the digital revolution into its reputation for high-performance athletic footwear is a perfect example. In 2006, they teamed up with technology company Apple to launch Nike+, a digital sports kit comprising a sensor that attaches to a running shoe and a wireless receiver that connects to an iPod. This allowed runners to track their performance and listen to music simultaneously.",
            "The 'counteract and affirm' strategy involves developing products or services that stress the values traditionally associated with the category in ways that allow consumers to oppose—or at least temporarily escape from—the aspects of trends they view as negative. **iToys** used this strategy with its ME2, a video game controller that counteracts the perceived negative effects of digital gaming, such as physical inactivity. The ME2 controller allows players to use their physical movement to control the game, turning the notion that gaming is lazy to its own advantage.",
            "Finally, **Tesco**, the UK retailer, used a strategy to respond to the growing lifestyle trend of environmental responsibility in the grocery sector. Their 'Greener Living' program demonstrated that the company cared about the environment by implementing an incentive scheme where customers earned points for reusing bags and recycling. This allowed them to respond to a trend in a sector unrelated to their core product of selling food, showing corporate social responsibility."
@@ -536,6 +536,107 @@ export const TESTS: Test[] = [
                    { id: 40, label: "40", questionText: "If the consumers' new focus has an increasing lack of connection with your offering, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" }
                 ]
             }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'news-tfng-2025',
+    title: 'Breaking News: T/F/NG Mini-Drills (Dec 2025)',
+    passages: [
+      {
+        id: 1,
+        title: "Passage 1: Solar Physics",
+        content: [
+          "Recent data from NASA’s Parker Solar Probe has provided unprecedented insights into the behaviour of the solar wind. For the first time, the probe observed a magnetic 'U-turn' in the stream of charged particles emanating from the Sun. Previously, astronomers believed these reversals—known as 'switchbacks'—were rare anomalies confined to the Sun's outer corona. However, the new findings suggest they are a fundamental feature of solar wind acceleration. The probe’s proximity to the star allowed it to detect that these magnetic kinks release large bursts of energy, potentially solving the long-standing mystery of why the Sun's atmosphere is millions of degrees hotter than its surface."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-1",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 1-3 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 1, label: "1", questionText: "The Parker Solar Probe is the first spacecraft to enter the Sun's outer corona.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 2, label: "2", questionText: "Scientists used to think that 'switchbacks' were uncommon events.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 3, label: "3", questionText: "The recent findings definitely prove the cause of the temperature difference between the Sun's surface and its atmosphere.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Passage 2: AI and The Labour Market",
+        content: [
+          "The narrative that artificial intelligence will inevitably lead to mass unemployment is being challenged by leading economists, including Nobel laureate Peter Howitt. While generative AI tools like ChatGPT have sparked fears of redundancy among white-collar workers, historical precedents suggest a different outcome. Much like the steam engine or electrification, AI is likely to act as a 'general-purpose technology,' creating new categories of employment that are currently unimaginable. However, Howitt warns that this transition will not be painless. Without targeted government policies to retrain displaced workers, the immediate result may be a sharp rise in income inequality, as the financial benefits of increased productivity disproportionately accrue to those who own the technology."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-2",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 4-6 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 4, label: "4", questionText: "Peter Howitt believes that the impact of AI will differ significantly from that of the steam engine.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 5, label: "5", questionText: "There are currently no government policies in place to retrain workers displaced by AI.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 6, label: "6", questionText: "Howitt argues that the primary risk of AI adoption is a widening gap between the rich and the poor, rather than total job loss.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Passage 3: The Origins of Fire",
+        content: [
+          "A groundbreaking study from an archaeological site at East Farm, England, has pushed back the timeline of human fire-making by nearly 250,000 years. Researchers discovered flint handaxes that had been shattered by intense heat, alongside fragments of iron pyrite—a mineral used to create sparks. This evidence suggests that Neanderthals were not merely scavenging fire from natural wildfires, as previously thought, but were deliberately manufacturing it as early as 400,000 years ago. If verified, this would indicate that Neanderthals possessed a level of cognitive planning and technical skill that was once considered exclusive to <em>Homo sapiens</em>."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-3",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 7-9 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 7, label: "7", questionText: "The study at East Farm provides the first evidence that Neanderthals used tools.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 8, label: "8", questionText: "Prior to this study, the prevailing view was that Neanderthals could only use fire that had started naturally.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 9, label: "9", questionText: "The researchers found the remains of cooked food alongside the flint tools.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Passage 4: Media Coverage of Climate Change",
+        content: [
+          "Despite the escalating severity of global weather events, a recent critique by film director Adam McKay highlights a persistent failure in mainstream media coverage. McKay argues that while outlets like the BBC and <em>The New York Times</em> employ dedicated climate reporters, the broader news cycle often fails to connect breaking news—such as wildfires or floods—to their root cause: climate change. He advocates for a more 'alarmist' approach, suggesting that the fear of appearing biased has led journalists to underplay the urgency of the crisis. Conversely, some communication experts warn that inducing panic can lead to 'news avoidance,' where audiences tune out negative information entirely."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-4",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 10-12 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 10, label: "10", questionText: "Adam McKay claims that major news organisations do not have any journalists specialising in climate change.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 11, label: "11", questionText: "McKay believes that journalists should be more willing to alarm their audiences.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 12, label: "12", questionText: "There is a consensus among experts that 'alarmist' reporting is the most effective way to engage the public.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "Passage 5: AI and Loneliness",
+        content: [
+          "As AI chatbots become increasingly sophisticated, a growing number of individuals are turning to them for emotional support. While these systems can offer a semblance of companionship to the socially isolated, psychologists have raised concerns about the long-term effects of 'artificial intimacy.' A recent feature in <em>The BMJ</em> suggests that relying on AI for social interaction may atrophy human social skills, much like a muscle that is rarely used. Furthermore, because chatbots are programmed to be relentlessly agreeable, they create an unrealistic expectation of relationships, potentially making real-world human interactions—which require compromise and conflict resolution—feel frustratingly difficult by comparison."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-5",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 13-15 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 13, label: "13", questionText: "The article suggests that AI chatbots are currently unable to hold complex conversations.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 14, label: "14", questionText: "Psychologists fear that using AI for companionship could weaken a person's ability to interact with other humans.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 15, label: "15", questionText: "AI chatbots are programmed to occasionally disagree with users to simulate a realistic relationship.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
         ]
       }
     ]

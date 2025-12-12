@@ -180,7 +180,7 @@ export default function App() {
               
               {isMenuOpen && (
                   <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded shadow-xl py-2 text-gray-900 z-50 border border-gray-200 animate-in fade-in slide-in-from-top-2 duration-150">
-                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100 space-y-2">
+                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100 space-y-2 max-h-[80vh] overflow-y-auto">
                            <button 
                              onClick={() => {
                                  setVocabMode('p1');
@@ -228,6 +228,25 @@ export default function App() {
                                </span>
                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
                            </button>
+
+                           {/* NEW SECTION T/F/NG */}
+                           <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">Skill Drills</div>
+                           <button 
+                             onClick={() => {
+                                 setCurrentTestId('news-tfng-2025');
+                                 setIsMenuOpen(false);
+                             }}
+                             className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
+                           >
+                               <span className="font-bold flex items-center">
+                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                   </svg>
+                                   T/F/NG Challenge
+                               </span>
+                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs">New</span>
+                           </button>
+
                        </div>
 
                        {currentTest && (
@@ -255,7 +274,7 @@ export default function App() {
                        )}
                        
                        <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase">Available Tests</div>
-                       {TESTS.map(t => (
+                       {TESTS.filter(t => t.id !== 'news-tfng-2025').map(t => (
                            <button 
                              key={t.id}
                              onClick={() => {
