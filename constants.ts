@@ -131,7 +131,7 @@ export const TESTS: Test[] = [
                     { id: 15, label: "15", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "vi" }, // Para B
                     { id: 16, label: "16", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "i" }, // Para C
                     { id: 17, label: "17", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "v" }, // Para D
-                    { id: 18, label: "18", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "viii" }, // Para E (simulated match)
+                    { id: 18, label: "18", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "viii" }, // Para E
                     { id: 19, label: "19", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "iii" } // Para F
                 ]
             },
@@ -357,6 +357,16 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
+      },
+      {
+        id: 2,
+        title: "Reading Passage 2: Oxytocin",
+        content: [
+            "<span class='font-bold text-lg'>A</span> Oxytocin is a chemical, a hormone produced in the pituitary gland in the brain. It was through various studies focusing on animals that scientists first became aware of the influence of oxytocin. They discovered that it helps reinforce the bonds between prairie voles, which mate for life, and triggers the motherly behaviour that sheep show towards their newborn lambs. It is also released by women in childbirth, strengthening the attachment between mother and baby. Few chemicals have as positive a reputation as oxytocin, which is sometimes referred to as the 'love hormone'. One sniff of it can, it is claimed, make a person more trusting, empathetic, generous and cooperative. It is time, however, to revise this wholly optimistic view. A new wave of studies has shown that its effects vary greatly depending on the person and the circumstances, and it can impact on our social interactions for worse as well as for better.",
+            "<span class='font-bold text-lg'>B</span> Oxytocin’s role in human behaviour first emerged in 2005. In a groundbreaking experiment, Markus Heinrichs and his colleagues at the University of Freiburg, Germany, asked volunteers to do an activity in which they could invest money with an anonymous person who was not guaranteed to be honest. The team found that participants who had sniffed oxytocin via a nasal spray beforehand invested more money than those who received a placebo instead. The study was the start of research into the effects of oxytocin on human interactions. 'For eight years, it was quite a lonesome field,' Heinrichs recalls. 'Now, everyone is interested.' These follow-up studies have shown that after a sniff of the hormone, people become more charitable, better at reading emotions on others’ faces and at communicating constructively in arguments. Together, the results fuelled the view that oxytocin universally enhanced the positive aspects of our social nature.",
+            "<span class='font-bold text-lg'>C</span> Then, after a few years, contrasting findings began to emerge. Simone Shamay-Tsoory at the University of Haifa, Israel, found that when volunteers played a competitive game, those who inhaled the hormone showed more pleasure when they beat other players, and felt more envy when others won. What’s more, administering oxytocin also has sharply contrasting outcomes depending on a person’s disposition. Jennifer Bartz from Mount Sinai School of Medicine, New York, found that it improved the ability of people with autism to read emotions, but decreased it in those without the condition."
+        ],
+        questionGroups: []
       }
     ]
   }
@@ -366,202 +376,202 @@ export const VOCAB_LIST: VocabItem[] = [
   {
     id: 1,
     word: "exhilarating",
-    ipa: "/ɪgˈzɪləreɪtɪŋ/",
-    form: "adj.",
+    ipa: "/ɪɡˈzɪləreɪtɪŋ/",
+    form: "adjective",
     definition: "Making one feel very happy, animated, or elated; thrilling.",
-    example: "The campaign focused on New Zealand’s scenic beauty, exhilarating outdoor activities and authentic Maori culture.",
+    example: "The campaign focused on New Zealand’s scenic beauty and exhilarating outdoor activities.",
     translationRU: "волнующий",
     translationUZ: "hayajonli",
-    quizQuestion: "Which word describes a thrilling experience?",
-    quizOptions: ["Boring", "Exhilarating", "Calm", "Depressing"],
+    quizQuestion: "Which word describes a feeling of great happiness and excitement?",
+    quizOptions: ["Boring", "Exhilarating", "Depressing", "Calm"],
     quizCorrectIndex: 1
   },
   {
     id: 2,
     word: "authentic",
     ipa: "/ɔːˈθɛntɪk/",
-    form: "adj.",
-    definition: "Of undisputed origin; genuine.",
-    example: "The campaign highlighted authentic Maori culture.",
+    form: "adjective",
+    definition: "Of undisputed origin and not a copy; genuine.",
+    example: "They promoted authentic Maori culture.",
     translationRU: "подлинный",
     translationUZ: "haqiqiy",
-    quizQuestion: "What is a synonym for authentic?",
-    quizOptions: ["Fake", "Genuine", "Expensive", "New"],
+    quizQuestion: "What is a synonym for 'genuine'?",
+    quizOptions: ["Fake", "Authentic", "Expensive", "Modern"],
     quizCorrectIndex: 1
   },
   {
-      id: 3,
-      word: "gateway",
-      ipa: "/ˈgeɪtweɪ/",
-      form: "noun",
-      definition: "A means of access or entry to a place.",
-      example: "The website provided a single gateway to everything the destination had to offer.",
-      translationRU: "шлюз / ворота",
-      translationUZ: "darvoza",
-      quizQuestion: "A gateway acts as a...",
-      quizOptions: ["Barrier", "Entrance", "Exit", "Wall"],
-      quizCorrectIndex: 1
+    id: 3,
+    word: "itinerary",
+    ipa: "/ʌɪˈtɪn(ə)(rə)ri/",
+    form: "noun",
+    definition: "A planned route or journey.",
+    example: "The site helped travellers devise their own customised itineraries.",
+    translationRU: "маршрут",
+    translationUZ: "yo'nalish",
+    quizQuestion: "A plan of a journey, including the route and the places that you visit.",
+    quizOptions: ["Map", "Ticket", "Itinerary", "Guide"],
+    quizCorrectIndex: 2
   },
   {
-      id: 4,
-      word: "blockbuster",
-      ipa: "/ˈblɒkbʌstər/",
-      form: "noun",
-      definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
-      example: "Locations chosen for blockbuster films.",
-      translationRU: "блокбастер",
-      translationUZ: "ommabop film",
-      quizQuestion: "A blockbuster is usually...",
-      quizOptions: ["A failure", "A huge success", "Unknown", "Cheap"],
-      quizCorrectIndex: 1
+    id: 4,
+    word: "blockbuster",
+    ipa: "/ˈblɒkbʌstə/",
+    form: "noun",
+    definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
+    example: "Locations chosen for blockbuster films.",
+    translationRU: "блокбастер",
+    translationUZ: "mashhur film",
+    quizQuestion: "A very successful film or book.",
+    quizOptions: ["Flop", "Indie", "Blockbuster", "Short"],
+    quizCorrectIndex: 2
   },
   {
-      id: 5,
-      word: "itinerary",
-      ipa: "/aɪˈtɪnərəri/",
-      form: "noun",
-      definition: "A planned route or journey.",
-      example: "Help independent travellers devise their own customised itineraries.",
-      translationRU: "маршрут",
-      translationUZ: "yo'nalish",
-      quizQuestion: "An itinerary is a plan for...",
-      quizOptions: ["Cooking", "Travel", "Sleeping", "Studying"],
-      quizCorrectIndex: 1
+    id: 5,
+    word: "backdrop",
+    ipa: "/ˈbakdrɒp/",
+    form: "noun",
+    definition: "The setting or background for a scene, event, or situation.",
+    example: "Stunning scenery as a backdrop.",
+    translationRU: "фон",
+    translationUZ: "orqa fon",
+    quizQuestion: "Everything that can be seen around an event or scene.",
+    quizOptions: ["Foreground", "Backdrop", "Prop", "Screen"],
+    quizCorrectIndex: 1
   }
 ];
 
 export const VOCAB_LIST_2: VocabItem[] = [
-    {
-        id: 1,
-        word: "stimulation",
-        ipa: "/ˌstɪmjʊˈleɪʃən/",
-        form: "noun",
-        definition: "The action of arousing interest, enthusiasm, or excitement.",
-        example: "Why being bored is stimulating – and useful, too.",
-        translationRU: "стимуляция",
-        translationUZ: "rag'batlantirish",
-        quizQuestion: "Stimulation leads to...",
-        quizOptions: ["Sleep", "Activity/Excitement", "Boredom", "Silence"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 2,
-        word: "apathy",
-        ipa: "/ˈæpəθi/",
-        form: "noun",
-        definition: "Lack of interest, enthusiasm, or concern.",
-        example: "It can include a lot of other mental states, such as frustration, apathy, depression.",
-        translationRU: "апатия",
-        translationUZ: "befarqlik",
-        quizQuestion: "Apathy is the opposite of...",
-        quizOptions: ["Indifference", "Enthusiasm", "Sleepiness", "Calmness"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 3,
-        word: "agitated",
-        ipa: "/ˈædʒɪteɪtɪd/",
-        form: "adj.",
-        definition: "Feeling or appearing troubled or nervous.",
-        example: "Whether feeling agitated and restless counts as boredom.",
-        translationRU: "взволнованный",
-        translationUZ: "bezovta",
-        quizQuestion: "If you are agitated, you are...",
-        quizOptions: ["Calm", "Restless/Troubled", "Happy", "Asleep"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 4,
-        word: "intriguingly",
-        ipa: "/ɪnˈtriːɡɪŋli/",
-        form: "adv.",
-        definition: "In a way that arouses curiosity or interest; fascinatingly.",
-        example: "Intriguingly, Goetz has found that while people experience all kinds of boredom...",
-        translationRU: "интригующе",
-        translationUZ: "qiziqarli tarzda",
-        quizQuestion: "Something intriguing is...",
-        quizOptions: ["Boring", "Interesting", "Scary", "Ugly"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 5,
-        word: "adaptive",
-        ipa: "/əˈdæptɪv/",
-        form: "adj.",
-        definition: "Characterized by or given to adaptation.",
-        example: "That doesn’t necessarily mean that it isn’t adaptive.",
-        translationRU: "адаптивный",
-        translationUZ: "moslashuvchan",
-        quizQuestion: "An adaptive response helps you...",
-        quizOptions: ["Fail", "Adjust to conditions", "Stay the same", "Give up"],
-        quizCorrectIndex: 1
-    }
+  {
+    id: 1,
+    word: "agitated",
+    ipa: "/ˈadʒɪteɪtɪd/",
+    form: "adjective",
+    definition: "Feeling or appearing troubled or nervous.",
+    example: "Whether feeling agitated and restless counts as boredom.",
+    translationRU: "взволнованный",
+    translationUZ: "hayajonlangan",
+    quizQuestion: "Feeling nervous or restless.",
+    quizOptions: ["Calm", "Agitated", "Happy", "Sleepy"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 2,
+    word: "apathy",
+    ipa: "/ˈapəθi/",
+    form: "noun",
+    definition: "Lack of interest, enthusiasm, or concern.",
+    example: "It can include mental states such as frustration and apathy.",
+    translationRU: "апатия",
+    translationUZ: "befarqlik",
+    quizQuestion: "Lack of interest or emotion.",
+    quizOptions: ["Passion", "Apathy", "Energy", "Love"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 3,
+    word: "calibrate",
+    ipa: "/ˈkalɪbreɪt/",
+    form: "verb",
+    definition: "Mark (a gauge or instrument) with a standard scale of readings.",
+    example: "Indifferent, calibrating, searching, reactant.",
+    translationRU: "калибрировать",
+    translationUZ: "sozlash",
+    quizQuestion: "To adjust or mark something carefully.",
+    quizOptions: ["Break", "Calibrate", "Guess", "Ignore"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 4,
+    word: "arousal",
+    ipa: "/əˈraʊzl/",
+    form: "noun",
+    definition: "The action or fact of rousing or being roused; physiological state of being awake or reactive.",
+    example: "Measures low to high arousal.",
+    translationRU: "возбуждение",
+    translationUZ: "uyg'onish",
+    quizQuestion: "A state of high energy or alertness.",
+    quizOptions: ["Sleep", "Arousal", "Boredom", "Peace"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 5,
+    word: "adaptive",
+    ipa: "/əˈdaptɪv/",
+    form: "adjective",
+    definition: "Characterized by or showing the capacity for adaptation.",
+    example: "It may be a useful adaptive response.",
+    translationRU: "адаптивный",
+    translationUZ: "moslashuvchan",
+    quizQuestion: "Able to change to suit new conditions.",
+    quizOptions: ["Rigid", "Adaptive", "Slow", "Weak"],
+    quizCorrectIndex: 1
+  }
 ];
 
 export const VOCAB_LIST_3: VocabItem[] = [
-    {
-        id: 1,
-        word: "enraptured",
-        ipa: "/ɪnˈræptʃərd/",
-        form: "adj.",
-        definition: "Give intense pleasure or joy to.",
-        example: "Classical music by an artificial composer has had audiences enraptured.",
-        translationRU: "восторженный",
-        translationUZ: "maftun bo'lgan",
-        quizQuestion: "If someone is enraptured, they are...",
-        quizOptions: ["Bored", "Delighted", "Angry", "Sad"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 2,
-        word: "prestigious",
-        ipa: "/prɛˈstɪdʒəs/",
-        form: "adj.",
-        definition: "Inspiring respect and admiration; having high status.",
-        example: "Artworks painted by a robot have been hung in prestigious galleries.",
-        translationRU: "престижный",
-        translationUZ: "nufuzli",
-        quizQuestion: "A prestigious award is...",
-        quizOptions: ["Common", "Highly respected", "Cheap", "Unwanted"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 3,
-        word: "sophisticated",
-        ipa: "/səˈfɪstɪkeɪtɪd/",
-        form: "adj.",
-        definition: "Developed to a high degree of complexity.",
-        example: "Human beings are the only species to perform sophisticated creative acts regularly.",
-        translationRU: "сложный / утонченный",
-        translationUZ: "murakkab",
-        quizQuestion: "Sophisticated technology is...",
-        quizOptions: ["Simple", "Complex/Advanced", "Old", "Broken"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 4,
-        word: "lauded",
-        ipa: "/ˈlɔːdɪd/",
-        form: "verb (past)",
-        definition: "Praised highly, especially in a public context.",
-        example: "Human artists like the renowned Ellsworth Kelly are lauded for limiting their colour palette.",
-        translationRU: "прославленный",
-        translationUZ: "maqtovga sazovor",
-        quizQuestion: "If you are lauded, you are...",
-        quizOptions: ["Ignored", "Praised", "Punished", "Hated"],
-        quizCorrectIndex: 1
-    },
-    {
-        id: 5,
-        word: "pseudoscience",
-        ipa: "/ˌsuːdəʊˈsaɪəns/",
-        form: "noun",
-        definition: "A collection of beliefs or practices mistakenly regarded as being based on scientific method.",
-        example: "Wiggins has blasted Cope’s work as pseudoscience.",
-        translationRU: "лженаука",
-        translationUZ: "soxta fan",
-        quizQuestion: "Pseudoscience is...",
-        quizOptions: ["Real science", "Fake science", "Math", "History"],
-        quizCorrectIndex: 1
-    }
+  {
+    id: 1,
+    word: "enraptured",
+    ipa: "/ɪnˈraptʃəd/",
+    form: "adjective",
+    definition: "Give intense pleasure or joy to.",
+    example: "Classical music by an artificial composer has had audiences enraptured.",
+    translationRU: "восхищенный",
+    translationUZ: "maftun bo'lgan",
+    quizQuestion: "Filled with delight.",
+    quizOptions: ["Bored", "Enraptured", "Angry", "Sad"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 2,
+    word: "prestigious",
+    ipa: "/prɛˈstɪdʒəs/",
+    form: "adjective",
+    definition: "Inspiring respect and admiration; having high status.",
+    example: "Hung in prestigious galleries.",
+    translationRU: "престижный",
+    translationUZ: "nufuzli",
+    quizQuestion: "Having a high reputation.",
+    quizOptions: ["Common", "Prestigious", "Cheap", "Unknown"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 3,
+    word: "lauded",
+    ipa: "/ˈlɔːdɪd/",
+    form: "verb (past)",
+    definition: "Highly praised or admired.",
+    example: "Human artists like Ellsworth Kelly are lauded for limiting their colour palette.",
+    translationRU: "прославленный",
+    translationUZ: "maqtovga sazovor",
+    quizQuestion: "Praised highly.",
+    quizOptions: ["Criticized", "Lauded", "Ignored", "Hated"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 4,
+    word: "pseudoscience",
+    ipa: "/ˌsjuːdəʊˈsʌɪəns/",
+    form: "noun",
+    definition: "A collection of beliefs or practices mistakenly regarded as being based on scientific method.",
+    example: "Blasted Cope’s work as pseudoscience.",
+    translationRU: "лженаука",
+    translationUZ: "soxta ilm",
+    quizQuestion: "Fake science.",
+    quizOptions: ["Biology", "Pseudoscience", "Physics", "Chemistry"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 5,
+    word: "recoil",
+    ipa: "/rɪˈkɔɪl/",
+    form: "verb",
+    definition: "Suddenly spring or flinch back in fear, horror, or disgust.",
+    example: "Yet recoil when they discovered how it was composed.",
+    translationRU: "отшатнуться",
+    translationUZ: "cho'chimoq",
+    quizQuestion: "To pull back in fear or disgust.",
+    quizOptions: ["Advance", "Recoil", "Jump", "Smile"],
+    quizCorrectIndex: 1
+  }
 ];
