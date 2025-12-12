@@ -364,9 +364,128 @@ export const TESTS: Test[] = [
         content: [
             "<span class='font-bold text-lg'>A</span> Oxytocin is a chemical, a hormone produced in the pituitary gland in the brain. It was through various studies focusing on animals that scientists first became aware of the influence of oxytocin. They discovered that it helps reinforce the bonds between prairie voles, which mate for life, and triggers the motherly behaviour that sheep show towards their newborn lambs. It is also released by women in childbirth, strengthening the attachment between mother and baby. Few chemicals have as positive a reputation as oxytocin, which is sometimes referred to as the 'love hormone'. One sniff of it can, it is claimed, make a person more trusting, empathetic, generous and cooperative. It is time, however, to revise this wholly optimistic view. A new wave of studies has shown that its effects vary greatly depending on the person and the circumstances, and it can impact on our social interactions for worse as well as for better.",
             "<span class='font-bold text-lg'>B</span> Oxytocin’s role in human behaviour first emerged in 2005. In a groundbreaking experiment, Markus Heinrichs and his colleagues at the University of Freiburg, Germany, asked volunteers to do an activity in which they could invest money with an anonymous person who was not guaranteed to be honest. The team found that participants who had sniffed oxytocin via a nasal spray beforehand invested more money than those who received a placebo instead. The study was the start of research into the effects of oxytocin on human interactions. 'For eight years, it was quite a lonesome field,' Heinrichs recalls. 'Now, everyone is interested.' These follow-up studies have shown that after a sniff of the hormone, people become more charitable, better at reading emotions on others’ faces and at communicating constructively in arguments. Together, the results fuelled the view that oxytocin universally enhanced the positive aspects of our social nature.",
-            "<span class='font-bold text-lg'>C</span> Then, after a few years, contrasting findings began to emerge. Simone Shamay-Tsoory at the University of Haifa, Israel, found that when volunteers played a competitive game, those who inhaled the hormone showed more pleasure when they beat other players, and felt more envy when others won. What’s more, administering oxytocin also has sharply contrasting outcomes depending on a person’s disposition. Jennifer Bartz from Mount Sinai School of Medicine, New York, found that it improved the ability of people with autism to read emotions, but decreased it in those without the condition."
+            "<span class='font-bold text-lg'>C</span> Then, after a few years, contrasting findings began to emerge. Simone Shamay-Tsoory at the University of Haifa, Israel, found that when volunteers played a competitive game, those who inhaled the hormone showed more pleasure when they beat other players, and felt more envy when others won. What’s more, administering oxytocin also has sharply contrasting outcomes depending on a person’s disposition. Jennifer Bartz from Mount Sinai School of Medicine, New York, found that it improved the ability of people with autism to read emotions, but decreased it in those without the condition.",
+            "<span class='font-bold text-lg'>D</span> Another discovery is that oxytocin’s effects vary depending on who we are interacting with. Studies conducted by Carolyn DeClerck of the University of Antwerp, Belgium, revealed that people who had received a dose of oxytocin actually became less cooperative when dealing with complete strangers. Meanwhile, Carsten De Dreu at the University of Amsterdam in the Netherlands discovered that volunteers given oxytocin showed favouritism: Dutch men became quicker to associate positive words with Dutch names than with foreign ones, for example. According to De Dreu, oxytocin drives people to care for those in their social circles and defend them from outside dangers. So, it appears that oxytocin strengthens biases, rather than promoting general goodwill, as was previously thought.",
+            "<span class='font-bold text-lg'>E</span> There were signs of these subtleties from the start. Bartz has recently shown that in almost half of the existing research results, oxytocin influenced only certain individuals or in certain circumstances. Where once researchers took no notice of such findings, now a more nuanced understanding of oxytocin’s effects is propelling investigations down new lines. To Bartz, the key to understanding what the hormone does lies in pinpointing its core function rather than in cataloguing its seemingly endless effects. There are several hypotheses which are not mutually exclusive. Oxytocin could help to reduce anxiety and fear. Or it could simply motivate people to seek out social connections and improve their interactions with others."
         ],
-        questionGroups: []
+        questionGroups: [
+            {
+                id: "group2-1",
+                instruction: "Reading Passage 2 has five paragraphs, A-E. Which paragraph contains the following information?",
+                renderType: "LIST",
+                questions: [
+                    { id: 14, label: "14", questionText: "Reference to research which suggests that oxytocin may lead people to treat those from other groups unfairly.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
+                    { id: 15, label: "15", questionText: "Mention of the fact that the effects of oxytocin can differ from one individual to another.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
+                    { id: 16, label: "16", questionText: "Description of an experiment in which people were given oxytocin before making a financial decision.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" },
+                    { id: 17, label: "17", questionText: "Explanation of why research into oxytocin has become more popular in recent years.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }
+                ]
+            },
+            {
+                id: "group2-2",
+                instruction: "Look at the following researchers and the list of findings below. Match each researcher with the correct finding.",
+                renderType: "LIST",
+                questions: [
+                    { id: 18, label: "18", questionText: "Markus Heinrichs", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
+                    { id: 19, label: "19", questionText: "Simone Shamay-Tsoory", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" },
+                    { id: 20, label: "20", questionText: "Jennifer Bartz", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" },
+                    { id: 21, label: "21", questionText: "Carolyn DeClerck", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
+                    { id: 22, label: "22", questionText: "Carsten De Dreu", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }
+                ]
+            },
+            {
+                id: "group2-3",
+                instruction: "Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                  headers: [],
+                  rows: [
+                    {
+                      cells: [
+                        {
+                          text: `
+                          <h4 class='font-bold mb-2'>Oxytocin research</h4>
+                          <p class='mb-4 leading-relaxed'>
+                          The earliest findings about oxytocin came from research involving {{23}}. It was also discovered that humans produce oxytocin during {{24}}. A more recent study suggests that oxytocin may increase a person's {{25}} in others. However, it can also affect our feelings of {{26}} towards people we consider to be outsiders.
+                          </p>
+                          `,
+                          bulletPoints: false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                questions: [
+                    { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "animals" },
+                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "childbirth" },
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "trust" },
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "envy" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 3,
+        title: "Reading Passage 3: Making the most of trends",
+        content: [
+           "Managers who want to succeed in business need to spot trends and then work out how to use them to their advantage. A trend is not just a fad or a temporary fashion; it is a significant change in the way people live or work. Trends can be demographic, such as the aging population in many developed countries, or technological, such as the rise of smartphones and social media. They can also be social, such as the increasing concern for the environment and sustainability.",
+           "One way to spot trends is to look for anomalies or things that do not fit the established pattern. For example, the rise of low-cost airlines was an anomaly in the airline industry, which had previously been dominated by large, full-service carriers. Another way to spot trends is to look for convergences, where two or more trends come together to create a new opportunity. For example, the convergence of mobile technology and social media has created new opportunities for businesses to engage with customers.",
+           "Once a trend has been identified, managers need to decide how to respond to it. One option is to ignore it, but this can be risky if the trend turns out to be significant. Another option is to adapt to the trend, by changing products or services to meet the new demand. A third option is to innovate, by creating new products or services that take advantage of the trend. Finally, managers can try to influence the trend, by shaping consumer perceptions or government policy.",
+           "Companies that fail to respond to trends risk being left behind. For example, Kodak failed to respond to the trend towards digital photography, and as a result, it lost its dominant position in the photography market. On the other hand, companies that successfully respond to trends can gain a significant competitive advantage. For example, Apple successfully responded to the trend towards mobile computing with the iPhone and iPad, and as a result, it became one of the most valuable companies in the world.",
+           "In conclusion, spotting and responding to trends is a key skill for managers in today's fast-changing business environment. By looking for anomalies and convergences, and by choosing the right response strategy, managers can help their companies to succeed and grow."
+        ],
+        questionGroups: [
+             {
+                id: "group3-1",
+                instruction: "Choose the correct letter, A, B, C or D.",
+                renderType: "LIST",
+                questions: [
+                    { 
+                        id: 27, 
+                        label: "27", 
+                        questionText: "According to the writer, a trend is distinct from a fad because it", 
+                        type: QuestionType.RADIO, 
+                        options: ["lasts for a shorter period of time.", "affects a smaller number of people.", "involves a fundamental shift in behavior.", "is easier to predict."], 
+                        correctAnswer: "involves a fundamental shift in behavior." 
+                    },
+                    { 
+                        id: 28, 
+                        label: "28", 
+                        questionText: "The writer mentions low-cost airlines as an example of", 
+                        type: QuestionType.RADIO, 
+                        options: ["a convergence of trends.", "an anomaly in the market.", "a technological innovation.", "a demographic shift."], 
+                        correctAnswer: "an anomaly in the market." 
+                    },
+                     { 
+                        id: 29, 
+                        label: "29", 
+                        questionText: "What was Kodak's mistake?", 
+                        type: QuestionType.RADIO, 
+                        options: ["It tried to influence government policy.", "It ignored a significant trend.", "It adapted too slowly to change.", "It focused too much on innovation."], 
+                        correctAnswer: "It ignored a significant trend." 
+                    }
+                ]
+            },
+            {
+                id: "group3-2",
+                instruction: "Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                  headers: [],
+                  rows: [
+                    { cells: [{ text: "Managers can look for {{30}} to identify potential new trends." }] },
+                    { cells: [{ text: "The combination of mobile tech and {{31}} is an example of convergence." }] },
+                    { cells: [{ text: "One strategy for responding to a trend is to {{32}} by developing new offerings." }] },
+                    { cells: [{ text: "Apple's success with the iPhone demonstrates the value of responding to {{33}} computing." }] }
+                  ]
+                },
+                questions: [
+                   { id: 30, label: "30", type: QuestionType.INPUT, correctAnswer: "anomalies" },
+                   { id: 31, label: "31", type: QuestionType.INPUT, correctAnswer: "social media" },
+                   { id: 32, label: "32", type: QuestionType.INPUT, correctAnswer: "innovate" },
+                   { id: 33, label: "33", type: QuestionType.INPUT, correctAnswer: "mobile" }
+                ]
+            }
+        ]
       }
     ]
   }
@@ -375,67 +494,67 @@ export const TESTS: Test[] = [
 export const VOCAB_LIST: VocabItem[] = [
   {
     id: 1,
-    word: "exhilarating",
-    ipa: "/ɪɡˈzɪləreɪtɪŋ/",
-    form: "adjective",
-    definition: "Making one feel very happy, animated, or elated; thrilling.",
-    example: "The campaign focused on New Zealand’s scenic beauty and exhilarating outdoor activities.",
-    translationRU: "волнующий",
-    translationUZ: "hayajonli",
-    quizQuestion: "Which word describes a feeling of great happiness and excitement?",
-    quizOptions: ["Boring", "Exhilarating", "Depressing", "Calm"],
-    quizCorrectIndex: 1
+    word: "scenic",
+    ipa: "/ˈsiːnɪk/",
+    form: "adj.",
+    definition: "Providing or relating to views of impressive or beautiful natural scenery.",
+    example: "The campaign focused on New Zealand’s scenic beauty.",
+    translationRU: "живописный",
+    translationUZ: "manzarali",
+    quizQuestion: "Which word describes a beautiful natural view?",
+    quizOptions: ["scenic", "urban", "chaotic", "dull"],
+    quizCorrectIndex: 0
   },
   {
     id: 2,
-    word: "authentic",
-    ipa: "/ɔːˈθɛntɪk/",
-    form: "adjective",
-    definition: "Of undisputed origin and not a copy; genuine.",
-    example: "They promoted authentic Maori culture.",
-    translationRU: "подлинный",
-    translationUZ: "haqiqiy",
-    quizQuestion: "What is a synonym for 'genuine'?",
-    quizOptions: ["Fake", "Authentic", "Expensive", "Modern"],
+    word: "exhilarating",
+    ipa: "/ɪgˈzɪləreɪtɪŋ/",
+    form: "adj.",
+    definition: "Making one feel very happy, animated, or elated; thrilling.",
+    example: "New Zealand offers exhilarating outdoor activities.",
+    translationRU: "волнующий",
+    translationUZ: "zavqli",
+    quizQuestion: "Which word means 'thrilling'?",
+    quizOptions: ["boring", "exhilarating", "calming", "depressing"],
     quizCorrectIndex: 1
   },
   {
     id: 3,
-    word: "itinerary",
-    ipa: "/ʌɪˈtɪn(ə)(rə)ri/",
-    form: "noun",
-    definition: "A planned route or journey.",
-    example: "The site helped travellers devise their own customised itineraries.",
-    translationRU: "маршрут",
-    translationUZ: "yo'nalish",
-    quizQuestion: "A plan of a journey, including the route and the places that you visit.",
-    quizOptions: ["Map", "Ticket", "Itinerary", "Guide"],
+    word: "authentic",
+    ipa: "/ɔːˈθɛntɪk/",
+    form: "adj.",
+    definition: "Of undisputed origin; genuine.",
+    example: "Tourists can experience authentic Maori culture.",
+    translationRU: "подлинный",
+    translationUZ: "haqiqiy",
+    quizQuestion: "If something is 'authentic', it is...",
+    quizOptions: ["fake", "expensive", "genuine", "modern"],
     quizCorrectIndex: 2
   },
   {
     id: 4,
-    word: "blockbuster",
-    ipa: "/ˈblɒkbʌstə/",
+    word: "gateway",
+    ipa: "/ˈgeɪtweɪ/",
     form: "noun",
-    definition: "A thing of great power or size, in particular a movie, book, or other product that is a great commercial success.",
-    example: "Locations chosen for blockbuster films.",
-    translationRU: "блокбастер",
-    translationUZ: "mashhur film",
-    quizQuestion: "A very successful film or book.",
-    quizOptions: ["Flop", "Indie", "Blockbuster", "Short"],
-    quizCorrectIndex: 2
+    definition: "A means of access or entry to a place.",
+    example: "The website provided a single gateway to everything the destination had to offer.",
+    translationRU: "ворота / вход",
+    translationUZ: "darvoza / kirish",
+    quizQuestion: "A 'gateway' provides...",
+    quizOptions: ["access", "food", "shelter", "money"],
+    quizCorrectIndex: 0
   },
   {
     id: 5,
-    word: "backdrop",
-    ipa: "/ˈbakdrɒp/",
+    word: "itinerary",
+    ipa: "/aɪˈtɪnərəri/",
     form: "noun",
-    definition: "The setting or background for a scene, event, or situation.",
-    example: "Stunning scenery as a backdrop.",
-    translationRU: "фон",
-    translationUZ: "orqa fon",
-    quizQuestion: "Everything that can be seen around an event or scene.",
-    quizOptions: ["Foreground", "Backdrop", "Prop", "Screen"],
+    definition: "A planned route or journey.",
+    example: "Features were added to help travellers devise their own customised itineraries.",
+    translationRU: "маршрут",
+    translationUZ: "sayohat rejasi",
+    quizQuestion: "An 'itinerary' is a...",
+    quizOptions: ["ticket", "planned route", "luggage", "hotel"],
     quizCorrectIndex: 1
   }
 ];
@@ -443,67 +562,67 @@ export const VOCAB_LIST: VocabItem[] = [
 export const VOCAB_LIST_2: VocabItem[] = [
   {
     id: 1,
-    word: "agitated",
-    ipa: "/ˈadʒɪteɪtɪd/",
-    form: "adjective",
-    definition: "Feeling or appearing troubled or nervous.",
-    example: "Whether feeling agitated and restless counts as boredom.",
-    translationRU: "взволнованный",
-    translationUZ: "hayajonlangan",
-    quizQuestion: "Feeling nervous or restless.",
-    quizOptions: ["Calm", "Agitated", "Happy", "Sleepy"],
+    word: "apathy",
+    ipa: "/ˈæpəθi/",
+    form: "noun",
+    definition: "Lack of interest, enthusiasm, or concern.",
+    example: "Boredom can include mental states such as frustration and apathy.",
+    translationRU: "апатия",
+    translationUZ: "loqaydlik",
+    quizQuestion: "Which word means 'lack of interest'?",
+    quizOptions: ["passion", "apathy", "energy", "focus"],
     quizCorrectIndex: 1
   },
   {
     id: 2,
-    word: "apathy",
-    ipa: "/ˈapəθi/",
-    form: "noun",
-    definition: "Lack of interest, enthusiasm, or concern.",
-    example: "It can include mental states such as frustration and apathy.",
-    translationRU: "апатия",
-    translationUZ: "befarqlik",
-    quizQuestion: "Lack of interest or emotion.",
-    quizOptions: ["Passion", "Apathy", "Energy", "Love"],
+    word: "agitated",
+    ipa: "/ˈæʤɪteɪtɪd/",
+    form: "adj.",
+    definition: "Feeling or appearing troubled or nervous.",
+    example: "There is debate over whether feeling agitated counts as boredom.",
+    translationRU: "взволнованный",
+    translationUZ: "bezovta",
+    quizQuestion: "If someone is 'agitated', they are...",
+    quizOptions: ["calm", "troubled", "happy", "sleepy"],
     quizCorrectIndex: 1
   },
   {
     id: 3,
-    word: "calibrate",
-    ipa: "/ˈkalɪbreɪt/",
-    form: "verb",
-    definition: "Mark (a gauge or instrument) with a standard scale of readings.",
-    example: "Indifferent, calibrating, searching, reactant.",
-    translationRU: "калибрировать",
-    translationUZ: "sozlash",
-    quizQuestion: "To adjust or mark something carefully.",
-    quizOptions: ["Break", "Calibrate", "Guess", "Ignore"],
-    quizCorrectIndex: 1
+    word: "reactant",
+    ipa: "/riˈæktənt/",
+    form: "adj.",
+    definition: "Showing a response or reaction (in this context, a specific type of boredom involving high arousal).",
+    example: "The most damaging type is ‘reactant’ boredom.",
+    translationRU: "реагирующий",
+    translationUZ: "reaksiyaga kirishuvchi",
+    quizQuestion: "Reactant boredom involves high...",
+    quizOptions: ["arousal", "sleep", "hunger", "joy"],
+    quizCorrectIndex: 0
   },
   {
     id: 4,
-    word: "arousal",
-    ipa: "/əˈraʊzl/",
-    form: "noun",
-    definition: "The action or fact of rousing or being roused; physiological state of being awake or reactive.",
-    example: "Measures low to high arousal.",
-    translationRU: "возбуждение",
-    translationUZ: "uyg'onish",
-    quizQuestion: "A state of high energy or alertness.",
-    quizOptions: ["Sleep", "Arousal", "Boredom", "Peace"],
+    word: "adaptive",
+    ipa: "/əˈdæptɪv/",
+    form: "adj.",
+    definition: "Having the ability to change to suit different conditions.",
+    example: "Boredom may be a useful adaptive response.",
+    translationRU: "адаптивный",
+    translationUZ: "moslashuvchan",
+    quizQuestion: "Something 'adaptive' helps you...",
+    quizOptions: ["fail", "adjust", "ignore", "sleep"],
     quizCorrectIndex: 1
   },
   {
     id: 5,
-    word: "adaptive",
-    ipa: "/əˈdaptɪv/",
-    form: "adjective",
-    definition: "Characterized by or showing the capacity for adaptation.",
-    example: "It may be a useful adaptive response.",
-    translationRU: "адаптивный",
-    translationUZ: "moslashuvchan",
-    quizQuestion: "Able to change to suit new conditions.",
-    quizOptions: ["Rigid", "Adaptive", "Slow", "Weak"],
+    word: "stimulation",
+    ipa: "/ˌstɪmjʊˈleɪʃən/",
+    form: "noun",
+    definition: "The action of arousing interest, enthusiasm, or excitement.",
+    example: "In modern society there is a lot of over-stimulation.",
+    translationRU: "стимуляция",
+    translationUZ: "rag'batlantirish",
+    quizQuestion: "Stimulation leads to...",
+    quizOptions: ["boredom", "arousal", "sleep", "silence"],
     quizCorrectIndex: 1
   }
 ];
@@ -512,53 +631,53 @@ export const VOCAB_LIST_3: VocabItem[] = [
   {
     id: 1,
     word: "enraptured",
-    ipa: "/ɪnˈraptʃəd/",
-    form: "adjective",
+    ipa: "/ɪnˈræpʧəd/",
+    form: "adj.",
     definition: "Give intense pleasure or joy to.",
     example: "Classical music by an artificial composer has had audiences enraptured.",
     translationRU: "восхищенный",
     translationUZ: "maftun bo'lgan",
-    quizQuestion: "Filled with delight.",
-    quizOptions: ["Bored", "Enraptured", "Angry", "Sad"],
+    quizQuestion: "To be 'enraptured' means to be...",
+    quizOptions: ["bored", "delighted", "angry", "sad"],
     quizCorrectIndex: 1
   },
   {
     id: 2,
     word: "prestigious",
-    ipa: "/prɛˈstɪdʒəs/",
-    form: "adjective",
+    ipa: "/prɛˈstɪʤəs/",
+    form: "adj.",
     definition: "Inspiring respect and admiration; having high status.",
-    example: "Hung in prestigious galleries.",
+    example: "Artworks have been hung in prestigious galleries.",
     translationRU: "престижный",
     translationUZ: "nufuzli",
-    quizQuestion: "Having a high reputation.",
-    quizOptions: ["Common", "Prestigious", "Cheap", "Unknown"],
+    quizQuestion: "A 'prestigious' gallery is...",
+    quizOptions: ["unknown", "respected", "cheap", "small"],
     quizCorrectIndex: 1
   },
   {
     id: 3,
-    word: "lauded",
-    ipa: "/ˈlɔːdɪd/",
-    form: "verb (past)",
-    definition: "Highly praised or admired.",
-    example: "Human artists like Ellsworth Kelly are lauded for limiting their colour palette.",
-    translationRU: "прославленный",
-    translationUZ: "maqtovga sazovor",
-    quizQuestion: "Praised highly.",
-    quizOptions: ["Criticized", "Lauded", "Ignored", "Hated"],
-    quizCorrectIndex: 1
+    word: "computational",
+    ipa: "/ˌkɒmpjʊˈteɪʃənl/",
+    form: "adj.",
+    definition: "Relating to computers or calculation.",
+    example: "Geraint Wiggins is a computational creativity researcher.",
+    translationRU: "вычислительный",
+    translationUZ: "hisoblashga oid",
+    quizQuestion: "Computational relates to...",
+    quizOptions: ["art", "biology", "computers", "history"],
+    quizCorrectIndex: 2
   },
   {
     id: 4,
     word: "pseudoscience",
-    ipa: "/ˌsjuːdəʊˈsʌɪəns/",
+    ipa: "/ˌsjuːdəʊˈsaɪəns/",
     form: "noun",
     definition: "A collection of beliefs or practices mistakenly regarded as being based on scientific method.",
-    example: "Blasted Cope’s work as pseudoscience.",
+    example: "Wiggins has blasted Cope’s work as pseudoscience.",
     translationRU: "лженаука",
     translationUZ: "soxta ilm",
-    quizQuestion: "Fake science.",
-    quizOptions: ["Biology", "Pseudoscience", "Physics", "Chemistry"],
+    quizQuestion: "Pseudoscience is...",
+    quizOptions: ["real science", "fake science", "math", "art"],
     quizCorrectIndex: 1
   },
   {
@@ -567,11 +686,11 @@ export const VOCAB_LIST_3: VocabItem[] = [
     ipa: "/rɪˈkɔɪl/",
     form: "verb",
     definition: "Suddenly spring or flinch back in fear, horror, or disgust.",
-    example: "Yet recoil when they discovered how it was composed.",
+    example: "Why did people recoil when they discovered how the music was composed?",
     translationRU: "отшатнуться",
-    translationUZ: "cho'chimoq",
-    quizQuestion: "To pull back in fear or disgust.",
-    quizOptions: ["Advance", "Recoil", "Jump", "Smile"],
+    translationUZ: "orqaga tisarilmoq",
+    quizQuestion: "To 'recoil' is to...",
+    quizOptions: ["hug", "pull back", "jump forward", "run fast"],
     quizCorrectIndex: 1
   }
 ];
