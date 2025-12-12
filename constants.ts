@@ -541,8 +541,8 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'news-tfng-2025',
-    title: 'Breaking News: T/F/NG Mini-Drills (Dec 2025)',
+    id: 'tfng-1',
+    title: 'Drill 1: Solar Physics',
     passages: [
       {
         id: 1,
@@ -568,9 +568,15 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'tfng-2',
+    title: 'Drill 2: AI and The Labour Market',
+    passages: [
       {
-        id: 2,
+        id: 1,
         title: "Passage 2: AI and The Labour Market",
         content: [
           "The narrative that artificial intelligence will inevitably lead to mass unemployment is being challenged by leading economists, including Nobel laureate Peter Howitt. While generative AI tools like ChatGPT have sparked fears of redundancy among white-collar workers, historical precedents suggest a different outcome. Much like the steam engine or electrification, AI is likely to act as a 'general-purpose technology,' creating new categories of employment that are currently unimaginable. However, Howitt warns that this transition will not be painless. Without targeted government policies to retrain displaced workers, the immediate result may be a sharp rise in income inequality, as the financial benefits of increased productivity disproportionately accrue to those who own the technology."
@@ -593,9 +599,15 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'tfng-3',
+    title: 'Drill 3: The Origins of Fire',
+    passages: [
       {
-        id: 3,
+        id: 1,
         title: "Passage 3: The Origins of Fire",
         content: [
           "A groundbreaking study from an archaeological site at East Farm, England, has pushed back the timeline of human fire-making by nearly 250,000 years. Researchers discovered flint handaxes that had been shattered by intense heat, alongside fragments of iron pyrite—a mineral used to create sparks. This evidence suggests that Neanderthals were not merely scavenging fire from natural wildfires, as previously thought, but were deliberately manufacturing it as early as 400,000 years ago. If verified, this would indicate that Neanderthals possessed a level of cognitive planning and technical skill that was once considered exclusive to <em>Homo sapiens</em>."
@@ -618,9 +630,15 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'tfng-4',
+    title: 'Drill 4: Climate Change Media',
+    passages: [
       {
-        id: 4,
+        id: 1,
         title: "Passage 4: Media Coverage of Climate Change",
         content: [
           "Despite the escalating severity of global weather events, a recent critique by film director Adam McKay highlights a persistent failure in mainstream media coverage. McKay argues that while outlets like the BBC and <em>The New York Times</em> employ dedicated climate reporters, the broader news cycle often fails to connect breaking news—such as wildfires or floods—to their root cause: climate change. He advocates for a more 'alarmist' approach, suggesting that the fear of appearing biased has led journalists to underplay the urgency of the crisis. Conversely, some communication experts warn that inducing panic can lead to 'news avoidance,' where audiences tune out negative information entirely."
@@ -643,9 +661,15 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'tfng-5',
+    title: 'Drill 5: AI and Loneliness',
+    passages: [
       {
-        id: 5,
+        id: 1,
         title: "Passage 5: AI and Loneliness",
         content: [
           "As AI chatbots become increasingly sophisticated, a growing number of individuals are turning to them for emotional support. While these systems can offer a semblance of companionship to the socially isolated, psychologists have raised concerns about the long-term effects of 'artificial intimacy.' A recent feature in <em>The BMJ</em> suggests that relying on AI for social interaction may atrophy human social skills, much like a muscle that is rarely used. Furthermore, because chatbots are programmed to be relentlessly agreeable, they create an unrealistic expectation of relationships, potentially making real-world human interactions—which require compromise and conflict resolution—feel frustratingly difficult by comparison."
@@ -665,6 +689,276 @@ export const TESTS: Test[] = [
               { id: 13, label: "13", questionText: "The article suggests that AI chatbots are currently unable to hold complex conversations.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
               { id: 14, label: "14", questionText: "Psychologists fear that using AI for companionship could weaken a person's ability to interact with other humans.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
               { id: 15, label: "15", questionText: "AI chatbots are programmed to occasionally disagree with users to simulate a realistic relationship.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-6',
+    title: 'Drill 6: Random Numbers',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: We've finally cracked how to make truly random numbers",
+        content: [
+          "For decades, computer scientists have relied on \"pseudo-random\" number generators, which are essentially complex algorithms that can be predicted if the seed value is known. However, a new breakthrough utilizing quantum vacuum fluctuations has finally allowed for the generation of <em>truly</em> random numbers at scale. Unlike previous hardware-based random number generators (RNGs), which were slow and expensive to manufacture, this new method uses a silicon chip that measures the unpredictable noise of subatomic particles popping in and out of existence. This innovation is expected to revolutionize cryptography, making current encryption standards obsolete overnight. While the chips are currently too large for smartphones, the team believes miniaturization is possible within five years."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-6-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 1-5 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 1, label: "1", questionText: "Pseudo-random number generators are impossible to predict even if you know the seed value.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 2, label: "2", questionText: "The new method relies on measuring the noise of subatomic particles.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 3, label: "3", questionText: "The new quantum chips are currently cheaper to produce than standard silicon chips.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 4, label: "4", questionText: "This discovery will likely require the development of new encryption standards.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 5, label: "5", questionText: "The research team has already signed a contract with a major smartphone manufacturer.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-7',
+    title: 'Drill 7: Greenland Sharks',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: The surprising longevity lessons from the world's oldest animal",
+        content: [
+          "A new study on the Greenland shark, which can live for over 400 years, contradicts the long-held belief that a slow metabolism is the sole key to a long life. While these sharks do move slowly, researchers discovered that their metabolic rate is not significantly different from shorter-lived shark species when adjusted for temperature. Instead, the secret lies in their unique ability to repair damaged DNA. The study found that Greenland sharks possess a \"hyper-active\" version of the p53 protein, often called the \"guardian of the genome,\" which aggressively neutralizes precancerous cells. This finding suggests that human longevity research should pivot from slowing down metabolism to enhancing DNA repair mechanisms."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-7-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 6-10 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 6, label: "6", questionText: "The study confirms that having a slow metabolism is the most important factor for the Greenland shark's long lifespan.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 7, label: "7", questionText: "Greenland sharks have a metabolic rate similar to other sharks when temperature is taken into account.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 8, label: "8", questionText: "The p53 protein found in Greenland sharks is identical to the one found in humans.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 9, label: "9", questionText: "The study suggests that humans could live to be 400 years old if they modify their p53 protein.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 10, label: "10", questionText: "Researchers recommend that future longevity studies focus more on DNA repair than on metabolic suppression.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-8',
+    title: 'Drill 8: Beer Before Bread',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: Did ancient humans start farming so they could drink more beer?",
+        content: [
+          "The \"beer before bread\" hypothesis has gained new traction following excavations at a Natufian site in the Levant. Archaeologists discovered evidence of large-scale brewing operations dating back 13,000 years—predating the first known bakeries by nearly a millennium. The site contained stone mortars with residues of fermented wild wheat and barley. Proponents of the hypothesis argue that the drive to cultivate cereals was motivated by the social and ritualistic importance of alcohol rather than the need for a reliable food source. Critics, however, point out that fermentation could have been accidental, and that bread remains the most caloric-efficient way to consume grains."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-8-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 11-15 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 11, label: "11", questionText: "The \"beer before bread\" hypothesis suggests that alcohol production was the primary driver for the domestication of cereals.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 12, label: "12", questionText: "The brewing operations found at the Natufian site were small and likely for domestic use only.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 13, label: "13", questionText: "Residues of wild wheat and barley were found on stone mortars at the site.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 14, label: "14", questionText: "The archaeologists tasted the residue to confirm it was beer.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 15, label: "15", questionText: "Critics universally agree that the fermentation found at the site was intentional.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-9',
+    title: 'Drill 9: Physics Demons',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: How 3 imaginary physics demons tore up the laws of nature",
+        content: [
+          "A new paper explores the role of \"demons\" in thought experiments, specifically Maxwell’s Demon, Laplace’s Demon, and the lesser-known \"Wigner’s Friend.\" These theoretical entities have long been used to challenge the laws of thermodynamics and quantum mechanics. The author argues that while these demons were originally created to illustrate paradoxes, modern quantum computing is bringing them dangerously close to reality. For instance, recent experiments in \"un-collapsing\" quantum wave functions effectively mimic the behavior of Wigner's Friend, suggesting that objective reality may not exist at the quantum level. The paper concludes that these \"imaginary\" demons are actually accurate predictors of the limits of physical laws."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-9-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 16-20 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 16, label: "16", questionText: "Maxwell’s Demon is a real physical entity discovered in the 19th century.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 17, label: "17", questionText: "The paper suggests that quantum computing is making theoretical paradoxes practically relevant.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 18, label: "18", questionText: "\"Wigner’s Friend\" is the most famous of the three demons discussed.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 19, label: "19", questionText: "Recent experiments have successfully \"un-collapsed\" a quantum wave function.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 20, label: "20", questionText: "The author believes that objective reality is a fixed constant at all levels of physics.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-10',
+    title: 'Drill 10: Evolution of Tickling',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: What the evolution of tickling tells us about being human",
+        content: [
+          "Tickling is often dismissed as childish play, but evolutionary biologists believe it serves a critical survival function. A new comparative study of great apes and humans suggests that tickling evolved as a way to train young primates to defend vulnerable areas of the body, such as the neck and ribs. The laughter that accompanies tickling acts as a signal of submission, preventing the play from escalating into real aggression. Interestingly, the study found that while chimpanzees pant when tickled, only humans have evolved the complex vocalization we recognize as laughter, likely to facilitate larger social group bonding."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-10-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 21-25 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 21, label: "21", questionText: "The study suggests that tickling serves no evolutionary purpose.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 22, label: "22", questionText: "The neck and ribs are considered vulnerable areas of the body.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 23, label: "23", questionText: "Chimpanzees are unable to make any sound when they are tickled.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 24, label: "24", questionText: "Laughter signals to the attacker that the interaction is aggressive.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 25, label: "25", questionText: "The study involved tickling over 50 different species of primates.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-11',
+    title: 'Drill 11: Microdosing Mindfulness',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: Too busy to meditate? Microdosing mindfulness has big health benefits",
+        content: [
+          "For those intimidated by the prospect of sitting in silence for 20 minutes, \"microdosing\" mindfulness—practicing for just 60 seconds multiple times a day—may be equally effective. A clinical trial involving 500 stressed executives found that those who performed five one-minute \"breathing breaks\" daily showed a 30% reduction in cortisol levels after six weeks. This was comparable to a control group that meditated for a single 20-minute block. The researchers suggest that the frequency of the practice helps reset the nervous system more effectively than a single long session, preventing chronic stress accumulation throughout the workday."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-11-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 26-30 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 26, label: "26", questionText: "\"Microdosing\" mindfulness requires practicing for at least 20 minutes a day.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 27, label: "27", questionText: "The clinical trial involved participants who were unemployed.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 28, label: "28", questionText: "The group that practiced microdosing saw a greater reduction in cortisol than the group that meditated for 20 minutes.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 29, label: "29", questionText: "Cortisol is a hormone associated with stress.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 30, label: "30", questionText: "The researchers believe that frequent short breaks are better at preventing chronic stress accumulation.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-12',
+    title: 'Drill 12: Prions & Origins of Life',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: A sinister, deadly brain protein could reveal the origins of all life",
+        content: [
+          "Prions, the misfolded proteins responsible for neurodegenerative diseases like Mad Cow Disease, are usually viewed as biological villains. However, a controversial new theory proposes that amyloid structures—similar to prions—may have been the scaffolding for the very first life on Earth. Unlike DNA, which is fragile, amyloids are incredibly durable and can self-replicate by inducing other proteins to fold. Researchers demonstrated that in \"primordial soup\" conditions, simple amino acids spontaneously form amyloid fibers. These fibers can bind to genetic material, potentially protecting early RNA strands from degradation. If true, the deadly properties of prions are merely a twisted echo of their life-giving origins."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-12-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 31-35 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 31, label: "31", questionText: "Prions are currently known to cause diseases such as Mad Cow Disease.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 32, label: "32", questionText: "The new theory suggests that DNA was the first structure to form life on Earth.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 33, label: "33", questionText: "Amyloid structures are described as being fragile and easily broken.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 34, label: "34", questionText: "Researchers found that amyloid fibers could not form under \"primordial soup\" conditions.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 35, label: "35", questionText: "The text implies that amyloids may have helped protect early RNA.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-13',
+    title: 'Drill 13: Fourth Law of Thermodynamics',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: We may need a fourth law of thermodynamics for living systems",
+        content: [
+          "The Second Law of Thermodynamics states that the universe tends towards disorder (entropy). However, living systems openly defy this by building complex, ordered structures from chaotic raw materials. A team of biophysicists is now proposing a \"Fourth Law\" to account for this. They argue that in open systems where energy flows continuously (like sunlight on Earth), matter inevitably self-organizes to dissipate that energy more efficiently. This law would explain not just the origin of life, but also the emergence of complex ecosystems and even artificial intelligence. Critics argue that the existing laws are sufficient and that \"self-organization\" is just a byproduct of standard kinetics."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-13-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 36-40 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 36, label: "36", questionText: "The Second Law of Thermodynamics states that the universe tends towards order.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 37, label: "37", questionText: "Living systems follow the Second Law by becoming more disordered over time.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 38, label: "38", questionText: "The proposed \"Fourth Law\" applies to systems where energy flows continuously.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 39, label: "39", questionText: "The biophysicists believe this new law could explain the emergence of AI.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 40, label: "40", questionText: "All physicists agree that a Fourth Law is necessary.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-14',
+    title: 'Drill 14: Panda Tools',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: Pandas use tools to scratch thanks to a strange evolutionary quirk",
+        content: [
+          "Giant pandas have been observed using \"tools\"—specifically rough stones and tree bark—to scratch areas of their bodies they cannot reach. This behavior was previously thought to be accidental rubbing, but new footage confirms it is intentional tool use. The study suggests this is linked to the panda's \"pseudo-thumb,\" a modified wrist bone originally evolved to strip bamboo. This extra digit allows for a clumsy but effective grip on scratching implements. The researchers note that pandas do not use tools for foraging, likely because bamboo is abundant and requires no processing, making scratching the only pressure driving their tool use evolution."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-14-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 41-45 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 41, label: "41", questionText: "Giant pandas use stones to break open bamboo stalks.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 42, label: "42", questionText: "The panda's \"pseudo-thumb\" is actually a modified wrist bone.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 43, label: "43", questionText: "Researchers previously believed that pandas rubbing against objects was accidental.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 44, label: "44", questionText: "Pandas have been observed using tools to scratch their ears specifically.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 45, label: "45", questionText: "The text suggests that the abundance of bamboo is the reason pandas do not use tools for foraging.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-15',
+    title: 'Drill 15: Programmable Plastics',
+    passages: [
+      {
+        id: 1,
+        title: "Passage: Plastic can be programmed to have a lifespan of days, months or years",
+        content: [
+          "The global plastic crisis may have found a solution in \"programmable\" polymers. Scientists have developed a new type of polyurethane containing dormant chemical triggers. When exposed to a specific spectrum of UV light, these triggers activate, causing the plastic to depolymerize (break down) into harmless wax within a pre-set timeframe. A coffee cup could be programmed to disintegrate after 48 hours, while a window frame could last 50 years. Unlike biodegradable plastics, which require specific composting conditions, these new polymers degrade in standard outdoor environments, provided they receive the correct light exposure."
+        ],
+        questionGroups: [
+          {
+            id: "tfng-15-q",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 46-50 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            renderType: "LIST",
+            questions: [
+              { id: 46, label: "46", questionText: "The new programmable plastic breaks down into toxic microplastics.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 47, label: "47", questionText: "The plastic is activated by exposure to heat.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 48, label: "48", questionText: "A window frame made of this material could be programmed to last for half a century.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 49, label: "49", questionText: "This new plastic costs twice as much to produce as standard plastic.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 50, label: "50", questionText: "Standard biodegradable plastics require specific conditions to compost effectively.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
             ]
           }
         ]

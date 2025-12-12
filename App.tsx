@@ -39,7 +39,7 @@ export default function App() {
   // Derived state
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
   const passages = currentTest ? currentTest.passages : [];
-  const isTFNG = currentTestId === 'news-tfng-2025';
+  const isTFNG = currentTestId?.startsWith('tfng-');
 
   // Reset state when test changes
   useEffect(() => {
@@ -243,21 +243,24 @@ export default function App() {
 
                            {/* NEW SECTION T/F/NG */}
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">Skill Drills</div>
-                           <button 
-                             onClick={() => {
-                                 setCurrentTestId('news-tfng-2025');
-                                 setIsMenuOpen(false);
-                             }}
-                             className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
-                           >
-                               <span className="font-bold flex items-center">
-                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                   </svg>
-                                   T/F/NG Challenge
-                               </span>
-                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs">New</span>
-                           </button>
+                           {TESTS.filter(t => t.id.startsWith('tfng-')).map(t => (
+                               <button 
+                                key={t.id}
+                                onClick={() => {
+                                    setCurrentTestId(t.id);
+                                    setIsMenuOpen(false);
+                                }}
+                                className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"
+                                >
+                                <span className="font-bold flex items-center text-sm truncate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {t.title}
+                                </span>
+                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">New</span>
+                                </button>
+                           ))}
 
                        </div>
 
@@ -266,27 +269,30 @@ export default function App() {
                            <div className="px-4 py-2 text-sm font-bold text-gray-500 uppercase tracking-wider border-b bg-gray-50 mt-2">
                                Current: {currentTest.title}
                            </div>
-                           <div className="py-2">
-                               {currentTest.passages.map((p, idx) => (
-                                   <button
-                                       key={p.id}
-                                       onClick={() => {
-                                           setActivePassageId(p.id);
-                                           setIsMenuOpen(false);
-                                       }}
-                                       className={`w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors flex items-center ${activePassageId === p.id ? 'text-blue-700 font-bold bg-blue-50' : 'text-gray-700'}`}
-                                   >
-                                       <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-xs flex items-center justify-center mr-3 font-bold">{idx + 1}</span>
-                                       Passage {idx + 1}
-                                   </button>
-                               ))}
-                           </div>
+                           {/* Show Passage Tabs ONLY if more than 1 passage */}
+                           {passages.length > 1 && (
+                               <div className="py-2">
+                                   {currentTest.passages.map((p, idx) => (
+                                       <button
+                                           key={p.id}
+                                           onClick={() => {
+                                               setActivePassageId(p.id);
+                                               setIsMenuOpen(false);
+                                           }}
+                                           className={`w-full text-left px-4 py-3 hover:bg-blue-50 transition-colors flex items-center ${activePassageId === p.id ? 'text-blue-700 font-bold bg-blue-50' : 'text-gray-700'}`}
+                                       >
+                                           <span className="w-6 h-6 rounded-full bg-gray-200 text-gray-600 text-xs flex items-center justify-center mr-3 font-bold">{idx + 1}</span>
+                                           Passage {idx + 1}
+                                       </button>
+                                   ))}
+                               </div>
+                           )}
                            <div className="border-t border-gray-100 my-1"></div>
                          </>
                        )}
                        
-                       <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase">Available Tests</div>
-                       {TESTS.filter(t => t.id !== 'news-tfng-2025').map(t => (
+                       <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase">Cambridge Tests</div>
+                       {TESTS.filter(t => !t.id.startsWith('tfng-')).map(t => (
                            <button 
                              key={t.id}
                              onClick={() => {
@@ -498,32 +504,36 @@ export default function App() {
         <>
             {/* Left Panel: Reading Text */}
             <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
-            {/* Passage Tabs */}
-            <div className="bg-gray-100 border-b border-gray-300 flex overflow-x-auto shrink-0">
-                {passages.map((passage, index) => (
-                <button
-                    key={passage.id}
-                    onClick={() => {
-                        setActivePassageId(passage.id);
-                        setFocusedQuestionId(null);
-                        setContentLang('EN'); // Reset language on passage switch? Or keep preference? Let's reset for clarity.
-                    }}
-                    className={`px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap ${
-                    activePassageId === passage.id
-                        ? 'bg-white text-blue-800 border-t-4 border-blue-800'
-                        : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-t-4 border-transparent'
-                    }`}
-                >
-                    Passage {index + 1}
-                </button>
-                ))}
-            </div>
+            {/* Passage Tabs - Only show if > 1 passage */}
+            {passages.length > 1 && (
+                <div className="bg-gray-100 border-b border-gray-300 flex overflow-x-auto shrink-0">
+                    {passages.map((passage, index) => (
+                    <button
+                        key={passage.id}
+                        onClick={() => {
+                            setActivePassageId(passage.id);
+                            setFocusedQuestionId(null);
+                            setContentLang('EN'); // Reset language
+                        }}
+                        className={`px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap ${
+                        activePassageId === passage.id
+                            ? 'bg-white text-blue-800 border-t-4 border-blue-800'
+                            : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-t-4 border-transparent'
+                        }`}
+                    >
+                        Passage {index + 1}
+                    </button>
+                    ))}
+                </div>
+            )}
             
             {/* Text Content */}
             <div className={`flex-1 overflow-y-auto p-8 reading-text ${getTextSizeClass()}`}>
                 <div className="flex justify-between items-start border-b pb-4 mb-6">
                     <h2 className="text-2xl font-bold text-black">{activePassage.title}</h2>
-                    {isTFNG && (activePassage.contentRU || activePassage.contentUZ) && (
+                    
+                    {/* Translation Controls - Show if RU/UZ exists */}
+                    {(activePassage.contentRU || activePassage.contentUZ) && (
                         <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg shrink-0 ml-4">
                             <button 
                                 onClick={() => setContentLang('EN')} 
