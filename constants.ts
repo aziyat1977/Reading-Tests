@@ -548,3 +548,137 @@ export const VOCAB_LIST_2: VocabItem[] = [
     quizCorrectIndex: 1
   }
 ];
+
+// Vocabulary List for Passage 3
+export const VOCAB_LIST_3: VocabItem[] = [
+  {
+    id: 21,
+    word: "Enraptured",
+    ipa: "/ɪnˈraptʃəd/",
+    form: "Adjective",
+    definition: "Give intense pleasure or joy to.",
+    example: "Classical music by an artificial composer has had audiences **enraptured**.",
+    translationRU: "Восхищенный",
+    translationUZ: "Maftun bo'lgan",
+    quizQuestion: "If you are filled with delight, you are...",
+    quizOptions: ["Bored", "Enraptured", "Angry", "Sad"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 22,
+    word: "Prestigious",
+    ipa: "/prɛˈstɪdʒəs/",
+    form: "Adjective",
+    definition: "Inspiring respect and admiration; having high status.",
+    example: "Artworks have been hung in **prestigious** galleries.",
+    translationRU: "Престижный",
+    translationUZ: "Nufuzli",
+    quizQuestion: "A university like Harvard or Oxford is...",
+    quizOptions: ["Unknown", "Prestigious", "Cheap", "Small"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 23,
+    word: "Sophisticated",
+    ipa: "/səˈfɪstɪkeɪtɪd/",
+    form: "Adjective",
+    definition: "Developed to a high degree of complexity.",
+    example: "Human beings perform **sophisticated** creative acts.",
+    translationRU: "Сложный / Изысканный",
+    translationUZ: "Murakkab / Takomillashgan",
+    quizQuestion: "Modern technology is very...",
+    quizOptions: ["Simple", "Sophisticated", "Old", "Slow"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 24,
+    word: "Minimal",
+    ipa: "/ˈmɪnɪm(ə)l/",
+    form: "Adjective",
+    definition: "Of a minimum amount, quantity, or degree.",
+    example: "The Painting Fool only needs **minimal** direction.",
+    translationRU: "Минимальный",
+    translationUZ: "Minimal",
+    quizQuestion: "The opposite of 'maximum' is...",
+    quizOptions: ["Huge", "Minimal", "Many", "Full"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 25,
+    word: "Trawl",
+    ipa: "/trɔːl/",
+    form: "Verb",
+    definition: "Search thoroughly (something, especially the internet) in order to find something.",
+    example: "The software **trawls** through social media sites.",
+    translationRU: "Тралить / Искать",
+    translationUZ: "Qidirmoq (sinchkovlik bilan)",
+    quizQuestion: "To search through a large amount of data:",
+    quizOptions: ["Ignore", "Trawl", "Delete", "Hide"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 26,
+    word: "Glitch",
+    ipa: "/ɡlɪtʃ/",
+    form: "Noun",
+    definition: "A sudden, usually temporary malfunction or irregularity of equipment.",
+    example: "Paintings came out in black and white thanks to a technical **glitch**.",
+    translationRU: "Сбой / Глюк",
+    translationUZ: "Nosozlik",
+    quizQuestion: "A small technical problem in a computer game:",
+    quizOptions: ["Feature", "Glitch", "Bonus", "Level"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 27,
+    word: "Eerie",
+    ipa: "/ˈɪəri/",
+    form: "Adjective",
+    definition: "Strange and frightening.",
+    example: "This gives the work an **eerie**, ghostlike quality.",
+    translationRU: "Жуткий",
+    translationUZ: "Vahimali",
+    quizQuestion: "A ghost story is usually...",
+    quizOptions: ["Funny", "Eerie", "Happy", "Boring"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 28,
+    word: "Pseudoscience",
+    ipa: "/ˌsjuːdəʊˈsʌɪəns/",
+    form: "Noun",
+    definition: "A collection of beliefs or practices mistakenly regarded as being based on scientific method.",
+    example: "Wiggins has blasted Cope’s work as **pseudoscience**.",
+    translationRU: "Псевдонаука",
+    translationUZ: "Soxta ilm",
+    quizQuestion: "Astrology is often considered...",
+    quizOptions: ["Biology", "Pseudoscience", "Chemistry", "Physics"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 29,
+    word: "Objective",
+    ipa: "/əbˈdʒɛktɪv/",
+    form: "Adjective",
+    definition: "(of a person or their judgment) not influenced by personal feelings or opinions in considering and representing facts.",
+    example: "Experts might have been expected to be more **objective**.",
+    translationRU: "Объективный",
+    translationUZ: "Xolis",
+    quizQuestion: "A judge must be...",
+    quizOptions: ["Biased", "Objective", "Emotional", "Angry"],
+    quizCorrectIndex: 1
+  },
+  {
+    id: 30,
+    word: "Essence",
+    ipa: "/ˈɛs(ə)ns/",
+    form: "Noun",
+    definition: "The intrinsic nature or indispensable quality of something.",
+    example: "This can give it an ‘irresistible **essence**’.",
+    translationRU: "Сущность",
+    translationUZ: "Mohiyat",
+    quizQuestion: "The most important quality of something:",
+    quizOptions: ["Surface", "Essence", "Color", "Size"],
+    quizCorrectIndex: 1
+  }
+];

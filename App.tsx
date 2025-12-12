@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { TESTS, VOCAB_LIST, VOCAB_LIST_2 } from './constants';
+import { TESTS, VOCAB_LIST, VOCAB_LIST_2, VOCAB_LIST_3 } from './constants';
 import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabItem } from './types';
 
 const TOTAL_TIME_SECONDS = 60 * 60; // 60 minutes
@@ -33,7 +33,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Vocabulary App State
-  const [vocabMode, setVocabMode] = useState<'none' | 'p1' | 'p2'>('none');
+  const [vocabMode, setVocabMode] = useState<'none' | 'p1' | 'p2' | 'p3'>('none');
 
   // Derived state
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
@@ -147,8 +147,17 @@ export default function App() {
   };
 
   if (vocabMode !== 'none') {
-      const data = vocabMode === 'p1' ? VOCAB_LIST : VOCAB_LIST_2;
-      const title = vocabMode === 'p1' ? 'Tourism New Zealand' : 'The Science of Boredom';
+      let data = VOCAB_LIST;
+      let title = 'Tourism New Zealand';
+
+      if (vocabMode === 'p2') {
+          data = VOCAB_LIST_2;
+          title = 'The Science of Boredom';
+      } else if (vocabMode === 'p3') {
+          data = VOCAB_LIST_3;
+          title = 'Artificial Artists';
+      }
+
       return <VocabularyStudio onBack={() => setVocabMode('none')} data={data} title={title} />;
   }
 
@@ -200,6 +209,22 @@ export default function App() {
                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                                    </svg>
                                    Vocab Studio (Passage 2)
+                               </span>
+                               <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
+                           </button>
+
+                           <button 
+                             onClick={() => {
+                                 setVocabMode('p3');
+                                 setIsMenuOpen(false);
+                             }}
+                             className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-pink-600 to-rose-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group"
+                           >
+                               <span className="font-bold flex items-center">
+                                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                   </svg>
+                                   Vocab Studio (Passage 3)
                                </span>
                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs animate-pulse">Ultra</span>
                            </button>
