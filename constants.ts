@@ -94,33 +94,471 @@ export const TESTS: Test[] = [
           }
         ]
       },
-      // ... (Content from Passages 2 and 3 of Test 1 omitted for brevity but assumed present)
+      {
+        id: 2,
+        title: "Reading Passage 2: Why being bored is stimulating – and useful, too",
+        content: [
+            "<span class='font-bold text-lg'>A</span> We all know how it feels – it’s impossible to keep your mind on anything, time stretches out, and all the things you could do seem equally unlikely to make you feel better. But defining boredom so that it can be studied in the lab has proved difficult. For a start, it can include a lot of other mental states, such as frustration, apathy, depression and indifference. There isn’t even agreement about what boredom actually is. There isn’t even agreement over whether boredom is always a low-energy, flat kind of emotion or whether feeling agitated and restless counts as boredom, too. In his book, <em>Boredom: A Lively History</em>, Peter Toohey at the University of Calgary, Canada, compares it to disgust – an emotion that motivates us to stay away from certain situations. ‘If disgust protects humans from infection, boredom may protect them from “infectious” social situations,’ he suggests.",
+            "<span class='font-bold text-lg'>B</span> By asking people about their experiences of boredom, Thomas Goetz and his team at the University of Konstanz in Germany have recently identified five distinct types: indifferent, calibrating, searching, reactant and apathetic. These can be plotted on two axes – one running left to right, which measures low to high arousal, and the other from top to bottom, which measures how positive or negative the feeling is. Intriguingly, Goetz has found that while people experience all kinds of boredom, they tend to specialise in one. Of the five types, the most damaging is ‘reactant’ boredom with its explosive combination of high arousal and negative emotion. The most useful is what Goetz calls ‘indifferent’ boredom: someone isn’t engaged in anything satisfying but still feels relaxed and calm. However, it remains to be seen whether there are any character traits that predict the kind of boredom each of us might be prone to.",
+            "<span class='font-bold text-lg'>C</span> Psychologist Sandi Mann at the University of Central Lancashire, UK, goes further. ‘All emotions are there for a reason, including boredom,’ he says. Mann has found that being bored makes us more creative. ‘We’re all afraid of being bored but in actual fact it can lead to all kinds of amazing things,’ she says. In experiments published last year, Mann found that people who had been made to feel bored by copying numbers out of the phone book for 15 minutes came up with more creative ideas about how to use a pair of polystyrene cups than a control group. Mann concluded that a passive, boring activity is best for creativity because it allows the mind to wander. In fact, she goes so far as to suggest that we should seek out more boredom in our lives.",
+            "<span class='font-bold text-lg'>D</span> Psychologist John Eastwood at York University in Toronto, Canada, isn’t convinced. ‘If you are in a state of mind-wandering you are not bored,’ he says. ‘In my view, by definition boredom is an undesirable state.’ That doesn’t necessarily mean that it isn’t adaptive, he adds. ‘Pain is an undesirable state, but it may be a useful adaptive response to something that is wrong with your body.’ Eastwood’s team is now trying to explore the reasons why our attention system fails. It has been suggested that our over-connected lifestyles might even be a new source of boredom. ‘In modern human society there is a lot of over-stimulation but still a lot of problems finding meaning,’ says Eastwood.",
+            "<span class='font-bold text-lg'>E</span> Eastwood’s team is now trying to explore the reasons why our attention system fails. They have been using eye-tracking technology to observe the gaze of bored people. They have found that they don’t focus on things – their eyes just jump around. This suggests that the problem with boredom is an inability to focus our attention.",
+            "<span class='font-bold text-lg'>F</span> Psychologist Françoise Wemelsfelder speculates that our over-connected lifestyles might even be a new source of boredom. ‘In modern human society there is a lot of over-stimulation but still a lot of problems finding meaning,’ she says. So instead of seeking yet more mental stimulation, perhaps we should leave our phones alone, and use boredom to motivate us to engage with the world in a more meaningful way."
+        ],
+        questionGroups: [
+            {
+                id: "group3",
+                instruction: `
+                  <h4 class='font-bold text-lg mb-2'>Reading Passage 2 has six paragraphs, A-F.</h4>
+                  <p class='mb-4'>Choose the correct heading for each paragraph from the list of headings below.</p>
+                  <div class='border border-gray-400 p-4 bg-white mb-4'>
+                    <h5 class='font-bold text-center border-b pb-2 mb-2'>List of Headings</h5>
+                    <ul class='space-y-1 text-sm'>
+                        <li><strong>i</strong> &nbsp;&nbsp;&nbsp; The productive outcomes that may result from boredom</li>
+                        <li><strong>ii</strong> &nbsp;&nbsp; What teachers can do to prevent boredom</li>
+                        <li><strong>iii</strong> &nbsp; A new explanation and a new cure</li>
+                        <li><strong>iv</strong> &nbsp; Problems with a scientific approach to boredom</li>
+                        <li><strong>v</strong> &nbsp;&nbsp; A potential danger arising from boredom</li>
+                        <li><strong>vi</strong> &nbsp; Creating a system of classification for feelings of boredom</li>
+                        <li><strong>vii</strong> Age groups most affected by boredom</li>
+                        <li><strong>viii</strong> Identifying those most affected by boredom</li>
+                    </ul>
+                  </div>
+                `,
+                renderType: "LIST",
+                questions: [
+                    { id: 14, label: "14", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "iv" }, // Para A
+                    { id: 15, label: "15", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "vi" }, // Para B
+                    { id: 16, label: "16", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "i" }, // Para C
+                    { id: 17, label: "17", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "v" }, // Para D
+                    { id: 18, label: "18", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "viii" }, // Para E
+                    { id: 19, label: "19", type: QuestionType.DROPDOWN, options: ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii"], correctAnswer: "iii" } // Para F
+                ]
+            },
+            {
+                id: "group4",
+                instruction: `
+                    <p class='mb-2'>Look at the following ideas (Questions 20-23) and the list of people below.</p>
+                    <p class='mb-4'>Match each idea with the correct person, <strong>A-E</strong>.</p>
+                    <div class='border border-gray-300 p-3 bg-gray-50 text-sm w-1/2'>
+                        <h5 class='font-bold mb-2'>List of People</h5>
+                        <ul class='space-y-1'>
+                            <li><strong>A</strong> Peter Toohey</li>
+                            <li><strong>B</strong> Thomas Goetz</li>
+                            <li><strong>C</strong> John Eastwood</li>
+                            <li><strong>D</strong> Francoise Wemelsfelder</li>
+                            <li><strong>E</strong> Sandi Mann</li>
+                        </ul>
+                    </div>
+                `,
+                renderType: "LIST",
+                questions: [
+                    { id: 20, label: "20", questionText: "The encouragement to live in the present", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "E" },
+                    { id: 21, label: "21", questionText: "The suggestion that one sort of boredom is worse than all the others", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" }, 
+                    { id: 22, label: "22", questionText: "The view that boredom serves a function involving the avoidance of unpleasant situations", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "D" },
+                    { id: 23, label: "23", questionText: "The idea that the mind working together with a lack of stimulation can lead to creativity", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" }
+                ]
+            },
+            {
+                id: "group5",
+                instruction: "Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [
+                        {
+                            cells: [
+                                {
+                                    text: `
+                                    <h4 class='font-bold mb-2'>Responses to boredom</h4>
+                                    <p class='mb-4 leading-relaxed'>
+                                    For John Eastwood, the central feature of boredom is that people cannot {{24}} their attention. His team suggests that we are usually able to cope with boredom because we use various {{25}} to keep ourselves busy. However, research shows that bored people feel time passes more slowly and, perhaps surprisingly, they feel more {{26}} than usual.
+                                    </p>
+                                    `,
+                                    bulletPoints: false
+                                }
+                            ]
+                        }
+                    ]
+                },
+                questions: [
+                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "focus" },
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "pleasure" },
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "curiosity" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 3,
+        title: "Reading Passage 3: Artificial artists",
+        content: [
+            "The Painting Fool is one of a growing number of computer programs which, so their makers claim, possess creative talents. Classical music by an artificial composer has had audiences enraptured, and even tricked them into believing a human was behind the score. Artworks painted by a robot have sold for thousands of dollars and been hung in prestigious galleries. And software has been built which creates art that could not have been imagined by the programmer.",
+            "Human beings are the only species to perform sophisticated creative acts regularly. If we can break this process down into computer code, where does that leave human creativity? ‘This is a question at the very core of humanity,’ says Geraint Wiggins, a computational creativity researcher at Goldsmiths, University of London. ‘It scares a lot of people. They are worried that it is taking something special away from what it means to be human.’",
+            "To some extent, we are all familiar with computerised art. The question is: where does the work of the artist stop and the creativity of the computer begin? Consider one of the oldest machine artists, Aaron, a robot that has had paintings exhibited in London’s Tate Modern and the San Francisco Museum of Modern Art. Aaron can pick up a paintbrush and paint on canvas on its own. Impressive perhaps, but it is still little more than a tool to realise the programmer’s own creative ideas.",
+            "Simon Colton, the designer of the Painting Fool, is keen to make sure his creation doesn’t attract the same criticism. Unlike earlier ‘artists’ such as Aaron, the Painting Fool only needs minimal direction and can come up with its own concepts by going online for material. The software runs its own web searches and trawls through social media sites. It is now beginning to display a kind of imagination too, creating pictures from scratch. One of its original works is a series of fuzzy landscapes, depicting trees and sky. While some might say they have a mechanical look, Colton argues that such reactions arise from people’s double standards towards software-produced and human-produced art. After all, he says, consider that the Painting Fool painted the landscapes without referring to a photo. ‘If a child painted a new scene from its head, you’d say it has a certain level of imagination,’ he points out. ‘The same should be true of a machine.’ Software bugs can also lead to unexpected results. Some of the Painting Fool’s paintings of a chair came out in black and white, thanks to a technical glitch. This gives the work an eerie, ghostlike quality. Human artists like the renowned Ellsworth Kelly are lauded for limiting their colour palette – so why should computers be any different?",
+            "Researchers like Colton don’t believe it is right to measure machine creativity directly to that of humans who ‘have had millennia to develop our skills’. Others, though, are fascinated by the prospect that a computer might create something as original and subtle as our best artists. So far, only one has come close. Composer David Cope invented a program called Experiments in Musical Intelligence, or EMI. Not only did EMI create compositions in Cope’s style, but also that of the most revered classical composers, including Bach, Chopin and Mozart. Audiences were moved to tears, and EMI even fooled classical music experts into thinking they were hearing genuine Bach. Not everyone was impressed however. Some, such as Wiggins, have blasted Cope’s work as pseudoscience, and condemned him for his deliberately vague explanation of how the software worked. Meanwhile, Douglas Hofstadter of Indiana University said EMI created replicas which still rely completely on the original artist’s creative impulses. When audiences found out the truth they were often outraged with Cope, and one music lover even tried to punch him. Amid such controversy, Cope destroyed EMI’s vital databases.",
+            "But why did so many people love the music, yet recoil when they discovered how it was composed? A study by computer scientist David Moffat of Glasgow Caledonian University provides a clue. He asked both expert musicians and non-experts to assess six compositions. The participants weren’t told beforehand whether the tunes were composed by humans or computers, but were asked to guess, and then rate how much they liked each one. People who thought the composer was a computer tended to dislike the piece more than those who believed it was human. This was true even among the experts, who might have been expected to be more objective in their analyses. Where does this prejudice come from? Paul Bloom of Yale University has a suggestion: he reckons part of the pleasure we get from art stems from our creative process behind the work. This can give it an ‘irresistible essence’, says Bloom. Experiments with children show that they are ready to call something an artwork only if they know it was created with a specific intent to be art. Consider the work of the Painting Fool. The software is programmed to follow a set of rules, but it has no intent of its own. It is just following instructions."
+        ],
+        questionGroups: [
+            {
+                id: "group6",
+                instruction: "Choose the correct letter, A, B, C or D.",
+                renderType: "LIST",
+                questions: [
+                    { 
+                        id: 27, 
+                        label: "27", 
+                        questionText: "What point does the writer make about computer artists in the first paragraph?", 
+                        type: QuestionType.RADIO, 
+                        options: ["They are currently less creative than human artists.", "They have the potential to exceed human creativity.", "They have already produced works that are indistinguishable from human art.", "They are limited by the programming they receive."], 
+                        correctAnswer: "They have the potential to exceed human creativity." 
+                    },
+                    { 
+                        id: 28, 
+                        label: "28", 
+                        questionText: "According to Geraint Wiggins, why are many people afraid of computer creativity?", 
+                        type: QuestionType.RADIO, 
+                        options: ["It will lead to computers taking over the world.", "It undermines a fundamental human quality.", "It will make human art obsolete.", "It is difficult to understand."], 
+                        correctAnswer: "It will make human art obsolete." 
+                    },
+                    { 
+                        id: 29, 
+                        label: "29", 
+                        questionText: "In the third paragraph, the writer refers to Aaron to illustrate that", 
+                        type: QuestionType.RADIO, 
+                        options: ["computer art can be as good as human art.", "computers can learn to paint without instruction.", "current computer art is dependent on human programming.", "the distinction between human and computer art is becoming blurred."], 
+                        correctAnswer: "current computer art is dependent on human programming." 
+                    },
+                    { 
+                        id: 30, 
+                        label: "30", 
+                        questionText: "Simon Colton argues that public reaction to the Painting Fool's work", 
+                        type: QuestionType.RADIO, 
+                        options: ["is based on a misunderstanding of how the software works.", "shows that people are prejudiced against computer art.", "proves that computers can be creative.", "highlights the need for better computer art software."], 
+                        correctAnswer: "highlights the need for better computer art software." 
+                    }
+                ]
+            },
+            {
+                id: "group7",
+                instruction: "Do the following statements agree with the claims of the writer in Reading Passage 3? In boxes 32-36 on your answer sheet, write YES, NO or NOT GIVEN.",
+                renderType: "LIST",
+                questions: [
+                    { id: 32, label: "32", questionText: "The Painting Fool has been criticized for being too similar to Aaron.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" },
+                    { id: 33, label: "33", questionText: "The Painting Fool accesses the internet to find subject matter for its paintings.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "YES" },
+                    { id: 34, label: "34", questionText: "The Painting Fool's 'fuzzy landscapes' were created by accident.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" },
+                    { id: 35, label: "35", questionText: "The 'fuzzy landscapes' series has been sold for a high price.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+                    { id: 36, label: "36", questionText: "People's reaction to the Painting Fool's work is consistent with their reaction to human art.", type: QuestionType.DROPDOWN, options: ["YES", "NO", "NOT GIVEN"], correctAnswer: "NO" }
+                ]
+            },
+            {
+                id: "group8",
+                instruction: "Complete each sentence with the correct ending, A-G, below.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [
+                        { cells: [{ text: "<strong>A</strong> generated work that was indistinguishable from that of human composers." }] },
+                        { cells: [{ text: "<strong>B</strong> was programmed to create original compositions." }] },
+                        { cells: [{ text: "<strong>C</strong> relied too heavily on the style of specific human composers." }] },
+                        { cells: [{ text: "<strong>D</strong> failing to explain the technical details of his project." }] },
+                        { cells: [{ text: "<strong>E</strong> producing work that was superior to that of human composers." }] },
+                        { cells: [{ text: "<strong>F</strong> created a series of landscapes without human intervention." }] },
+                        { cells: [{ text: "<strong>G</strong> was merely a tool for the programmer's creativity." }] }
+                    ]
+                },
+                questions: [
+                    { id: 37, label: "37", questionText: "Simon Colton says that the Painting Fool", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "B" },
+                    { id: 38, label: "38", questionText: "David Cope's EMI software", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "A" },
+                    { id: 39, label: "39", questionText: "Geraint Wiggins criticized David Cope for", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "D" },
+                    { id: 40, label: "40", questionText: "Douglas Hofstadter claimed that EMI", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F", "G"], correctAnswer: "C" }
+                ]
+            }
+        ]
+      }
     ]
   },
-  // ... (Drills 1-35 omitted for brevity but assumed present)
-  // ...
-  // Starting Drill 36
   {
-    id: 'tfng-36',
-    title: 'Drill 36: Inflationary Hangover',
+    id: 'cam-13-test-2',
+    title: 'Cambridge 13 Test 2 Reading Passage',
     passages: [
       {
         id: 1,
-        title: "Passage: The Inflationary Hangover",
+        title: "Reading Passage 1: Bringing cinnamon to Europe",
         content: [
-          "Central bankers worldwide are popping champagne corks, celebrating the \"immaculate disinflation\" of late 2025. Consumer price indices in the G7 have finally returned to their 2% targets without triggering the deep recession many doomsayers predicted. Yet, for the average household, the party feels premature. While the <em>rate</em> of price increases has slowed, the <em>level</em> of prices remains stubbornly high—nearly 20% above 2021 levels. Wages have risen, but not uniformly; the public sector has lagged significantly behind private enterprise. Consequently, the \"feel-good factor\" usually associated with economic recovery is noticeably absent from the electorate's mood."
+          "Cinnamon is a sweet, fragrant spice produced from the inner bark of trees of the genus Cinnamomum, which is native to the Indian sub-continent. It was known in biblical times, and is mentioned in several books of the Bible, both as an ingredient that was mixed with oils for anointing people’s bodies, and also as a token indicating friendship among lovers and friends. In ancient Rome, mourners attending funerals burnt cinnamon to create a pleasant scent. Most often, however, the spice found its primary use as an additive to food and drink. In the Middle Ages, Europeans who could afford the spice used it to flavour food, particularly meat, and to impress those around them with their ability to purchase an expensive condiment from the ‘exotic’ East. At a banquet, a host would offer guests a plate with various spices piled upon it as a sign of the wealth at his or her disposal. Cinnamon was also reported to have health benefits, and was thought to cure various ailments, such as indigestion.",
+          "Toward the end of the Middle Ages, the European middle classes began to desire the lifestyle of the elite, including their consumption of spices. This led to a growth in demand for cinnamon and other spices. At that time, cinnamon was transported by Arab merchants, who closely guarded the secret of the source of the spice from potential rivals. They took it from India, where it was grown, on camels via an overland route to the Mediterranean. Their journey ended when they reached Alexandria. European traders sailed there to purchase their supply of cinnamon, then brought it back to Venice. The spice then travelled from that great trading city to markets all around Europe. Because the overland trade route allowed for only small quantities of the spice to reach Europe, and because Venice had a virtual monopoly of the trade, the Venetians could set the price of cinnamon exorbitantly high. These prices, coupled with the increasing demand, spurred the search for new routes to Asia by Europeans eager to take part in the spice trade.",
+          "Seeking the high profits promised by the cinnamon market, Portuguese traders finally landed on the island of Ceylon in the Indian Ocean towards the end of the 15th century. Before this, the Venetians had held a monopoly on the spice trade in Europe, selling cinnamon at very high prices. The Portuguese established a base in Ceylon, but were later ousted by the Dutch, who then took control of the cinnamon trade. Before Europeans arrived on the island, the state had organized the cultivation of cinnamon. People belonging to the ethnic group called the Salagama would peel the bark off young shoots of the cinnamon plant in the rainy season, when the wet bark was more pliable. During the peeling process, they curled the bark into the 'stick' shape still associated with the spice today. The Salagama then gave the finished product to the king as a form of tribute. When the Portuguese arrived, they needed to increase production significantly, and so enslaved many other members of the Ceylonese native population, forcing them to work in cinnamon harvesting. In 1518, the Portuguese built a fort on Ceylon, which enabled them to protect the island, so helping them to develop a monopoly in the cinnamon trade. In the late 16th century, for example, they enjoyed a tenfold profit when shipping cinnamon over a journey of eight days from Ceylon to India.",
+          "When the Dutch arrived off the coast of southern Asia at the very beginning of the 17th century, they set their sights on displacing the Portuguese as kings of cinnamon. The Dutch allied themselves with Kandy, an inland kingdom on Ceylon. In return for payments of elephants and cinnamon, they protected the native king from the Portuguese. By 1640, the Dutch broke the 150-year Portuguese monopoly when they overran and occupied their factories. By 1658, they had permanently expelled the Portuguese from the island, thereby gaining control of the lucrative cinnamon trade.",
+          "In order to protect their hold on the market, the Dutch, like the Portuguese before them, treated the native inhabitants harshly. Because of the need to boost production and satisfy Europe's ever-increasing appetite for cinnamon, the Dutch began to alter the harvesting practices of the Ceylonese. Over time, the supply of cinnamon trees on the island became nearly exhausted, due to systematic stripping of the bark. Eventually, the Dutch began cultivating their own trees to supplement the wild supply."
+        ],
+        questionGroups: [
+            {
+                id: "group1",
+                instruction: "Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: ["Time Period", "Details"],
+                    rows: [
+                        {
+                            cells: [
+                                { text: "Biblical Times" },
+                                { bulletPoints: true, text: "added to {{1}}<br/>used to show {{2}} between people" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Ancient Rome" },
+                                { bulletPoints: true, text: "used at {{3}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Middle Ages" },
+                                { bulletPoints: true, text: "an indication of {{4}}<br/>known as a treatment for {{5}}" }
+                            ]
+                        },
+                        {
+                            cells: [
+                                { text: "Late Middle Ages" },
+                                { bulletPoints: true, text: "grown in {{6}}<br/>transported to the Mediterranean by {{7}}<br/>arrived in {{8}}<br/>taken to {{9}}" }
+                            ]
+                        }
+                    ]
+                },
+                questions: [
+                    { id: 1, label: "1", type: QuestionType.INPUT, correctAnswer: "oils" },
+                    { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "friendship" },
+                    { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "funerals" },
+                    { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "wealth" },
+                    { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "indigestion" },
+                    { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "India" },
+                    { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "camels" },
+                    { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "Alexandria" },
+                    { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "Venice" }
+                ]
+            },
+            {
+                id: "group2",
+                instruction: "Do the following statements agree with the information given in Reading Passage 1? In boxes 10-13 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+                renderType: "LIST",
+                questions: [
+                    { id: 10, label: "10", questionText: "The Portuguese established a monopoly on the European cinnamon trade in the 16th century.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+                    { id: 11, label: "11", questionText: "The Dutch took control of the cinnamon trade from the Portuguese as soon as they arrived in the Indian Ocean.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+                    { id: 12, label: "12", questionText: "The Dutch treated the native people of Ceylon more kindly than the Portuguese had.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+                    { id: 13, label: "13", questionText: "The Dutch began cultivating cinnamon trees because the wild trees were running out.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 2,
+        title: "Reading Passage 2: Oxytocin",
+        content: [
+            "<span class='font-bold text-lg'>A</span> Oxytocin is a chemical, a hormone produced in the pituitary gland in the brain. It was through various studies focusing on animals that scientists first became aware of the influence of oxytocin. They discovered that it helps reinforce the bonds between prairie voles, which mate for life, and triggers the motherly behaviour that sheep show towards their newborn lambs. It is also released by women in childbirth, strengthening the attachment between mother and baby. Few chemicals have as positive a reputation as oxytocin, which is sometimes referred to as the 'love hormone'. One sniff of it can, it is claimed, make a person more trusting, empathetic, generous and cooperative. It is time, however, to revise this wholly optimistic view. A new wave of studies has shown that its effects vary greatly depending on the person and the circumstances, and it can impact on our social interactions for worse as well as for better.",
+            "<span class='font-bold text-lg'>B</span> Oxytocin’s role in human behaviour first emerged in 2005. In a groundbreaking experiment, Markus Heinrichs and his colleagues at the University of Freiburg, Germany, asked volunteers to do an activity in which they could invest money with an anonymous person who was not guaranteed to be honest. The team found that participants who had sniffed oxytocin via a nasal spray beforehand invested more money than those who received a placebo instead. The study was the start of research into the effects of oxytocin on human interactions. 'For eight years, it was quite a lonesome field,' Heinrichs recalls. 'Now, everyone is interested.' These follow-up studies have shown that after a sniff of the hormone, people become more charitable, better at reading emotions on others’ faces and at communicating constructively in arguments. Together, the results fuelled the view that oxytocin universally enhanced the positive aspects of our social nature.",
+            "<span class='font-bold text-lg'>C</span> Then, after a few years, contrasting findings began to emerge. Simone Shamay-Tsoory at the University of Haifa, Israel, found that when volunteers played a competitive game, those who inhaled the hormone showed more pleasure when they beat other players, and felt more envy when others won. What’s more, administering oxytocin also has sharply contrasting outcomes depending on a person’s disposition. Jennifer Bartz from Mount Sinai School of Medicine, New York, found that it improved the ability of people with autism to read emotions, but decreased it in those without the condition.",
+            "<span class='font-bold text-lg'>D</span> Another discovery is that oxytocin’s effects vary depending on who we are interacting with. Studies conducted by Carolyn DeClerck of the University of Antwerp, Belgium, revealed that people who had received a dose of oxytocin actually became less cooperative when dealing with complete strangers. Meanwhile, Carsten De Dreu at the University of Amsterdam in the Netherlands discovered that volunteers given oxytocin showed favouritism: Dutch men became quicker to associate positive words with Dutch names than with foreign ones, for example. According to De Dreu, oxytocin drives people to care for those in their social circles and defend them from outside dangers. So, it appears that oxytocin strengthens biases, rather than promoting general goodwill, as was previously thought.",
+            "<span class='font-bold text-lg'>E</span> There were signs of these subtleties from the start. Bartz has recently shown that in almost half of the existing research results, oxytocin influenced only certain individuals or in certain circumstances. Where once researchers took no notice of such findings, now a more nuanced understanding of oxytocin’s effects is propelling investigations down new lines.",
+            "<span class='font-bold text-lg'>F</span> To Bartz, the key to understanding what the hormone does lies in pinpointing its core function rather than in cataloguing its seemingly endless effects. There are several hypotheses which are not mutually exclusive. Oxytocin could help to reduce anxiety and fear. Or it could simply motivate people to seek out social connections and improve their interactions with others."
+        ],
+        questionGroups: [
+            {
+                id: "group2-1",
+                instruction: "Reading Passage 2 has six paragraphs, A-F. Which paragraph contains the following information?",
+                renderType: "LIST",
+                questions: [
+                    { id: 14, label: "14", questionText: "Reference to research showing the beneficial effects of oxytocin on people", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "B" },
+                    { id: 15, label: "15", questionText: "Reasons why the effects of oxytocin are complex", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "F" },
+                    { id: 16, label: "16", questionText: "Mention of a period in which oxytocin attracted little scientific attention", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "B" },
+                    { id: 17, label: "17", questionText: "Reference to people ignoring certain aspects of their research data", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E", "F"], correctAnswer: "E" }
+                ]
+            },
+            {
+                id: "group2-2",
+                instruction: "Look at the following researchers and the list of findings below. Match each researcher with the correct finding.",
+                renderType: "LIST",
+                questions: [
+                    { id: 18, label: "18", questionText: "People are more trusting when affected by oxytocin.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "A" },
+                    { id: 19, label: "19", questionText: "Oxytocin increases people's feelings of jealousy.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "B" },
+                    { id: 20, label: "20", questionText: "The effect of oxytocin varies from one type of person to another.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D", "E"], correctAnswer: "C" }
+                ]
+            },
+            {
+                id: "group2-3",
+                instruction: "Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                  headers: [],
+                  rows: [
+                    {
+                      cells: [
+                        {
+                          text: `
+                          <h4 class='font-bold mb-2'>Oxytocin research</h4>
+                          <p class='mb-4 leading-relaxed'>
+                          The earliest findings about oxytocin came from research involving {{21}}. It was also discovered that humans produce oxytocin during {{22}}. A more recent study suggests that oxytocin may increase a person's {{23}} in others. However, it can also affect our feelings of {{24}} towards people we consider to be outsiders.
+                          </p>
+                          `,
+                          bulletPoints: false
+                        }
+                      ]
+                    },
+                     {
+                      cells: [
+                        {
+                          text: `
+                          <p class='mb-4 leading-relaxed'>
+                          In 2005, a study was carried out in Germany which showed that people who were given oxytocin were more likely to trust strangers with their money than those who were given a {{23}}. Another experiment showed that participants in a {{24}} felt more pleasure when they won than when they lost. 
+                          </p>
+                          <p class='mb-4 leading-relaxed'>
+                          Later research has challenged the idea that oxytocin always has a positive effect. For example, a study at the University of Antwerp showed that people were less willing to help {{25}} when under the influence of oxytocin. Another study in Amsterdam showed that men associated positive words with {{26}} that were familiar to them.
+                          </p>
+                          `,
+                          bulletPoints: false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                questions: [
+                    { id: 21, label: "21", type: QuestionType.INPUT, correctAnswer: "animals" },
+                    { id: 22, label: "22", type: QuestionType.INPUT, correctAnswer: "childbirth" },
+                    { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "placebo" },
+                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "game" },
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "strangers" },
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "names" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 3,
+        title: "Reading Passage 3: Making the most of trends",
+        content: [
+           "Managers who want to succeed in business need to spot trends and then work out how to use them to their advantage. A trend is not just a fad or a temporary fashion; it is a significant change in the way people live or work. Trends can be demographic, such as the aging population in many developed countries, or technological, such as the rise of smartphones and social media. They can also be social, such as the increasing concern for the environment and sustainability.",
+           "One way to spot trends is to look for anomalies or things that do not fit the established pattern. For example, the rise of low-cost airlines was an anomaly in the airline industry, which had previously been dominated by large, full-service carriers. Another way to spot trends is to look for convergences, where two or more trends come together to create a new opportunity. For example, the convergence of mobile technology and social media has created new opportunities for businesses to engage with customers. Kodak failed to respond to the trend towards digital photography, and as a result, it lost its dominant position.",
+           "Once a trend has been identified, managers need to decide how to respond to it. One strategy, known as 'infuse and augment', is to design a product or service that retains most of the attributes and functions of existing products in the category but adds others that address the needs and desires triggered by a new trend. A case in point is the Poppy line of handbags, which the firm **Coach** created in response to the economic downturn of 2008. The Coach brand had been a symbol of opulence and luxury for nearly 70 years, and the most obvious reaction to the downturn would have been to lower prices. However, that would have risked cheapening the brand’s image. Instead, they initiated a consumer-research project which revealed that customers were eager to lift themselves and the country out of tough times. Using these insights, Coach launched the new line, which was affordable but still carried the brand's prestige, successfully avoiding the need to cut prices. on its core products.",
+           "Another strategy is to 'combine and transcend'. This is a great strategy for integrating work and life, or two distinct worlds. **Nike**’s move to integrate the digital revolution into its reputation for high-performance athletic footwear is a perfect example. In 2006, they teamed up with technology company Apple to launch Nike+, a digital sports kit comprising a sensor that attaches to a running shoe and a wireless receiver that connects to an iPod. This allowed runners to track their performance and listen to music simultaneously.",
+           "The 'counteract and affirm' strategy involves developing products or services that stress the values traditionally associated with the category in ways that allow consumers to oppose—or at least temporarily escape from—the aspects of trends they view as negative. **iToys** used this strategy with its ME2, a video game controller that counteracts the perceived negative effects of digital gaming, such as physical inactivity. The ME2 controller allows players to use their physical movement to control the game, turning the notion that gaming is lazy to its own advantage.",
+           "Finally, **Tesco**, the UK retailer, used a strategy to respond to the growing lifestyle trend of environmental responsibility in the grocery sector. Their 'Greener Living' program demonstrated that the company cared about the environment by implementing an incentive scheme where customers earned points for reusing bags and recycling. This allowed them to respond to a trend in a sector unrelated to their core product of selling food, showing corporate social responsibility."
+        ],
+        questionGroups: [
+             {
+                id: "group3-1",
+                instruction: "Choose the correct letter, A, B, C or D.",
+                renderType: "LIST",
+                questions: [
+                    { 
+                        id: 27, 
+                        label: "27", 
+                        questionText: "According to the writer, a trend is distinct from a fad because it", 
+                        type: QuestionType.RADIO, 
+                        options: ["lasts for a shorter period of time.", "affects a smaller number of people.", "involves a fundamental shift in behavior.", "is easier to predict."], 
+                        correctAnswer: "involves a fundamental shift in behavior." 
+                    },
+                    { 
+                        id: 28, 
+                        label: "28", 
+                        questionText: "The writer mentions low-cost airlines as an example of", 
+                        type: QuestionType.RADIO, 
+                        options: ["a convergence of trends.", "an anomaly in the market.", "a technological innovation.", "a demographic shift."], 
+                        correctAnswer: "an anomaly in the market." 
+                    },
+                     { 
+                        id: 29, 
+                        label: "29", 
+                        questionText: "What was Kodak's mistake?", 
+                        type: QuestionType.RADIO, 
+                        options: ["It tried to influence government policy.", "It ignored a significant trend.", "It adapted too slowly to change.", "It focused too much on innovation."], 
+                        correctAnswer: "It ignored a significant trend." 
+                    },
+                    { 
+                        id: 30, 
+                        label: "30", 
+                        questionText: "The 'infuse and augment' strategy involves", 
+                        type: QuestionType.RADIO, 
+                        options: ["completely replacing existing products.", "ignoring new market trends.", "lowering prices to attract customers.", "adding new features to an existing product."], 
+                        correctAnswer: "adding new features to an existing product." 
+                    },
+                    { 
+                        id: 31, 
+                        label: "31", 
+                        questionText: "The 'combine and transcend' strategy", 
+                        type: QuestionType.RADIO, 
+                        options: ["focuses on traditional values.", "creates a new product by joining two existing ones.", "keeps the product price high.", "targets only one specific market segment."], 
+                        correctAnswer: "creates a new product by joining two existing ones." 
+                    }
+                ]
+            },
+            {
+                id: "group3-2",
+                instruction: `
+                    <p class='mb-2'>Look at the following statements (Questions 32-37) and the list of companies below.</p>
+                    <p class='mb-4'>Match each statement with the correct company, <strong>A, B, C or D</strong>.</p>
+                    <div class='border border-gray-300 p-3 bg-gray-50 text-sm w-1/2'>
+                        <h5 class='font-bold mb-2'>List of Companies</h5>
+                        <ul class='space-y-1'>
+                            <li><strong>A</strong> Coach</li>
+                            <li><strong>B</strong> Tesco</li>
+                            <li><strong>C</strong> Nike</li>
+                            <li><strong>D</strong> iToys</li>
+                        </ul>
+                    </div>
+                `,
+                renderType: "LIST",
+                questions: [
+                   { id: 32, label: "32", questionText: "It turned the notion that its products could have harmful effects to its own advantage.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" },
+                   { id: 33, label: "33", questionText: "It extended its offering by collaborating with another manufacturer.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 34, label: "34", questionText: "It implemented an incentive scheme to demonstrate its corporate social responsibility.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "B" },
+                   { id: 35, label: "35", questionText: "It discovered that customers had a positive attitude towards dealing with difficult circumstances.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "A" },
+                   { id: 36, label: "36", questionText: "It responded to a growing lifestyle trend in an unrelated product sector.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 37, label: "37", questionText: "It successfully avoided having to charge its customers less for its core products.", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "A" }
+                ]
+            },
+            {
+                id: "group3-3",
+                instruction: "Complete each sentence with the correct ending, A, B, C or D below.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [
+                        { cells: [{ text: "<strong>A</strong> employ a combination of strategies to maintain your consumer base." }] },
+                        { cells: [{ text: "<strong>B</strong> identify the most appropriate innovation strategy to use." }] },
+                        { cells: [{ text: "<strong>C</strong> emphasise your brand's traditional values with the counteract-and-affirm strategy." }] },
+                        { cells: [{ text: "<strong>D</strong> use the combine-and-transcend strategy to integrate the two worlds." }] }
+                    ]
+                },
+                questions: [
+                   { id: 38, label: "38", questionText: "If there are any trend-related changes impacting on your category, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "B" },
+                   { id: 39, label: "39", questionText: "If a current trend highlights a negative aspect of your category, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                   { id: 40, label: "40", questionText: "If the consumers' new focus has an increasing lack of connection with your offering, you should", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" }
+                ]
+            }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tfng-1',
+    title: 'Drill 1: Solar Physics',
+    passages: [
+      {
+        id: 1,
+        title: "Passage 1: Solar Physics",
+        content: [
+          "Recent data from NASA’s Parker Solar Probe has provided unprecedented insights into the behaviour of the solar wind. For the first time, the probe observed a magnetic 'U-turn' in the stream of charged particles emanating from the Sun. Previously, astronomers believed these reversals—known as 'switchbacks'—were rare anomalies confined to the Sun's outer corona. However, the new findings suggest they are a fundamental feature of solar wind acceleration. The probe’s proximity to the star allowed it to detect that these magnetic kinks release large bursts of energy, potentially solving the long-standing mystery of why the Sun's atmosphere is millions of degrees hotter than its surface."
         ],
         questionGroups: [
           {
-            id: "tfng-36-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 1-5 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            id: "tfng-1",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 1-3 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 1, label: "1", questionText: "The G7 countries have successfully brought inflation rates back down to roughly 2%.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 2, label: "2", questionText: "Economists universally predicted that reducing inflation would cause a severe recession.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 3, label: "3", questionText: "Prices for consumer goods have returned to the levels seen in 2021.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 4, label: "4", questionText: "Public sector wages have increased faster than private sector wages.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 5, label: "5", questionText: "Voters are currently feeling optimistic about the economic recovery.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
+              { id: 1, label: "1", questionText: "The Parker Solar Probe is the first spacecraft to enter the Sun's outer corona.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 2, label: "2", questionText: "Scientists used to think that 'switchbacks' were uncommon events.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 3, label: "3", questionText: "The recent findings definitely prove the cause of the temperature difference between the Sun's surface and its atmosphere.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
             ]
           }
         ]
@@ -128,26 +566,24 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'tfng-37',
-    title: 'Drill 37: Great AI Plateau',
+    id: 'tfng-2',
+    title: 'Drill 2: AI Labour',
     passages: [
       {
         id: 1,
-        title: "Passage: The Great AI Plateau",
+        title: "Passage 2: AI and The Labour Market",
         content: [
-          "After three years of exponential hype, the generative AI boom is hitting a wall of diminishing returns. The latest models from Silicon Valley are undeniably impressive, but they are only marginally better than their predecessors, despite costing ten times as much to train. This \"compute cost crisis\" is forcing a reckoning among venture capitalists. The era of funding every startup with a \".ai\" domain is over; the focus has shifted entirely to \"application layers\"—software that actually solves boring, specific business problems rather than writing bad poetry. As the dust settles, it appears the winners will not be the model-builders, but the incumbents who own the proprietary data those models need."
+          "The narrative that artificial intelligence will inevitably lead to mass unemployment is being challenged by leading economists, including Nobel laureate Peter Howitt. While generative AI tools like ChatGPT have sparked fears of redundancy among white-collar workers, historical precedents suggest a different outcome. Much like the steam engine or electrification, AI is likely to act as a 'general-purpose technology,' creating new categories of employment that are currently unimaginable. However, Howitt warns that this transition will not be painless. Without targeted government policies to retrain displaced workers, the immediate result may be a sharp rise in income inequality, as the financial benefits of increased productivity disproportionately accrue to those who own the technology."
         ],
         questionGroups: [
           {
-            id: "tfng-37-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 6-10 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            id: "tfng-2",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 4-6 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 6, label: "6", questionText: "The newest AI models are significantly better than the previous versions.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 7, label: "7", questionText: "The cost of training new AI models has decreased due to better hardware.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 8, label: "8", questionText: "Venture capitalists are now less willing to fund general AI startups.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 9, label: "9", questionText: "\"Application layer\" software is described as writing bad poetry.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 10, label: "10", questionText: "Established companies with their own data are likely to benefit most from the current AI landscape.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+              { id: 4, label: "4", questionText: "Peter Howitt believes that the impact of AI will differ significantly from that of the steam engine.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 5, label: "5", questionText: "There are currently no government policies in place to retrain workers displaced by AI.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 6, label: "6", questionText: "Howitt argues that the primary risk of AI adoption is a widening gap between the rich and the poor, rather than total job loss.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
             ]
           }
         ]
@@ -155,26 +591,24 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'tfng-38',
-    title: 'Drill 38: Silver Tsunami',
+    id: 'tfng-3',
+    title: 'Drill 3: Origins of Fire',
     passages: [
       {
         id: 1,
-        title: "Passage: The Silver Tsunami Crashes Ashore",
+        title: "Passage 3: The Origins of Fire",
         content: [
-          "Nowhere is the demographic crunch more acute than in East Asia. South Korea’s fertility rate has dipped to a fresh nadir of 0.65, a figure that spells mathematical doom for the nation’s pension system. The government’s latest response—offering tax-free handouts to new parents—is akin to fighting a forest fire with a water pistol. Sociologists argue that the root cause is not financial but structural: a punishing corporate culture that makes work-life balance a fantasy. Unless Seoul can import labour on a massive scale (a political taboo), the country faces a future of shrinking cities and a stagnating gerontocracy."
+          "A groundbreaking study from an archaeological site at East Farm, England, has pushed back the timeline of human fire-making by nearly 250,000 years. Researchers discovered flint handaxes that had been shattered by intense heat, alongside fragments of iron pyrite—a mineral used to create sparks. This evidence suggests that Neanderthals were not merely scavenging fire from natural wildfires, as previously thought, but were deliberately manufacturing it as early as 400,000 years ago. If verified, this would indicate that Neanderthals possessed a level of cognitive planning and technical skill that was once considered exclusive to <em>Homo sapiens</em>."
         ],
         questionGroups: [
           {
-            id: "tfng-38-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 11-15 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            id: "tfng-3",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 7-9 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 11, label: "11", questionText: "South Korea has the lowest fertility rate in the world.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
-              { id: 12, label: "12", questionText: "The government’s financial incentives have successfully increased the birth rate.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 13, label: "13", questionText: "Sociologists believe that corporate culture is the main reason for low fertility.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 14, label: "14", questionText: "Importing foreign labour is a popular idea among South Korean politicians.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 15, label: "15", questionText: "Without immigration, South Korea’s cities are expected to grow smaller.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
+              { id: 7, label: "7", questionText: "The study at East Farm provides the first evidence that Neanderthals used tools.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 8, label: "8", questionText: "Prior to this study, the prevailing view was that Neanderthals could only use fire that had started naturally.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 9, label: "9", questionText: "The researchers found the remains of cooked food alongside the flint tools.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
             ]
           }
         ]
@@ -182,26 +616,24 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'tfng-39',
-    title: 'Drill 39: Hydrogen Hype',
+    id: 'tfng-4',
+    title: 'Drill 4: Climate Media',
     passages: [
       {
         id: 1,
-        title: "Passage: The Hydrogen Hype Cycle",
+        title: "Passage 4: Media Coverage of Climate Change",
         content: [
-          "Green hydrogen was supposed to be the \"Swiss Army knife\" of the energy transition, capable of powering everything from steel mills to family cars. Reality has been less kind. While hydrogen remains essential for decarbonising heavy industry, its role in transport has been comprehensively usurped by electric batteries. The economics simply do not stack up: creating hydrogen from renewable electricity, compressing it, and turning it back into electricity results in a 60% energy loss. Governments are now quietly pivoting subsidies away from hydrogen cars towards industrial clusters, acknowledging that the dream of a hydrogen highway is effectively dead."
+          "Despite the escalating severity of global weather events, a recent critique by film director Adam McKay highlights a persistent failure in mainstream media coverage. McKay argues that while outlets like the BBC and <em>The New York Times</em> employ dedicated climate reporters, the broader news cycle often fails to connect breaking news—such as wildfires or floods—to their root cause: climate change. He advocates for a more 'alarmist' approach, suggesting that the fear of appearing biased has led journalists to underplay the urgency of the crisis. Conversely, some communication experts warn that inducing panic can lead to 'news avoidance,' where audiences tune out negative information entirely."
         ],
         questionGroups: [
           {
-            id: "tfng-39-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 16-20 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            id: "tfng-4",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 10-12 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 16, label: "16", questionText: "Green hydrogen is no longer considered useful for heavy industry.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 17, label: "17", questionText: "Electric batteries have become the dominant technology for transport.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 18, label: "18", questionText: "The process of using hydrogen for energy is 100% efficient.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 19, label: "19", questionText: "Governments are increasing subsidies for hydrogen-powered family cars.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 20, label: "20", questionText: "The \"hydrogen highway\" refers to a specific road built in Germany.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
+              { id: 10, label: "10", questionText: "Adam McKay claims that major news organisations do not have any journalists specialising in climate change.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
+              { id: 11, label: "11", questionText: "McKay believes that journalists should be more willing to alarm their audiences.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 12, label: "12", questionText: "There is a consensus among experts that 'alarmist' reporting is the most effective way to engage the public.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
             ]
           }
         ]
@@ -209,161 +641,24 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'tfng-40',
-    title: 'Drill 40: Arctic Cold War',
+    id: 'tfng-5',
+    title: 'Drill 5: AI & Loneliness',
     passages: [
       {
         id: 1,
-        title: "Passage: The Arctic's Cold War",
+        title: "Passage 5: AI and Loneliness",
         content: [
-          "As the polar ice caps retreat, the Arctic Ocean is transforming from a frozen wasteland into a geopolitical chessboard. Russia has aggressively militarised its northern coast, eyeing control over the Northern Sea Route, which slashes shipping times between Europe and Asia by 40%. Meanwhile, NATO’s expansion to include Sweden and Finland has turned the Baltic Sea into a \"NATO lake,\" pushing Russian naval strategy further north. The United States, late to the party, is scrambling to commission new icebreakers, but currently lags woefully behind Moscow’s fleet. The risk of an accidental clash in these icy waters is higher than at any point since the 1980s."
+          "As AI chatbots become increasingly sophisticated, a growing number of individuals are turning to them for emotional support. While these systems can offer a semblance of companionship to the socially isolated, psychologists have raised concerns about the long-term effects of 'artificial intimacy.' A recent feature in <em>The BMJ</em> suggests that relying on AI for social interaction may atrophy human social skills, much like a muscle that is rarely used. Furthermore, because chatbots are programmed to be relentlessly agreeable, they create an unrealistic expectation of relationships, potentially making real-world human interactions—which require compromise and conflict resolution—feel frustratingly difficult by comparison."
         ],
         questionGroups: [
           {
-            id: "tfng-40-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 21-25 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
+            id: "tfng-5",
+            instruction: "Do the following statements agree with the information given in the passage? In boxes 13-15 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
             renderType: "LIST",
             questions: [
-              { id: 21, label: "21", questionText: "The Northern Sea Route is longer than the traditional shipping route between Europe and Asia.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 22, label: "22", questionText: "Russia has built military bases along its northern coast.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 23, label: "23", questionText: "Sweden and Finland recently joined NATO.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 24, label: "24", questionText: "The United States currently has more icebreakers than Russia.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 25, label: "25", questionText: "There have been three accidental clashes in the Arctic in 2025.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tfng-41',
-    title: 'Drill 41: Ozempic Economy',
-    passages: [
-      {
-        id: 1,
-        title: "Passage: The Ozempic Economy",
-        content: [
-          "The widespread adoption of GLP-1 anti-obesity drugs is reshaping more than just waistlines; it is altering consumption patterns across the economy. Analysts at major investment banks have downgraded stocks in snack-food conglomerates and fast-food chains, citing a perceptible drop in calorie demand. Conversely, the airline industry is quietly celebrating: lighter passengers mean substantial fuel savings. However, the drugs come with a stinging price tag. Public health systems in Europe are wrestling with a difficult calculus: funding these treatments could bankrupt their budgets, yet failing to do so invites a tidal wave of future costs related to diabetes and heart disease."
-        ],
-        questionGroups: [
-          {
-            id: "tfng-41-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 26-30 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
-            renderType: "LIST",
-            questions: [
-              { id: 26, label: "26", questionText: "Investment banks believe that snack-food companies will become more profitable in the future.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 27, label: "27", questionText: "Airlines are expected to save money on fuel because passengers are losing weight.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 28, label: "28", questionText: "GLP-1 drugs are currently free for all patients in Europe.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 29, label: "29", questionText: "Taking these drugs eliminates the risk of heart disease entirely.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 30, label: "30", questionText: "European health systems are finding it difficult to afford the cost of these drugs.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tfng-42',
-    title: 'Drill 42: Vinyl\'s Revenge',
-    passages: [
-      {
-        id: 1,
-        title: "Passage: Vinyl's Revenge",
-        content: [
-          "In a digital world of infinite abundance, scarcity has become a luxury good. This explains the peculiar resilience of vinyl records, which have now outsold CDs for the third consecutive year. But the trend is evolving. It is no longer just about \"warm sound\"—a dubious claim at best—but about physical ownership in an era of rental. Streaming services can delete albums at the whim of a licensing dispute; a record on a shelf is immutable. This desire for permanence is spilling over into other media, with sales of physical books rising even as e-reader adoption plateaus."
-        ],
-        questionGroups: [
-          {
-            id: "tfng-42-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 31-35 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
-            renderType: "LIST",
-            questions: [
-              { id: 31, label: "31", questionText: "Vinyl records have sold more than CDs for the last three years.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 32, label: "32", questionText: "The author believes that vinyl records definitely sound better than digital formats.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 33, label: "33", questionText: "Streaming services allow users to own the music they listen to forever.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 34, label: "34", questionText: "The rise in physical media sales is driven partly by a desire for ownership.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 35, label: "35", questionText: "E-reader sales have increased by 50% in the last year.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tfng-43',
-    title: 'Drill 43: 15-Minute City',
-    passages: [
-      {
-        id: 1,
-        title: "Passage: The Backlash Against the 15-Minute City",
-        content: [
-          "It started as a mundane urban planning concept: designing neighbourhoods where essential services are within a short walk or bike ride. Yet, the \"15-minute city\" has morphed into a lightning rod for conspiracy theorists, who view it as a pretext for \"climate lockdowns.\" While the online hysteria is often absurd, it masks a genuine grievance. In cities like Oxford and Paris, restrictions on car use have disproportionately hit suburban tradespeople and low-income workers who cannot afford to live in the gentrified, walkable centres. The lesson for mayors is clear: you cannot impose green urbanism without addressing the inequality of transport access."
-        ],
-        questionGroups: [
-          {
-            id: "tfng-43-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 36-40 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
-            renderType: "LIST",
-            questions: [
-              { id: 36, label: "36", questionText: "The concept of the 15-minute city was originally intended to control the population.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 37, label: "37", questionText: "Conspiracy theorists believe 15-minute cities are an excuse for climate lockdowns.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 38, label: "38", questionText: "Restrictions on cars have hurt wealthy residents more than low-income workers.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 39, label: "39", questionText: "Tradespeople in suburbs often rely on cars for their work.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 40, label: "40", questionText: "The Mayor of Paris has apologised for the car restrictions.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tfng-44',
-    title: 'Drill 44: Death of Humanities',
-    passages: [
-      {
-        id: 1,
-        title: "Passage: The Death of the Humanities?",
-        content: [
-          "Enrolment in history and literature degrees has plummeted by 30% over the past decade, driven by students (and anxious parents) prioritising \"return on investment.\" Computer science and engineering faculties are bursting at the seams, while humanities departments face closure. This utilitarian drift is understandable but short-sighted. As AI automates coding and technical tasks, the skills that remain distinctly human—critical thinking, ethical reasoning, and cultural literacy—will command a premium. The market may soon find that it has too many coders and not enough historians."
-        ],
-        questionGroups: [
-          {
-            id: "tfng-44-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 41-45 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
-            renderType: "LIST",
-            questions: [
-              { id: 41, label: "41", questionText: "The decline in humanities enrolment is partly due to financial concerns.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 42, label: "42", questionText: "Computer science departments are currently struggling to attract students.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 43, label: "43", questionText: "The author suggests that AI will eventually replace historians.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
-              { id: 44, label: "44", questionText: "Critical thinking is listed as a skill that AI cannot easily automate.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 45, label: "45", questionText: "Tuition fees for humanities degrees are higher than for engineering degrees.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'tfng-45',
-    title: 'Drill 45: Privatisation of Orbit',
-    passages: [
-      {
-        id: 1,
-        title: "Passage: The Privatisation of Orbit",
-        content: [
-          "NASA’s International Space Station (ISS) is entering its twilight years, scheduled for deorbiting in 2030. In its place, a flotilla of private space stations is under construction. Companies like Axiom Space and Blue Origin are betting that there is a lucrative market for orbital real estate, ranging from pharmaceutical manufacturing in microgravity to ultra-high-end tourism. However, the legal framework for this new era is non-existent. The Outer Space Treaty of 1967 did not anticipate a world where a corporate CEO could deny an astronaut entry to a life-raft module. Without new regulations, low Earth orbit could become the Wild West."
-        ],
-        questionGroups: [
-          {
-            id: "tfng-45-q",
-            instruction: "Do the following statements agree with the information given in the passage? In boxes 46-50 on your answer sheet, write TRUE, FALSE or NOT GIVEN.",
-            renderType: "LIST",
-            questions: [
-              { id: 46, label: "46", questionText: "The International Space Station will be destroyed in 2030.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 47, label: "47", questionText: "Axiom Space is building a space station primarily for military purposes.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
-              { id: 48, label: "48", questionText: "Manufacturing pharmaceuticals is mentioned as a potential use for private space stations.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
-              { id: 49, label: "49", questionText: "The Outer Space Treaty of 1967 contains detailed rules for private companies in space.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" },
-              { id: 50, label: "50", questionText: "Blue Origin plans to launch its station before Axiom Space.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" }
+              { id: 13, label: "13", questionText: "The article suggests that AI chatbots are currently unable to hold complex conversations.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "NOT GIVEN" },
+              { id: 14, label: "14", questionText: "Psychologists fear that using AI for companionship could weaken a person's ability to interact with other humans.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "TRUE" },
+              { id: 15, label: "15", questionText: "AI chatbots are programmed to occasionally disagree with users to simulate a realistic relationship.", type: QuestionType.DROPDOWN, options: ["TRUE", "FALSE", "NOT GIVEN"], correctAnswer: "FALSE" }
             ]
           }
         ]

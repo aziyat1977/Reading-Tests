@@ -43,8 +43,8 @@ export interface Passage {
   id: number;
   title: string;
   content: string[]; // Array of paragraphs
-  contentRU?: string[]; // Russian translation
-  contentUZ?: string[]; // Uzbek translation
+  contentRU?: string[]; // Optional Russian translation
+  contentUZ?: string[]; // Optional Uzbek translation
   questionGroups: QuestionGroup[];
 }
 

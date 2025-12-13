@@ -58,13 +58,19 @@ export default function App() {
   // Timer logic
   useEffect(() => {
     let timer: number;
-    if (isTimerRunning && timeLeft > 0) {
+    if (isTimerRunning) {
       timer = window.setInterval(() => {
-        setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+        setTimeLeft((prev) => {
+          if (prev <= 0) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
     }
     return () => clearInterval(timer);
-  }, [isTimerRunning, timeLeft]);
+  }, [isTimerRunning]);
 
   // Format time as MM:SS
   const formatTime = (seconds: number) => {
@@ -951,6 +957,7 @@ const ConfettiCanvas = () => {
             });
         }
 
+        let animationId: number;
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((p, index) => {
@@ -968,9 +975,12 @@ const ConfettiCanvas = () => {
                 if (p.size > 0.1) p.size -= 0.08;
                 if (p.size <= 0.1) particles.splice(index, 1);
             });
-            if (particles.length > 0) requestAnimationFrame(animate);
+            if (particles.length > 0) {
+                animationId = requestAnimationFrame(animate);
+            }
         };
         animate();
+        return () => cancelAnimationFrame(animationId);
     }, []);
 
     return <canvas ref={canvasRef} className="absolute inset-0 z-50 pointer-events-none" />;
@@ -983,7 +993,9 @@ const VocabularyStudio: React.FC<{ onBack: () => void; data: VocabItem[]; title:
     const [learnedWords, setLearnedWords] = useState<number[]>([]);
     
     // Quiz State
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [score, setScore] = useState(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [streak, setStreak] = useState(0);
 
     const toggleLearned = (id: number) => {
@@ -1410,8 +1422,14 @@ const SpellMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
     const [input, setInput] = useState('');
     const [status, setStatus] = useState<'idle' | 'correct' | 'wrong'>('idle');
     const [revealed, setRevealed] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const currentWord = vocabList[index];
+
+    // Focus on mount and index change
+    useEffect(() => {
+        if(inputRef.current) inputRef.current.focus();
+    }, [index]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -1450,6 +1468,7 @@ const SpellMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
 
                     <form onSubmit={handleSubmit} className="relative">
                         <input 
+                            ref={inputRef}
                             type="text" 
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
@@ -1480,6 +1499,7 @@ const SpellMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
 
 // Existing Speed Quiz Mode (Refined)
 const QuizMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [active, setActive] = useState(false);
     const [qIndex, setQIndex] = useState(0);
     const [timer, setTimer] = useState(10);
