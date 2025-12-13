@@ -40,6 +40,7 @@ export default function App() {
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
   const passages = currentTest ? currentTest.passages : [];
   const isTFNG = currentTestId?.startsWith('tfng-');
+  const isSummary = currentTestId?.startsWith('summary-');
 
   // Reset state when test changes
   useEffect(() => {
@@ -143,7 +144,7 @@ export default function App() {
 
   const startTest = () => {
       setIsTestStarted(true);
-      if (!isTFNG) {
+      if (!isTFNG && !isSummary) {
         setIsTimerRunning(true);
       }
   };
@@ -268,6 +269,27 @@ export default function App() {
                                 </button>
                            ))}
 
+                           {/* NEW SECTION SUMMARY */}
+                           <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">Summary Completion</div>
+                           {TESTS.filter(t => t.id.startsWith('summary-')).map(t => (
+                               <button 
+                                key={t.id}
+                                onClick={() => {
+                                    setCurrentTestId(t.id);
+                                    setIsMenuOpen(false);
+                                }}
+                                className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"
+                                >
+                                <span className="font-bold flex items-center text-sm truncate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    {t.title}
+                                </span>
+                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">Hot</span>
+                                </button>
+                           ))}
+
                        </div>
 
                        {currentTest && (
@@ -298,7 +320,7 @@ export default function App() {
                        )}
                        
                        <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase">Cambridge Tests</div>
-                       {TESTS.filter(t => !t.id.startsWith('tfng-')).map(t => (
+                       {TESTS.filter(t => !t.id.startsWith('tfng-') && !t.id.startsWith('summary-')).map(t => (
                            <button 
                              key={t.id}
                              onClick={() => {
@@ -324,8 +346,8 @@ export default function App() {
         <div className="flex items-center space-x-6">
           <div className="text-sm text-gray-300 hidden md:block">Candidate: <span className="text-white font-semibold">John Doe</span></div>
           
-          {/* Timer Display - HIDE IF TFNG MODE */}
-          {!isTFNG && (
+          {/* Timer Display - HIDE IF TFNG or SUMMARY MODE */}
+          {!isTFNG && !isSummary && (
             <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-1">
                     <button 
@@ -415,6 +437,8 @@ export default function App() {
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
                           {isTFNG ? (
                               <li>These are rapid-fire True/False/Not Given drills.</li>
+                          ) : isSummary ? (
+                              <li>These are rapid-fire Summary Completion drills.</li>
                           ) : (
                               <li>The test duration is <strong>60 minutes</strong>.</li>
                           )}

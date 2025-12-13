@@ -664,6 +664,262 @@ export const TESTS: Test[] = [
         ]
       }
     ]
+  },
+  {
+    id: 'summary-drills',
+    title: 'Summary Completion Drills',
+    passages: [
+      {
+        id: 1,
+        title: "Drill 1: Cancer Research",
+        content: [
+          "Researchers at the University of California San Diego have identified a startling mechanism that allows cancer cells to survive targeted therapies. The study reveals that certain malignant cells co-opt a specific DNA-dismantling enzyme—normally active only during cell death—to endure treatment. Instead of dying, these cells use a low-level activation of the enzyme to enter a dormant state, allowing them to \"bounce back\" once the therapy stops. This discovery explains why many aggressive cancers recur after initially successful treatment. The team hopes that blocking this enzyme could prevent tumour regrowth and significantly improve patient outcomes."
+        ],
+        questionGroups: [
+          {
+            id: "sum-1",
+            instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "Recent research has found a mechanism that enables {{1}} to survive medical treatment. It appears that malignant cells are able to {{2}} an enzyme that usually functions during the process of {{3}}. By using a low-level activation of this enzyme, the cells can go into a {{4}}, which helps them to return after therapy. Scientists believe that {{5}} this enzyme may stop tumours from growing again." }] }]
+            },
+            questions: [
+                { id: 1, label: "1", type: QuestionType.INPUT, correctAnswer: "cancer cells" },
+                { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "co-opt" },
+                { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "cell death" },
+                { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "dormant state" },
+                { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "blocking" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Drill 2: Planetary Science",
+        content: [
+            "A new study led by the University of Zurich challenges the long-held belief that Uranus and Neptune are primarily \"ice giants.\" Using advanced hybrid modeling, researchers suggest these planets may actually be dominated by rock rather than water-rich ices. The simulations indicate that the interior makeup of these distant worlds is far more complex than previously thought, potentially explaining their erratic, multi-poled magnetic fields. If confirmed, this would mean the \"ice giant\" classification is an oversimplification. The team concludes that only dedicated future space missions can definitively reveal the true nature of their deep interiors."
+        ],
+        questionGroups: [
+            {
+                id: "sum-2",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "A study from the University of Zurich questions the idea that Uranus and Neptune are just {{6}}. New modeling suggests these planets might essentially be {{7}} by rock instead of ice. This theory could provide an explanation for the planets' unusual {{8}}, which have multiple poles. The researchers argue that the current {{9}} of these planets is too simple. They believe that {{10}} are necessary to uncover the truth about what lies inside them." }] }]
+                },
+                questions: [
+                    { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "ice giants" },
+                    { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "dominated" },
+                    { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "magnetic fields" },
+                    { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "classification" },
+                    { id: 10, label: "10", type: QuestionType.INPUT, correctAnswer: "space missions" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 3,
+        title: "Drill 3: Geology / Physics",
+        content: [
+            "A major breakthrough published in <em>National Science Review</em> reveals that Earth’s inner core is not a conventional solid as previously believed. Instead, it exists in a \"superionic state\" where carbon atoms flow like a liquid through a solid iron lattice. This unusual behavior makes the core surprisingly soft, matching puzzling seismic observations recorded over decades. In this state, carbon atoms zip through the iron framework at high speeds, drastically reducing the alloy's stiffness/rigidity. The researchers used high-pressure shock compression to reproduce these extreme conditions, confirming that this fluid-like motion of light elements may help power Earth's magnetic field."
+        ],
+        questionGroups: [
+            {
+                id: "sum-3",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "New findings indicate that the Earth's inner core is in a {{11}} rather than being a standard solid. In this condition, {{12}} are able to move fluidly through a framework made of {{13}}. This phenomenon explains why the core appears to be {{14}} in seismic records. The rapid movement of these elements reduces the {{15}} of the alloy and may contribute to the planet's magnetic field." }] }]
+                },
+                questions: [
+                    { id: 11, label: "11", type: QuestionType.INPUT, correctAnswer: "superionic state" },
+                    { id: 12, label: "12", type: QuestionType.INPUT, correctAnswer: "carbon atoms" },
+                    { id: 13, label: "13", type: QuestionType.INPUT, correctAnswer: "solid iron" },
+                    { id: 14, label: "14", type: QuestionType.INPUT, correctAnswer: "soft" },
+                    { id: 15, label: "15", type: QuestionType.INPUT, correctAnswer: "stiffness" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 4,
+        title: "Drill 4: Neuroscience",
+        content: [
+            "Humans may possess ancient neural traces that allow us to recognize the voices of our primate cousins. A study from the Université de Genève found that specific subregions of the human brain are \"tuned\" to the calls of chimpanzees. When volunteers listened to vocal sounds from four different species, their brain activity showed a distinct response to chimp calls, distinct from other noises. This suggests a deep evolutionary link in how we process communication. The findings offer a new way to explore the origins of voice recognition and how it relates to the development of human language."
+        ],
+        questionGroups: [
+            {
+                id: "sum-4",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "Research suggests that humans have {{16}} that help them identify primate voices. A study revealed that certain {{17}} of the brain react specifically to chimpanzee calls. This reaction was different from the response to {{18}}. The discovery points to a(n) {{19}} in the processing of sounds. It provides new insights into the history of {{20}} and language development." }] }]
+                },
+                questions: [
+                    { id: 16, label: "16", type: QuestionType.INPUT, correctAnswer: "neural traces" },
+                    { id: 17, label: "17", type: QuestionType.INPUT, correctAnswer: "subregions" },
+                    { id: 18, label: "18", type: QuestionType.INPUT, correctAnswer: "other noises" },
+                    { id: 19, label: "19", type: QuestionType.INPUT, correctAnswer: "evolutionary link" },
+                    { id: 20, label: "20", type: QuestionType.INPUT, correctAnswer: "voice recognition" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 5,
+        title: "Drill 5: Astronomy",
+        content: [
+            "Astronomers using the James Webb Space Telescope (JWST) have detected a massive stream of helium escaping from the exoplanet WASP-107b. This \"super-puff\" world, which is the size of Jupiter but has only one-tenth of its mass, has an enormously inflated atmosphere. The escaping gas cloud is so large that it extends ten times the planet's radius. The study also found water, carbon dioxide, and ammonia, but surprisingly no methane. These findings suggest the planet likely formed far from its star and migrated inward, causing its atmosphere to swell and erode under intense stellar heat."
+        ],
+        questionGroups: [
+            {
+                id: "sum-5",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "The James Webb Space Telescope has observed a large {{21}} leaving the planet WASP-107b. This planet is known as a {{22}} world because of its low mass and large size. The gas cloud trails behind the planet for a distance of {{23}} its radius. Interestingly, the telescope did not detect any {{24}} in the atmosphere. The data implies the planet {{25}} to its current position, which led to its inflated state." }] }]
+                },
+                questions: [
+                    { id: 21, label: "21", type: QuestionType.INPUT, correctAnswer: "helium stream" },
+                    { id: 22, label: "22", type: QuestionType.INPUT, correctAnswer: "super-puff" },
+                    { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "ten times" },
+                    { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "methane" },
+                    { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "migrated" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 6,
+        title: "Drill 6: Marine Science",
+        content: [
+            "A mysterious and fast-spreading pathogen is decimating sea urchin populations globally, with catastrophic losses reported in the Canary Islands. The die-off affects <em>Diadema</em> sea urchins, which are vital grazers that keep coral reefs free of algae. Without them, reefs risk being smothered. Scientists describe this as a \"silent ocean pandemic\" that has caused populations to reach historic lows. In some regions, the ability of these urchins to reproduce has nearly halted. While the exact pathogen remains unidentified, the collapse of these grazers poses a severe threat to the balance of marine ecosystems."
+        ],
+        questionGroups: [
+            {
+                id: "sum-6",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "A(n) {{26}} is currently killing large numbers of sea urchins around the world. These urchins are important {{27}} that protect coral reefs from algae. The event has been described as a {{28}} affecting the oceans. Due to the decline, the {{29}} of urchins has stopped in some areas. The loss of these animals creates a significant {{30}} to the stability of reef ecosystems." }] }]
+                },
+                questions: [
+                    { id: 26, label: "26", type: QuestionType.INPUT, correctAnswer: "pathogen" },
+                    { id: 27, label: "27", type: QuestionType.INPUT, correctAnswer: "grazers" },
+                    { id: 28, label: "28", type: QuestionType.INPUT, correctAnswer: "silent pandemic" },
+                    { id: 29, label: "29", type: QuestionType.INPUT, correctAnswer: "ability" },
+                    { id: 30, label: "30", type: QuestionType.INPUT, correctAnswer: "threat" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 7,
+        title: "Drill 7: Paleontology",
+        content: [
+            "Fossils unearthed in Qatar have revealed a previously unknown species of miniature sea cow that lived in the Arabian Gulf over 21 million years ago. Named <em>Salwasiren qatarensis</em>, this ancient mammal provides a crucial link in the evolution of sirenians (the group containing manatees and dugongs). Unlike modern giants, this species was relatively small. The discovery sheds light on the region's past seagrass ecosystems and how they responded to environmental changes. The fossils were found in a rock record that preserves a detailed history of the area's ancient marine environment."
+        ],
+        questionGroups: [
+            {
+                id: "sum-7",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "Excavations in Qatar have uncovered {{31}} of a new sea cow species. This ancient animal, which lived more than {{32}} ago, was much smaller than modern types. The species has been given the name {{33}}. Its discovery helps explain the history of {{34}} in the region. The findings come from a {{35}} that contains information about the ancient marine environment." }] }]
+                },
+                questions: [
+                    { id: 31, label: "31", type: QuestionType.INPUT, correctAnswer: "fossils" },
+                    { id: 32, label: "32", type: QuestionType.INPUT, correctAnswer: "21 million years" },
+                    { id: 33, label: "33", type: QuestionType.INPUT, correctAnswer: "Salwasiren qatarensis" },
+                    { id: 34, label: "34", type: QuestionType.INPUT, correctAnswer: "seagrass ecosystems" },
+                    { id: 35, label: "35", type: QuestionType.INPUT, correctAnswer: "rock record" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 8,
+        title: "Drill 8: Physics (Particle)",
+        content: [
+            "Scientists at the SNO+ detector in Canada have observed a rare event: solar neutrinos converting carbon-13 atoms into nitrogen-13 deep underground. Neutrinos, often called \"ghost particles,\" rarely interact with matter. The team tracked two faint flashes of light to confirm this low-energy interaction. The first flash occurs when the neutrino hits the carbon nucleus, and the second follows minutes later as the nitrogen decays. This measurement provides the first direct cross-section of this specific nuclear reaction and opens new doors for studying how the Sun produces energy and how the universe evolves."
+        ],
+        questionGroups: [
+            {
+                id: "sum-8",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "Researchers have watched solar neutrinos change {{36}} into nitrogen-13. Neutrinos are known as {{37}} because they seldom interact with physical matter. The presence of the reaction was confirmed by spotting two {{38}}. The second signal appears when the nitrogen {{39}}. This observation gives scientists a new way to investigate how {{40}} is produced by the Sun." }] }]
+                },
+                questions: [
+                    { id: 36, label: "36", type: QuestionType.INPUT, correctAnswer: "carbon-13" },
+                    { id: 37, label: "37", type: QuestionType.INPUT, correctAnswer: "ghost particles" },
+                    { id: 38, label: "38", type: QuestionType.INPUT, correctAnswer: "faint flashes" },
+                    { id: 39, label: "39", type: QuestionType.INPUT, correctAnswer: "decays" },
+                    { id: 40, label: "40", type: QuestionType.INPUT, correctAnswer: "energy" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 9,
+        title: "Drill 9: Climate Science",
+        content: [
+            "A study led by the University of Southampton has discovered that eroded lava rubble beneath the ocean floor acts as a massive \"sponge\" for carbon dioxide. Deep-sea drilling in the South Atlantic revealed that these porous deposits, known as breccia, contain far more stored carbon than standard ocean crust. As seawater flows through the rubble, CO2 is trapped and turned into calcium carbonate minerals. This process locks carbon away for tens of millions of years. The finding reshapes our understanding of the Earth's long-term carbon cycle and the natural mechanisms that stabilize the climate."
+        ],
+        questionGroups: [
+            {
+                id: "sum-9",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "Researchers have found that {{41}} located under the seabed can absorb large amounts of CO2. These deposits are called {{42}} and are porous in nature. The carbon is trapped when {{43}} moves through the rocks. It is then converted into {{44}}. This discovery changes how scientists view the planet's {{45}} over long periods." }] }]
+                },
+                questions: [
+                    { id: 41, label: "41", type: QuestionType.INPUT, correctAnswer: "lava rubble" },
+                    { id: 42, label: "42", type: QuestionType.INPUT, correctAnswer: "breccia" },
+                    { id: 43, label: "43", type: QuestionType.INPUT, correctAnswer: "seawater" },
+                    { id: 44, label: "44", type: QuestionType.INPUT, correctAnswer: "minerals" },
+                    { id: 45, label: "45", type: QuestionType.INPUT, correctAnswer: "carbon cycle" }
+                ]
+            }
+        ]
+      },
+      {
+        id: 10,
+        title: "Drill 10: Child Development / Climate",
+        content: [
+            "A new study indicates that excessive heat is negatively impacting the development of young children globally. Researchers found that children exposed to unusually high temperatures were less likely to reach key milestones in early literacy and numeracy. The impact was most severe among children already facing economic challenges. The study argues that early development lays the foundation for lifelong well-being, and heat stress disrupts this critical phase. The authors urge policymakers to protect children from the developmental delays caused by a warming climate."
+        ],
+        questionGroups: [
+            {
+                id: "sum-10",
+                instruction: "Complete the summary using NO MORE THAN TWO WORDS from the text for each answer.",
+                renderType: "TABLE",
+                tableData: {
+                    headers: [],
+                    rows: [{ cells: [{ text: "New research shows that {{46}} can hinder the progress of young children. Those living in hotter conditions often fail to achieve goals in {{47}} and numeracy. The negative effects are strongest for children dealing with {{48}}. Since early development is the {{49}} for future success, this issue is critical. Experts are calling on {{50}} to take action to safeguard children's growth." }] }]
+                },
+                questions: [
+                    { id: 46, label: "46", type: QuestionType.INPUT, correctAnswer: "excessive heat" },
+                    { id: 47, label: "47", type: QuestionType.INPUT, correctAnswer: "early literacy" },
+                    { id: 48, label: "48", type: QuestionType.INPUT, correctAnswer: "economic challenges" },
+                    { id: 49, label: "49", type: QuestionType.INPUT, correctAnswer: "foundation" },
+                    { id: 50, label: "50", type: QuestionType.INPUT, correctAnswer: "policymakers" }
+                ]
+            }
+        ]
+      }
+    ]
   }
 ];
 
