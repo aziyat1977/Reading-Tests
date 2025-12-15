@@ -4,48 +4,69 @@ import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabIte
 
 const TOTAL_TIME_SECONDS = 60 * 60; // 60 minutes
 
-// --- Drill 1 Specific Data ---
-const DRILL_1_VOCAB = [
-  {
-    word: "Unprecedented",
-    definition: "Never done or known before.",
-    ru: "беспрецедентный",
-    uz: "misli ko'rilmagan"
+// --- Drill Specific Content Data ---
+const DRILL_SCENARIOS: { [key: string]: { vocab: any[], solutions: any[] } } = {
+  'tfng-1': {
+    vocab: [
+      { word: "Unprecedented", definition: "Never done or known before.", ru: "беспрецедентный", uz: "misli ko'rilmagan" },
+      { word: "Emanate", definition: "Issue or spread out from a source.", ru: "исходить / излучаться", uz: "tarqalmoq / chiqmoq" },
+      { word: "Anomaly", definition: "Something that deviates from what is standard, normal, or expected.", ru: "аномалия", uz: "anomaliya" }
+    ],
+    solutions: [
+      { qId: 1, question: "The Parker Solar Probe is the first spacecraft to enter the Sun's outer corona.", correct: "NOT GIVEN", explanation: "The text says the probe provided \"unprecedented insights\" and observed things \"for the first time\". However, it does not explicitly state that it was the very first spacecraft to ever enter the outer corona. Information about other spacecraft is missing." },
+      { qId: 2, question: "Scientists used to think that 'switchbacks' were uncommon events.", correct: "TRUE", explanation: "The text states: \"Previously, astronomers believed these reversals... were rare anomalies\". The word \"rare\" corresponds directly to \"uncommon\", so the statement agrees with the text." },
+      { qId: 3, question: "The recent findings definitely prove the cause of the temperature difference between the Sun's surface and its atmosphere.", correct: "FALSE", explanation: "The text states that the findings are \"potentially solving\" the mystery. The word \"potentially\" contradicts the idea of \"definitely prove\"." }
+    ]
   },
-  {
-    word: "Emanate",
-    definition: "Issue or spread out from a source.",
-    ru: "исходить / излучаться",
-    uz: "tarqalmoq / chiqmoq"
+  'tfng-2': {
+    vocab: [
+      { word: "Redundancy", definition: "The state of being no longer needed or useful.", ru: "сокращение / избыточность", uz: "qisqartirish / ortiqchalik" },
+      { word: "Precedent", definition: "An earlier event or action that is regarded as an example or guide.", ru: "прецедент", uz: "pretsedent / namuna" },
+      { word: "Disproportionately", definition: "To an extent that is too large or too small in comparison with something else.", ru: "непропорционально", uz: "nomutanosib ravishda" }
+    ],
+    solutions: [
+      { qId: 4, question: "Peter Howitt believes that the impact of AI will differ significantly from that of the steam engine.", correct: "FALSE", explanation: "The text states: \"historical precedents suggest a different outcome. Much like the steam engine or electrification...\" Howitt compares AI *to* the steam engine rather than saying it differs significantly." },
+      { qId: 5, question: "There are currently no government policies in place to retrain workers displaced by AI.", correct: "NOT GIVEN", explanation: "The text says \"Without targeted government policies... the immediate result may be...\". This is a conditional warning about the future need for policies. It does not state whether such policies currently exist or not." },
+      { qId: 6, question: "Howitt argues that the primary risk of AI adoption is a widening gap between the rich and the poor, rather than total job loss.", correct: "TRUE", explanation: "The text states the result may be \"a sharp rise in income inequality... rather than mass unemployment\". This agrees with the statement that the risk is the gap (inequality) rather than total job loss." }
+    ]
   },
-  {
-    word: "Anomaly",
-    definition: "Something that deviates from what is standard, normal, or expected.",
-    ru: "аномалия",
-    uz: "anomaliya"
+  'tfng-3': {
+    vocab: [
+      { word: "Shattered", definition: "Broken into many pieces.", ru: "разбитый вдребезги", uz: "chilparchin bo'lgan" },
+      { word: "Scavenging", definition: "Searching for and collecting anything usable.", ru: "рыться / искать", uz: "qidirib topish" },
+      { word: "Cognitive", definition: "Relating to the mental action or process of acquiring knowledge and understanding.", ru: "когнитивный", uz: "kognitiv / aqliy" }
+    ],
+    solutions: [
+      { qId: 7, question: "The study at East Farm provides the first evidence that Neanderthals used tools.", correct: "NOT GIVEN", explanation: "The text mentions the discovery of flint handaxes, but it does not claim this is the *first* evidence of tool use by Neanderthals in general, only that it pushes back the timeline of *fire-making*." },
+      { qId: 8, question: "Prior to this study, the prevailing view was that Neanderthals could only use fire that had started naturally.", correct: "TRUE", explanation: "The text states: \"evidence suggests that Neanderthals were not merely scavenging fire from natural wildfires, as previously thought\". This confirms the previous view was limited to natural fire." },
+      { qId: 9, question: "The researchers found the remains of cooked food alongside the flint tools.", correct: "NOT GIVEN", explanation: "The text mentions flint handaxes and iron pyrite fragments. It does not mention finding any cooked food remains." }
+    ]
+  },
+  'tfng-4': {
+    vocab: [
+      { word: "Escalating", definition: "Increasing rapidly.", ru: "обостряющийся / растущий", uz: "kuchayib borayotgan" },
+      { word: "Persistent", definition: "Continuing firmly or obstinately in a course of action in spite of difficulty.", ru: "упорный / устойчивый", uz: "qat'iy / davomli" },
+      { word: "Inducing", definition: "Bringing about or giving rise to.", ru: "вызывающий / побуждающий", uz: "keltirib chiqaruvchi" }
+    ],
+    solutions: [
+      { qId: 10, question: "Adam McKay claims that major news organisations do not have any journalists specialising in climate change.", correct: "FALSE", explanation: "The text explicitly states: \"outlets like the BBC and The New York Times employ dedicated climate reporters\". This contradicts the statement." },
+      { qId: 11, question: "McKay believes that journalists should be more willing to alarm their audiences.", correct: "TRUE", explanation: "The text says: \"He advocates for a more 'alarmist' approach\". This agrees with the idea that they should be willing to alarm audiences." },
+      { qId: 12, question: "There is a consensus among experts that 'alarmist' reporting is the most effective way to engage the public.", correct: "FALSE", explanation: "The text states: \"Conversely, some communication experts warn that inducing panic can lead to 'news avoidance'\". This shows there is disagreement, not a consensus." }
+    ]
+  },
+  'tfng-5': {
+    vocab: [
+      { word: "Semblance", definition: "The outward appearance or apparent form of something, especially when the reality is different.", ru: "подобие / видимость", uz: "ko'rinish / o'xshashlik" },
+      { word: "Atrophy", definition: "Gradually decline in effectiveness or vigor due to underuse or neglect.", ru: "атрофироваться", uz: "so'lib qolish / kuchsizlanish" },
+      { word: "Relentlessly", definition: "In an unceasingly intense or harsh way.", ru: "неустанно / беспрестанно", uz: "to'xtovsiz / tinimsiz" }
+    ],
+    solutions: [
+      { qId: 13, question: "The article suggests that AI chatbots are currently unable to hold complex conversations.", correct: "NOT GIVEN", explanation: "The text says chatbots are \"increasingly sophisticated\", but it does not specifically confirm or deny their ability to hold \"complex conversations\"." },
+      { qId: 14, question: "Psychologists fear that using AI for companionship could weaken a person's ability to interact with other humans.", correct: "TRUE", explanation: "The text states that relying on AI may \"atrophy human social skills, much like a muscle that is rarely used\". This supports the statement." },
+      { qId: 15, question: "AI chatbots are programmed to occasionally disagree with users to simulate a realistic relationship.", correct: "FALSE", explanation: "The text states that chatbots are \"programmed to be relentlessly agreeable\". This contradicts the idea that they occasionally disagree." }
+    ]
   }
-];
-
-const DRILL_1_SOLUTIONS = [
-  {
-    qId: 1,
-    question: "The Parker Solar Probe is the first spacecraft to enter the Sun's outer corona.",
-    correct: "NOT GIVEN",
-    explanation: "The text says the probe provided \"unprecedented insights\" and observed things \"for the first time\" due to its \"proximity\". However, it does not explicitly state that it was the very first spacecraft to ever enter the outer corona. Information about other spacecraft is missing, so we cannot confirm this statement."
-  },
-  {
-    qId: 2,
-    question: "Scientists used to think that 'switchbacks' were uncommon events.",
-    correct: "TRUE",
-    explanation: "The text states: \"Previously, astronomers believed these reversals—known as 'switchbacks'—were rare anomalies\". The word \"rare\" corresponds directly to \"uncommon\", so the statement agrees with the text."
-  },
-  {
-    qId: 3,
-    question: "The recent findings definitely prove the cause of the temperature difference between the Sun's surface and its atmosphere.",
-    correct: "FALSE",
-    explanation: "The text states that the findings are \"potentially solving\" the mystery. The word \"potentially\" contradicts the idea of \"definitely prove\". Therefore, the statement contradicts the text."
-  }
-];
+};
 
 interface QuestionGroupViewProps {
   group: QuestionGroup;
@@ -67,8 +88,8 @@ export default function App() {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isTestStarted, setIsTestStarted] = useState(false);
   
-  // Drill 1 Specific State
-  const [drillStep, setDrillStep] = useState(0); // 0-2: Vocab, 3: Test, 4-6: Solutions
+  // Drill Specific State
+  const [drillStep, setDrillStep] = useState(0); // 0-2: Vocab, 3: Test, 4+: Solutions
 
   const [fontSize, setFontSize] = useState<'standard' | 'large' | 'xlarge'>('standard');
   const [lineSpacing, setLineSpacing] = useState<'compact' | 'standard' | 'loose'>('standard');
@@ -88,7 +109,9 @@ export default function App() {
   const isTFNG = currentTestId?.startsWith('tfng-');
   const isSummary = currentTestId?.startsWith('summary-');
   
-  const isDrill1 = currentTestId === 'tfng-1';
+  // Identify if we are in a special Drill mode that has Vocab/Solutions
+  const activeDrillData = currentTestId ? DRILL_SCENARIOS[currentTestId] : null;
+  const isDrillMode = !!activeDrillData;
 
   // Reset state when test changes
   useEffect(() => {
@@ -139,10 +162,14 @@ export default function App() {
 
   // Navigation Handlers
   const handleNext = () => {
-    // Special handling for Drill 1
-    if (isDrill1) {
+    // Special handling for Drills with Vocab/Solutions
+    if (isDrillMode && activeDrillData) {
         setDrillStep(prev => prev + 1);
-        if (drillStep === 6) { // Last solution page
+        // Calculation: 3 vocab pages (0,1,2) + 1 test page (3) + N solution pages
+        // Last step index = 3 + solutions.length
+        const totalSteps = 3 + activeDrillData.solutions.length;
+        
+        if (drillStep === totalSteps) { // Finished all solutions
              // Reset or go back
              setCurrentTestId(null);
         }
@@ -161,7 +188,7 @@ export default function App() {
   };
 
   const handleBack = () => {
-    if (isDrill1) {
+    if (isDrillMode) {
         handleDrillBack();
         return;
     }
@@ -216,7 +243,7 @@ export default function App() {
       if (!isTFNG && !isSummary) {
         setIsTimerRunning(true);
       }
-      if (isDrill1) {
+      if (isDrillMode) {
           setDrillStep(0);
       }
   };
@@ -253,11 +280,13 @@ export default function App() {
       return <VocabularyStudio onBack={() => setVocabMode('none')} data={data} title={title} />;
   }
   
-  // Drill 1 Render Logic
-  const renderDrill1Content = () => {
+  // Drill Content Render Logic (Vocab & Solutions)
+  const renderDrillContent = () => {
+      if (!activeDrillData) return null;
+
       // Phase 1: Vocab (Steps 0, 1, 2)
       if (drillStep < 3) {
-          const vocab = DRILL_1_VOCAB[drillStep];
+          const vocab = activeDrillData.vocab[drillStep];
           return (
               <div className="flex-1 flex items-center justify-center bg-gray-900 p-8">
                   <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-lg w-full text-center animate-in fade-in zoom-in duration-300 relative overflow-hidden">
@@ -283,17 +312,17 @@ export default function App() {
           );
       }
       
-      // Phase 2: Test (Step 3) - Uses standard render below, just changing the footer button text
+      // Phase 2: Test (Step 3) - Uses standard render below
       if (drillStep === 3) {
-          return null; // Will fall through to standard render
+          return null; 
       }
       
-      // Phase 3: Solutions (Steps 4, 5, 6)
+      // Phase 3: Solutions (Steps 4+)
       if (drillStep > 3) {
           const solutionIndex = drillStep - 4;
-          if (solutionIndex >= DRILL_1_SOLUTIONS.length) return null;
+          if (solutionIndex >= activeDrillData.solutions.length) return null;
           
-          const sol = DRILL_1_SOLUTIONS[solutionIndex];
+          const sol = activeDrillData.solutions[solutionIndex];
           const userAnswer = answers[sol.qId] || "No Answer";
           const isCorrect = userAnswer === sol.correct;
           
@@ -603,7 +632,7 @@ export default function App() {
                   <div className="bg-blue-50 p-6 rounded-md mb-8 text-left border border-blue-100">
                       <h2 className="font-bold text-blue-800 mb-3">Instructions:</h2>
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
-                          {isDrill1 ? (
+                          {isDrillMode ? (
                               <>
                                 <li><strong>Phase 1:</strong> Pre-test Vocabulary (3 words).</li>
                                 <li><strong>Phase 2:</strong> The Drill (Passage & Questions).</li>
@@ -702,11 +731,11 @@ export default function App() {
             </div>
         )}
         
-        {/* Render Drill 1 Special Content (Vocab or Solutions) */}
-        {isDrill1 && isTestStarted && drillStep !== 3 && renderDrill1Content()}
+        {/* Render Drill Special Content (Vocab or Solutions) */}
+        {isDrillMode && isTestStarted && drillStep !== 3 && renderDrillContent()}
 
-        {/* Main Split Screen - Only render if currentTest exists AND (not Drill 1 OR Drill 1 Step 3) */}
-        {currentTest && activePassage && (!isDrill1 || (isDrill1 && drillStep === 3)) && (
+        {/* Main Split Screen - Only render if currentTest exists AND (not Drill OR Drill Step 3) */}
+        {currentTest && activePassage && (!isDrillMode || (isDrillMode && drillStep === 3)) && (
         <>
             {/* Left Panel: Reading Text */}
             <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
@@ -807,8 +836,8 @@ export default function App() {
          {currentTest ? (
          <>
          {/* Question Palette - Enhanced Scrollable Bar */}
-         {/* Hide Palette in Vocab and Solution phases of Drill 1 */}
-         {(!isDrill1 || (isDrill1 && drillStep === 3)) ? (
+         {/* Hide Palette in Vocab and Solution phases of Drill */}
+         {(!isDrillMode || (isDrillMode && drillStep === 3)) ? (
              <div className="flex-1 flex items-center overflow-hidden mr-6">
                <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">Questions:</span>
                <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
@@ -854,7 +883,7 @@ export default function App() {
          
          {/* Navigation Controls */}
          <div className="flex items-center space-x-4 shrink-0 border-l pl-6 border-gray-200">
-             {(!isDrill1 || (isDrill1 && drillStep === 3)) && (
+             {(!isDrillMode || (isDrillMode && drillStep === 3)) && (
                  <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
                      <input 
                         type="checkbox" 
@@ -870,18 +899,18 @@ export default function App() {
              
              <button 
                 onClick={handleBack}
-                disabled={activePassageIndex === 0 && !isDrill1}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 && !isDrill1 ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                disabled={activePassageIndex === 0 && !isDrillMode}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 && !isDrillMode ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
              >
                <span className="mr-1">←</span> Back
              </button>
              
              <button 
                 onClick={handleNext}
-                disabled={!isDrill1 && activePassageIndex === passages.length - 1}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrill1 && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                disabled={!isDrillMode && activePassageIndex === passages.length - 1}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrillMode && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
              >
-               {isDrill1 ? (drillStep === 3 ? 'Check Answers' : drillStep === 6 ? 'Finish' : 'Next') : 'Next'} 
+               {isDrillMode ? (drillStep === 3 ? 'Check Answers' : drillStep === (3 + (activeDrillData?.solutions.length || 0)) ? 'Finish' : 'Next') : 'Next'} 
                <span className="ml-1">→</span>
              </button>
          </div>

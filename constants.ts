@@ -1,3 +1,4 @@
+
 import { Test, QuestionType, VocabItem } from './types';
 
 export const TESTS: Test[] = [
@@ -917,6 +918,137 @@ export const TESTS: Test[] = [
                     { id: 50, label: "50", type: QuestionType.INPUT, correctAnswer: "policymakers" }
                 ]
             }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'summary-drills-2',
+    title: 'Summary Drills (Set 2)',
+    passages: [
+      {
+        id: 1,
+        title: "Drill 11: Neuroscience & Sleep",
+        content: [
+          "New research from the University of Rochester Medical Center has illuminated the mechanical process by which the brain cleanses itself during sleep. The study focuses on the \"glymphatic system,\" a macroscopic waste clearance system that piggybacks on the brain's blood vessels. Researchers discovered that during deep, non-REM sleep, the space between brain cells increases by up to 60%, allowing cerebrospinal fluid to wash freely through the tissue. This \"detergent\" action flushes out beta-amyloid, a toxic protein associated with Alzheimer's disease. The findings suggest that the cognitive decline seen in aging may be partially driven by the slow deterioration of this nightly cleaning cycle, rather than just genetic factors."
+        ],
+        questionGroups: [
+          {
+            id: "sum-11",
+            instruction: "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "<h4 class='font-bold mb-2'>The Brain's Cleaning Process</h4><p class='mb-4 leading-relaxed'>A study has revealed how the brain removes waste through a mechanism known as the {{1}}. This system uses the brain's blood vessels to function. During specific periods of {{2}}, the gap between neural cells widens significantly. This expansion permits {{3}} to flow through the tissue, acting like a detergent. The primary goal is to remove {{4}}, which is linked to Alzheimer's. Scientists believe that the {{5}} of this system over time may contribute to cognitive issues in the elderly.</p>" }] }]
+            },
+            questions: [
+                { id: 1, label: "1", type: QuestionType.INPUT, correctAnswer: "glymphatic system" },
+                { id: 2, label: "2", type: QuestionType.INPUT, correctAnswer: "non-REM sleep" },
+                { id: 3, label: "3", type: QuestionType.INPUT, correctAnswer: "cerebrospinal fluid" },
+                { id: 4, label: "4", type: QuestionType.INPUT, correctAnswer: "beta-amyloid" },
+                { id: 5, label: "5", type: QuestionType.INPUT, correctAnswer: "deterioration" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 2,
+        title: "Drill 12: Agriculture & Technology",
+        content: [
+          "Engineers at the University of Texas have developed a new type of hydrogel-infused soil capable of pulling water vapour directly from the air. The \"smart soil\" contains super-moisture-absorbent gels that capture atmospheric humidity at night when temperatures are cooler. During the day, the heat triggers the gels to release the stored water directly to the plant's roots. In field tests with radishes, the system successfully grew crops using 40% less irrigation than traditional methods. This technology could be transformative for arid regions where groundwater is scarce, effectively turning dry desert air into a sustainable water source for farming."
+        ],
+        questionGroups: [
+          {
+            id: "sum-12",
+            instruction: "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "<h4 class='font-bold mb-2'>Self-Watering Agriculture</h4><p class='mb-4 leading-relaxed'>A new agricultural innovation involves soil mixed with {{6}} that can extract moisture from the atmosphere. The system works by collecting {{7}} during the night. As the temperature rises during the day, the trapped water is released to the {{8}}. Experiments involving {{9}} showed that the method significantly reduced the need for irrigation. This invention offers hope for {{10}} where water supplies are limited.</p>" }] }]
+            },
+            questions: [
+                { id: 6, label: "6", type: QuestionType.INPUT, correctAnswer: "hydrogel-infused soil" },
+                { id: 7, label: "7", type: QuestionType.INPUT, correctAnswer: "atmospheric humidity" },
+                { id: 8, label: "8", type: QuestionType.INPUT, correctAnswer: "plant's roots" },
+                { id: 9, label: "9", type: QuestionType.INPUT, correctAnswer: "radishes" },
+                { id: 10, label: "10", type: QuestionType.INPUT, correctAnswer: "arid regions" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 3,
+        title: "Drill 13: Evolutionary Biology",
+        content: [
+          "A genetic quirk known as the \"Mother's Curse\" may explain why males in many species tend to live shorter lives than females. The theory centers on mitochondria, the power plants of the cell, which are inherited exclusively from the mother. Because these genes are never passed down by fathers, evolutionary natural selection only screens for mutations that are harmful to females. Mutations that are neutral for females but damaging to males can therefore \"sneak\" through the generations. A recent study on fruit flies confirmed this, showing that mitochondrial variations had zero impact on female aging but were a primary determinant of male longevity."
+        ],
+        questionGroups: [
+          {
+            id: "sum-13",
+            instruction: "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "<h4 class='font-bold mb-2'>Genetic Inheritance and Lifespan</h4><p class='mb-4 leading-relaxed'>The \"Mother's Curse\" is a theory explaining the difference in lifespans between sexes. It focuses on {{11}}, which are cell structures passed down only by mothers. Consequently, the process of {{12}} only removes genetic faults that hurt females. Mutations that are {{13}} to men but harmless to women can accumulate over time. Research on {{14}} supported this, proving that these genetic variations significantly affected {{15}} while leaving females unaffected.</p>" }] }]
+            },
+            questions: [
+                { id: 11, label: "11", type: QuestionType.INPUT, correctAnswer: "mitochondria" },
+                { id: 12, label: "12", type: QuestionType.INPUT, correctAnswer: "natural selection" },
+                { id: 13, label: "13", type: QuestionType.INPUT, correctAnswer: "damaging" },
+                { id: 14, label: "14", type: QuestionType.INPUT, correctAnswer: "fruit flies" },
+                { id: 15, label: "15", type: QuestionType.INPUT, correctAnswer: "male longevity" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 4,
+        title: "Drill 14: Renewable Energy",
+        content: [
+          "A Spanish startup has unveiled a radical new wind turbine design that has no rotating blades. Instead, the device looks like a giant vertical pole that oscillates back and forth in the wind, mimicking the way a hummingbird hovers. This \"vortex shedding\" technology generates electricity through a system of magnets and coils at the base. Unlike traditional turbines, these poles are silent, pose no threat to birds, and are cheaper to manufacture. While they generate less power per unit than standard windmills, their small footprint allows them to be installed in dense urban areas where conventional turbines would be dangerous."
+        ],
+        questionGroups: [
+          {
+            id: "sum-14",
+            instruction: "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "<h4 class='font-bold mb-2'>A New Way to Catch the Wind</h4><p class='mb-4 leading-relaxed'>A new type of wind generator has been designed without the usual {{16}}. The device resembles a {{17}} and moves by oscillating. It produces power using {{18}} located at the bottom of the structure. The main advantages are that the poles are quiet and safe for {{19}}. Although their energy output is lower, their {{20}} makes them suitable for use in cities.</p>" }] }]
+            },
+            questions: [
+                { id: 16, label: "16", type: QuestionType.INPUT, correctAnswer: "rotating blades" },
+                { id: 17, label: "17", type: QuestionType.INPUT, correctAnswer: "vertical pole" },
+                { id: 18, label: "18", type: QuestionType.INPUT, correctAnswer: "magnets" },
+                { id: 19, label: "19", type: QuestionType.INPUT, correctAnswer: "birds" },
+                { id: 20, label: "20", type: QuestionType.INPUT, correctAnswer: "small footprint" }
+            ]
+          }
+        ]
+      },
+      {
+        id: 5,
+        title: "Drill 15: Paleontology",
+        content: [
+          "Paleontologists have analyzed a rare \"mummified\" *Edmontosaurus* fossil found in North Dakota, which preserves large patches of fossilized skin. Unlike typical fossils where soft tissue decays, this specimen suggests the animal was buried rapidly in a riverbed, preventing decomposition. The skin shows a variety of scales, including complex, non-overlapping patterns previously unseen. Most surprisingly, the study found evidence of scars and healed wounds on the skin, providing the first direct proof of active combat or mating struggles in this species. The preservation is so detailed that scientists can even see the texture of individual scales."
+        ],
+        questionGroups: [
+          {
+            id: "sum-15",
+            instruction: "Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.",
+            renderType: "TABLE",
+            tableData: {
+                headers: [],
+                rows: [{ cells: [{ text: "<h4 class='font-bold mb-2'>Preserved Soft Tissue</h4><p class='mb-4 leading-relaxed'>A recently analyzed *Edmontosaurus* fossil is unique because it contains {{21}}. The preservation occurred because the dinosaur was likely {{22}} quickly, which stopped the tissue from rotting. The specimen displays different types of {{23}} with unique patterns. Researchers were especially interested to find {{24}} on the animal's body, which serves as proof of past physical struggles. The level of detail allows experts to observe the {{25}} of the skin surface.</p>" }] }]
+            },
+            questions: [
+                { id: 21, label: "21", type: QuestionType.INPUT, correctAnswer: "fossilized skin" },
+                { id: 22, label: "22", type: QuestionType.INPUT, correctAnswer: "buried" },
+                { id: 23, label: "23", type: QuestionType.INPUT, correctAnswer: "scales" },
+                { id: 24, label: "24", type: QuestionType.INPUT, correctAnswer: "scars" },
+                { id: 25, label: "25", type: QuestionType.INPUT, correctAnswer: "texture" }
+            ]
+          }
         ]
       }
     ]
