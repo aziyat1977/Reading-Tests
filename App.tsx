@@ -301,9 +301,9 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
           value={value}
           onChange={(e) => onAnswerChange(q.id, e.target.value)}
           onFocus={() => onFocus(q.id)}
-          className={`border rounded p-1 ml-2 text-sm font-bold ${isFocused ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-50' : 'border-gray-300'}`}
+          className={`border rounded p-1 ml-2 text-sm font-bold max-w-[120px] md:max-w-none ${isFocused ? 'ring-2 ring-blue-500 border-blue-500 bg-blue-50' : 'border-gray-300'}`}
         >
-           <option value="">Select...</option>
+           <option value="">...</option>
            {q.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
       );
@@ -317,7 +317,7 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
         value={value}
         onChange={(e) => onAnswerChange(q.id, e.target.value)}
         onFocus={() => onFocus(q.id)}
-        className={`border-b-2 bg-transparent px-2 py-0.5 mx-1 w-32 font-bold text-center transition-colors outline-none ${isFocused ? 'border-blue-600 bg-blue-50 text-blue-900' : 'border-gray-400 text-gray-700 hover:border-gray-600'}`}
+        className={`border-b-2 bg-transparent px-2 py-0.5 mx-1 w-24 md:w-32 font-bold text-center transition-colors outline-none ${isFocused ? 'border-blue-600 bg-blue-50 text-blue-900' : 'border-gray-400 text-gray-700 hover:border-gray-600'}`}
         autoComplete="off"
       />
     );
@@ -341,8 +341,8 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
               <div className="bg-gray-100 p-4 rounded-t-lg border border-gray-200">
                   <h3 className="font-bold text-gray-700" dangerouslySetInnerHTML={{__html: getInstruction() || ''}}></h3>
               </div>
-              <div className="overflow-x-auto border border-t-0 border-gray-200 rounded-b-lg">
-                  <table className="w-full text-sm text-left">
+              <div className="overflow-x-auto border border-t-0 border-gray-200 rounded-b-lg scrollbar-hide md:scrollbar-default">
+                  <table className="w-full text-sm text-left min-w-[600px] md:min-w-0">
                       {group.tableData.headers && group.tableData.headers.length > 0 && (
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 border-b">
                               <tr>
@@ -387,8 +387,8 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-200 text-gray-700 font-bold text-sm mr-4 shrink-0">
                        {q.label}
                    </span>
-                   <div className="flex-1">
-                       {qText && <p className="mb-3 text-gray-800 font-medium">{qText}</p>}
+                   <div className="flex-1 min-w-0">
+                       {qText && <p className="mb-3 text-gray-800 font-medium break-words">{qText}</p>}
                        {q.type === QuestionType.RADIO && (
                            <div className="space-y-2 mt-2">
                                {q.options?.map((opt) => {
@@ -402,7 +402,7 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
                                              : 'bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300'
                                          }`}
                                        >
-                                           <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-blue-600' : 'border-gray-400'}`}>
+                                           <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${isSelected ? 'border-blue-600' : 'border-gray-400'}`}>
                                                {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-blue-600" />}
                                            </div>
                                            <input 
@@ -451,9 +451,7 @@ const QuestionGroupView: React.FC<QuestionGroupViewProps> = ({ group, answers, o
   );
 };
 
-// ... (Rest of the file remains unchanged)
 const VocabularyStudio = ({ data, title, onBack, lang }: { data: VocabItem[], title: string, onBack: () => void, lang: Lang }) => {
-    // ... (VocabularyStudio code)
     const [index, setIndex] = useState(0);
     const [flipped, setFlipped] = useState(false);
     
@@ -472,31 +470,31 @@ const VocabularyStudio = ({ data, title, onBack, lang }: { data: VocabItem[], ti
 
     return (
         <div className="min-h-screen bg-gray-900 text-white flex flex-col">
-            <header className="h-16 flex items-center justify-between px-6 border-b border-gray-800">
+            <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-gray-800">
                 <button onClick={onBack} className="text-gray-400 hover:text-white flex items-center">
                     <svg className="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
                     {t.back}
                 </button>
-                <h1 className="text-xl font-bold">{title} - {t.vocabStudio}</h1>
-                <div className="w-20"></div>
+                <h1 className="text-base md:text-xl font-bold truncate px-2">{title}</h1>
+                <div className="w-10 md:w-20"></div>
             </header>
-            <main className="flex-1 flex flex-col items-center justify-center p-6">
-                <div className="relative w-full max-w-2xl h-96 perspective-1000">
+            <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-6">
+                <div className="relative w-full max-w-2xl aspect-square md:aspect-video md:h-96 perspective-1000">
                     <div 
                         className={`relative w-full h-full transition-transform duration-500 transform-style-3d cursor-pointer ${flipped ? 'rotate-y-180' : ''}`}
                         onClick={() => setFlipped(!flipped)}
                     >
                          {/* Front */}
-                         <div className="absolute w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-2xl flex flex-col items-center justify-center backface-hidden p-10">
-                             <h2 className="text-6xl font-black mb-4">{item.word}</h2>
-                             <p className="text-2xl text-blue-200 font-serif italic">{item.ipa}</p>
+                         <div className="absolute w-full h-full bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl shadow-2xl flex flex-col items-center justify-center backface-hidden p-6 md:p-10">
+                             <h2 className="text-4xl md:text-6xl font-black mb-4 text-center break-words">{item.word}</h2>
+                             <p className="text-xl md:text-2xl text-blue-200 font-serif italic">{item.ipa}</p>
                              <span className="mt-8 px-4 py-1 bg-white/20 rounded-full text-sm font-bold uppercase tracking-wider">{item.form}</span>
-                             <p className="absolute bottom-8 text-sm text-blue-300 animate-bounce">Click to flip</p>
+                             <p className="absolute bottom-8 text-sm text-blue-300 animate-bounce">Tap to flip</p>
                          </div>
                          
                          {/* Back */}
-                         <div className="absolute w-full h-full bg-white rounded-2xl shadow-2xl flex flex-col items-center justify-center backface-hidden rotate-y-180 p-10 text-gray-800">
-                             <p className="text-xl text-center mb-6 leading-relaxed font-medium">{item.definition}</p>
+                         <div className="absolute w-full h-full bg-white rounded-2xl shadow-2xl flex flex-col items-center justify-center backface-hidden rotate-y-180 p-6 md:p-10 text-gray-800">
+                             <p className="text-lg md:text-xl text-center mb-6 leading-relaxed font-medium">{item.definition}</p>
                              <div className="w-full h-px bg-gray-200 my-4"></div>
                              <p className="text-gray-500 italic text-center">"{item.example}"</p>
                              <div className="mt-8 grid grid-cols-2 gap-8 w-full">
@@ -513,7 +511,7 @@ const VocabularyStudio = ({ data, title, onBack, lang }: { data: VocabItem[], ti
                     </div>
                 </div>
                 
-                <div className="flex items-center space-x-8 mt-12">
+                <div className="flex items-center space-x-8 mt-8 md:mt-12">
                     <button onClick={handlePrev} className="p-4 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors">
                         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                     </button>
@@ -553,6 +551,23 @@ export default function App() {
 
   const [vocabMode, setVocabMode] = useState<'none' | 'p1' | 'p2' | 'p3'>('none');
 
+  // --- Responsive Engine ---
+  const [windowDims, setWindowDims] = useState({ 
+      width: typeof window !== 'undefined' ? window.innerWidth : 1200, 
+      height: typeof window !== 'undefined' ? window.innerHeight : 800 
+  });
+  
+  useEffect(() => {
+    const handler = () => {
+        setWindowDims({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+
+  const isMobileLayout = windowDims.width < 1024;
+  const [mobileTab, setMobileTab] = useState<'passage' | 'questions'>('passage');
+
   const currentTest = TESTS.find(t => t.id === currentTestId) || null;
   const passages = currentTest ? currentTest.passages : [];
   const isTFNG = currentTestId?.startsWith('tfng-');
@@ -579,6 +594,7 @@ export default function App() {
       // contentLang kept from user selection
       setDrillStep(0);
       setIntroAnswer(null);
+      setMobileTab('passage');
     }
   }, [currentTestId]);
 
@@ -648,6 +664,8 @@ export default function App() {
     if (activePassageIndex < passages.length - 1) {
       setActivePassageId(passages[activePassageIndex + 1].id);
       setFocusedQuestionId(null);
+      // On mobile, reset to passage view when changing passage? User preference.
+      // Keeping current tab is usually better UX.
     }
   };
   
@@ -673,6 +691,16 @@ export default function App() {
   };
 
   const scrollToQuestion = (qId: number) => {
+    if (isMobileLayout && mobileTab !== 'questions') {
+        setMobileTab('questions');
+        // Small delay to allow render
+        setTimeout(() => performScroll(qId), 100);
+    } else {
+        performScroll(qId);
+    }
+  };
+
+  const performScroll = (qId: number) => {
     const element = document.getElementById(`question-${qId}`);
     const target = element || document.getElementById(`input-q-${qId}`);
     if (target) {
@@ -681,7 +709,7 @@ export default function App() {
           (target as HTMLElement).focus();
       }
     }
-  };
+  }
 
   const getTextSizeClass = () => {
     switch (fontSize) {
@@ -753,17 +781,17 @@ export default function App() {
       // Step 0: Title
       if (drillStep === 0) {
           return (
-              <div className="flex-1 flex flex-col items-center justify-center bg-gray-900 text-white p-8">
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-900 text-white p-4 md:p-8">
                   <div className="max-w-2xl text-center space-y-6 animate-in fade-in zoom-in duration-500">
                       <div className="inline-block p-4 rounded-full bg-blue-600 mb-4 shadow-lg shadow-blue-500/50">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 md:h-16 md:w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
                       </div>
-                      <h1 className="text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                      <h1 className="text-3xl md:text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
                           {t('introTitle')}
                       </h1>
-                      <p className="text-xl text-gray-400 font-light">
+                      <p className="text-lg md:text-xl text-gray-400 font-light">
                           {t('introSubtitle')}
                       </p>
                       <div className="pt-12">
@@ -779,10 +807,10 @@ export default function App() {
       // Step 1: Theory
       if (drillStep === 1) {
           return (
-              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8 overflow-y-auto">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-12">{t('goldenRules')}</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
-                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-green-500 hover:-translate-y-2 transition-transform">
+              <div className="flex-1 flex flex-col items-center bg-gray-50 p-4 md:p-8 overflow-y-auto">
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 md:mb-12 text-center">{t('goldenRules')}</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl w-full">
+                      <div className="bg-white p-6 md:p-8 rounded-xl shadow-xl border-t-4 border-green-500 hover:-translate-y-2 transition-transform">
                           <div className="text-green-600 font-black text-2xl mb-4">TRUE</div>
                           <p className="text-gray-600 leading-relaxed">
                               <span dangerouslySetInnerHTML={{__html: t('trueDesc')}}></span>
@@ -790,7 +818,7 @@ export default function App() {
                               <span className="text-sm bg-green-50 text-green-700 px-2 py-1 rounded">{t('matchesMeaning')}</span>
                           </p>
                       </div>
-                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-red-500 hover:-translate-y-2 transition-transform">
+                      <div className="bg-white p-6 md:p-8 rounded-xl shadow-xl border-t-4 border-red-500 hover:-translate-y-2 transition-transform">
                           <div className="text-red-600 font-black text-2xl mb-4">FALSE</div>
                           <p className="text-gray-600 leading-relaxed">
                               <span dangerouslySetInnerHTML={{__html: t('falseDesc')}}></span>
@@ -798,7 +826,7 @@ export default function App() {
                               <span className="text-sm bg-red-50 text-red-700 px-2 py-1 rounded">{t('oppositeMeaning')}</span>
                           </p>
                       </div>
-                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-gray-500 hover:-translate-y-2 transition-transform">
+                      <div className="bg-white p-6 md:p-8 rounded-xl shadow-xl border-t-4 border-gray-500 hover:-translate-y-2 transition-transform">
                           <div className="text-gray-600 font-black text-2xl mb-4">NOT GIVEN</div>
                           <p className="text-gray-600 leading-relaxed">
                               <span dangerouslySetInnerHTML={{__html: t('ngDesc')}}></span>
@@ -807,7 +835,7 @@ export default function App() {
                           </p>
                       </div>
                   </div>
-                  <div className="mt-12 text-center">
+                  <div className="mt-8 md:mt-12 text-center pb-8">
                     <button onClick={handleNext} className="px-6 py-3 bg-blue-600 text-white font-bold rounded hover:bg-blue-700">{t('startPractice')}</button>
                   </div>
               </div>
@@ -826,33 +854,33 @@ export default function App() {
 
       if (!isResult) {
           return (
-              <div className="flex-1 flex flex-col items-center justify-center bg-white p-8">
-                   <div className="max-w-2xl w-full space-y-8 animate-in slide-in-from-right duration-300">
-                       <div className="flex justify-between items-center text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
+              <div className="flex-1 flex flex-col items-center justify-center bg-white p-4 md:p-8 overflow-y-auto">
+                   <div className="max-w-2xl w-full space-y-6 md:space-y-8 animate-in slide-in-from-right duration-300">
+                       <div className="flex justify-between items-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">
                            <span>{t('question')} {question.id} {t('of')} {INTRO_QUESTIONS.length}</span>
                            <span>{t('strategyDrill')}</span>
                        </div>
 
                        <div className="space-y-2">
                            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('readingExcerpt')}</span>
-                           <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-600 text-lg font-serif text-gray-800 leading-relaxed">
+                           <div className="p-4 md:p-6 bg-blue-50 rounded-lg border-l-4 border-blue-600 text-base md:text-lg font-serif text-gray-800 leading-relaxed">
                                "{qText}"
                            </div>
                        </div>
                        
                        <div className="space-y-2">
                            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('questionStatement')}</span>
-                           <div className="p-6 bg-gray-50 rounded-lg border border-gray-200 text-lg font-medium text-gray-900">
+                           <div className="p-4 md:p-6 bg-gray-50 rounded-lg border border-gray-200 text-base md:text-lg font-medium text-gray-900">
                                {qStatement}
                            </div>
                        </div>
                        
-                       <div className="grid grid-cols-3 gap-4 pt-4">
+                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
                            {['TRUE', 'FALSE', 'NOT GIVEN'].map(opt => (
                                <button
                                  key={opt}
                                  onClick={() => setIntroAnswer(opt)}
-                                 className={`py-4 rounded-lg font-bold text-lg border-2 transition-all ${introAnswer === opt ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400'}`}
+                                 className={`py-3 md:py-4 rounded-lg font-bold text-lg border-2 transition-all ${introAnswer === opt ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400'}`}
                                >
                                    {opt}
                                </button>
@@ -865,26 +893,26 @@ export default function App() {
           // Result View
           const isCorrect = introAnswer === question.answer;
           return (
-              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8">
-                  <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in duration-300">
-                      <div className={`p-8 text-center ${isCorrect ? 'bg-green-600' : 'bg-red-600'} text-white`}>
-                          <h2 className="text-4xl font-black mb-2">{isCorrect ? t('correct') : t('incorrect')}</h2>
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-4 md:p-8 overflow-y-auto">
+                  <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
+                      <div className={`p-6 md:p-8 text-center ${isCorrect ? 'bg-green-600' : 'bg-red-600'} text-white`}>
+                          <h2 className="text-3xl md:text-4xl font-black mb-2">{isCorrect ? t('correct') : t('incorrect')}</h2>
                           <p className="text-white/90 text-lg">{t('correctAnswer')}: <strong>{question.answer}</strong>.</p>
                       </div>
-                      <div className="p-8 space-y-6">
-                           <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                               <div className="shrink-0 flex-1">
+                      <div className="p-6 md:p-8 space-y-6">
+                           <div className="flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-4 p-4 bg-gray-50 rounded-lg">
+                               <div className="shrink-0 flex-1 w-full">
                                    <div className="text-xs font-bold text-gray-400 uppercase">{t('textSays')}</div>
                                    <div className="font-serif text-gray-800">"{qText}"</div>
                                </div>
-                               <div className="text-gray-300 text-2xl self-center">vs</div>
-                               <div className="flex-1">
+                               <div className="text-gray-300 text-xl md:text-2xl self-center hidden md:block">vs</div>
+                               <div className="flex-1 w-full">
                                    <div className="text-xs font-bold text-gray-400 uppercase">{t('statementSays')}</div>
                                    <div className="font-serif text-gray-800">"{qStatement}"</div>
                                </div>
                            </div>
                            
-                           <div className="prose text-gray-600 text-lg leading-relaxed">
+                           <div className="prose text-gray-600 text-base md:text-lg leading-relaxed">
                                <p>
                                    <strong>{t('explanation')}:</strong> {qExplanation}
                                </p>
@@ -906,16 +934,16 @@ export default function App() {
       if (drillStep < 3) {
           const vocab = activeDrillData.vocab[drillStep];
           return (
-              <div className="flex-1 flex items-center justify-center bg-gray-900 p-8">
-                  <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-lg w-full text-center animate-in fade-in zoom-in duration-300 relative overflow-hidden">
+              <div className="flex-1 flex items-center justify-center bg-gray-900 p-4 md:p-8">
+                  <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-12 max-w-lg w-full text-center animate-in fade-in zoom-in duration-300 relative overflow-hidden">
                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
                        <div className="mb-8">
                            <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500 mb-4 tracking-wider">{t('word')} {drillStep + 1} {t('of')} 3</span>
-                           <h2 className="text-5xl font-black text-gray-800 mb-2">{vocab.word}</h2>
+                           <h2 className="text-4xl md:text-5xl font-black text-gray-800 mb-2">{vocab.word}</h2>
                            <p className="text-gray-500 italic text-lg border-b border-gray-100 pb-6">{vocab.definition}</p>
                        </div>
                        
-                       <div className="space-y-4 text-left bg-gray-50 p-6 rounded-xl border border-gray-200">
+                       <div className="space-y-4 text-left bg-gray-50 p-4 md:p-6 rounded-xl border border-gray-200">
                            <div className="flex justify-between items-center">
                                <span className="font-bold text-gray-400 text-xs uppercase tracking-widest">{t('russian')}</span>
                                <span className="text-lg font-bold text-blue-700">{vocab.ru}</span>
@@ -947,22 +975,22 @@ export default function App() {
 
           return (
               <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden">
-                  <div className="flex-1 overflow-y-auto p-8 flex items-center justify-center">
+                  <div className="flex-1 overflow-y-auto p-4 md:p-8 flex items-center justify-center">
                     <div className="max-w-3xl w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden animate-in slide-in-from-right duration-300">
-                        <div className={`p-6 border-b flex justify-between items-center ${isCorrect ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
-                            <h2 className="text-xl font-bold text-gray-800">{t('question')} {sol.qId} {t('explanation')}</h2>
-                            <span className={`px-4 py-1.5 rounded-full font-bold text-sm ${isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+                        <div className={`p-4 md:p-6 border-b flex justify-between items-center ${isCorrect ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+                            <h2 className="text-lg md:text-xl font-bold text-gray-800">{t('question')} {sol.qId} {t('explanation')}</h2>
+                            <span className={`px-4 py-1.5 rounded-full font-bold text-xs md:text-sm ${isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
                                 {isCorrect ? t('correct').toUpperCase() : t('incorrect').toUpperCase()}
                             </span>
                         </div>
                         
-                        <div className="p-8 space-y-8">
+                        <div className="p-4 md:p-8 space-y-6 md:space-y-8">
                             <div>
                                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">{t('question')}</h3>
-                                <p className="text-2xl font-serif text-gray-900 leading-relaxed">"{sol.question}"</p>
+                                <p className="text-xl md:text-2xl font-serif text-gray-900 leading-relaxed">"{sol.question}"</p>
                             </div>
                             
-                            <div className="flex gap-4">
+                            <div className="flex flex-col md:flex-row gap-4">
                                 <div className="flex-1 p-4 bg-gray-50 rounded-lg border border-gray-200">
                                     <div className="text-xs text-gray-500 uppercase font-bold mb-1">{t('yourAnswer')}</div>
                                     <div className={`text-xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>{userAnswer}</div>
@@ -973,11 +1001,11 @@ export default function App() {
                                 </div>
                             </div>
                             
-                            <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
+                            <div className="bg-yellow-50 p-4 md:p-6 rounded-xl border border-yellow-100">
                                 <h3 className="flex items-center text-yellow-800 font-bold mb-3">
                                     {t('explanation')}
                                 </h3>
-                                <p className="text-gray-700 leading-7 text-lg">
+                                <p className="text-gray-700 leading-7 text-base md:text-lg">
                                     {solExplanation}
                                 </p>
                             </div>
@@ -991,9 +1019,9 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 text-gray-900 font-sans overflow-hidden">
-      {/* Top Bar (Always Visible) */}
-      <header className="h-16 bg-[#1a1a1a] text-white flex items-center justify-between px-6 shadow-md z-20 shrink-0 relative">
-        <div className="flex items-center space-x-4">
+      {/* Top Bar */}
+      <header className="h-16 bg-[#1a1a1a] text-white flex items-center justify-between px-4 md:px-6 shadow-md z-30 shrink-0 relative">
+        <div className="flex items-center space-x-2 md:space-x-4">
           <div className="relative">
               <button 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
@@ -1002,27 +1030,25 @@ export default function App() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
-                  <span className="text-sm font-bold uppercase tracking-wider">{t('menu')}</span>
+                  <span className="text-sm font-bold uppercase tracking-wider hidden md:inline">{t('menu')}</span>
               </button>
               
               {isMenuOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-80 bg-white rounded shadow-xl py-2 text-gray-900 z-50 border border-gray-200 animate-in fade-in slide-in-from-top-2 duration-150">
-                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100 space-y-2 max-h-[80vh] overflow-y-auto">
-                           {/* ... (Menu logic) ... */}
-                           {/* Replaced with simplified menu logic for brevity in this specific update, assuming logic remains similar to previous step but robust. */}
-                           {/* Full menu implementation from previous step remains, just ensuring imports and structure match. */}
+                  <div className="absolute top-full left-0 mt-2 w-72 md:w-80 max-w-[90vw] bg-white rounded shadow-xl py-2 text-gray-900 z-50 border border-gray-200 animate-in fade-in slide-in-from-top-2 duration-150">
+                       <div className="px-4 py-3 bg-indigo-50 border-b border-indigo-100 space-y-2 max-h-[70vh] md:max-h-[80vh] overflow-y-auto">
+                           {/* Simplified Menu Logic Integration */}
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">{t('vocabStudio')}</div>
                            <button onClick={() => { setVocabMode('p1'); setIsMenuOpen(false); }} className="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg transition-colors flex items-center text-gray-700 hover:text-blue-600 group"><span className="w-2 h-2 rounded-full bg-blue-400 mr-3 group-hover:scale-125 transition-transform"></span>Tourism New Zealand</button>
                            <button onClick={() => { setVocabMode('p2'); setIsMenuOpen(false); }} className="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg transition-colors flex items-center text-gray-700 hover:text-blue-600 group"><span className="w-2 h-2 rounded-full bg-purple-400 mr-3 group-hover:scale-125 transition-transform"></span>The Science of Boredom</button>
                            <button onClick={() => { setVocabMode('p3'); setIsMenuOpen(false); }} className="w-full text-left px-4 py-3 hover:bg-gray-100 rounded-lg transition-colors flex items-center text-gray-700 hover:text-blue-600 group"><span className="w-2 h-2 rounded-full bg-orange-400 mr-3 group-hover:scale-125 transition-transform"></span>Artificial Artists</button>
 
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">{t('skillDrills')}</div>
-                           {TESTS.find(t => t.id === 'tfng-intro') && <button onClick={() => { setCurrentTestId('tfng-intro'); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>Intro: T/F/NG Strategy</span><span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">Start Here</span></button>}
-                           {TESTS.filter(t => t.id.startsWith('tfng-') && t.id !== 'tfng-intro').map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{t.title}</span><span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">New</span></button>)}
+                           {TESTS.find(t => t.id === 'tfng-intro') && <button onClick={() => { setCurrentTestId('tfng-intro'); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>Intro: Strategy</span></button>}
+                           {TESTS.filter(t => t.id.startsWith('tfng-') && t.id !== 'tfng-intro').map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>{t.title}</span></button>)}
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">{t('summaryCompletion')}</div>
-                           {TESTS.filter(t => t.id.startsWith('summary-')).map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>{t.title}</span><span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">Hot</span></button>)}
+                           {TESTS.filter(t => t.id.startsWith('summary-')).map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>{t.title}</span></button>)}
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">{t('shortAnswer')}</div>
-                           {TESTS.filter(t => t.id.startsWith('saq-')).map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>{t.title}</span><span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">Pop</span></button>)}
+                           {TESTS.filter(t => t.id.startsWith('saq-')).map(t => <button key={t.id} onClick={() => { setCurrentTestId(t.id); setIsMenuOpen(false); }} className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2 last:mb-0"><span className="font-bold flex items-center text-sm truncate"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>{t.title}</span></button>)}
                            
                            {currentTest && (
                              <>
@@ -1038,14 +1064,14 @@ export default function App() {
               )}
           </div>
           
-          <div>
-              <h1 className="text-xl font-bold tracking-wide">IELTS Academic Reading</h1>
-              <div className="text-xs text-gray-400 mt-0.5">{currentTest ? currentTest.title : t('noTest')}</div>
+          <div className="overflow-hidden">
+              <h1 className="text-base md:text-xl font-bold tracking-wide truncate">IELTS Reading</h1>
+              <div className="text-xs text-gray-400 mt-0.5 truncate hidden md:block">{currentTest ? currentTest.title : t('noTest')}</div>
           </div>
         </div>
         
-        <div className="flex items-center space-x-6">
-          {currentTest && <div className="text-sm text-gray-300 hidden md:block">{t('candidate')}: <span className="text-white font-semibold">John Doe</span></div>}
+        <div className="flex items-center space-x-2 md:space-x-6">
+          {currentTest && <div className="text-sm text-gray-300 hidden lg:block">{t('candidate')}: <span className="text-white font-semibold">John Doe</span></div>}
           
           <div className="flex space-x-1">
              <button onClick={() => setContentLang('EN')} className={`px-2 py-1 text-xs font-bold rounded ${contentLang === 'EN' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-400 hover:text-white'}`}>EN</button>
@@ -1054,7 +1080,7 @@ export default function App() {
           </div>
 
           {currentTest && !isTFNG && !isSummary && !isSAQ && !isIntroMode && (
-            <div className="flex items-center space-x-3">
+            <div className="hidden md:flex items-center space-x-3">
                 <div className="flex items-center space-x-1">
                     <button onClick={restartTimer} title="Restart Timer" className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg></button>
                     <button onClick={toggleTimer} title={isTimerRunning ? "Pause Timer" : "Resume Timer"} className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors">{isTimerRunning ? (<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>) : (<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>)}</button>
@@ -1063,19 +1089,18 @@ export default function App() {
             </div>
           )}
 
-          <div className="flex space-x-2">
-            <button onClick={() => setShowSettings(!showSettings)} className={`px-3 py-1.5 rounded text-sm font-medium transition-colors border border-gray-600 flex items-center space-x-1 ${showSettings ? 'bg-gray-600 text-white' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'}`}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span>{t('settings')}</span></button>
-            <button onClick={() => setShowHelp(!showHelp)} className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors border border-gray-600">{t('help')}</button>
-            <button className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors border border-gray-600">{t('hide')}</button>
+          <div className="flex space-x-1 md:space-x-2">
+            <button onClick={() => setShowSettings(!showSettings)} className={`px-2 md:px-3 py-1.5 rounded text-sm font-medium transition-colors border border-gray-600 flex items-center space-x-1 ${showSettings ? 'bg-gray-600 text-white' : 'bg-gray-700 text-gray-200 hover:bg-gray-600'}`}><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span className="hidden md:inline">{t('settings')}</span></button>
+            <button onClick={() => setShowHelp(!showHelp)} className="px-2 md:px-3 py-1.5 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors border border-gray-600 hidden md:block">{t('help')}</button>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Content Area - Adaptive Layout */}
       <main className="flex-1 flex overflow-hidden relative bg-[#f0f2f5]">
         
         {!currentTest && (
-            <div className="flex-1 flex flex-col items-center justify-center text-gray-500">
+            <div className="flex-1 flex flex-col items-center justify-center text-gray-500 p-4">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
@@ -1086,13 +1111,13 @@ export default function App() {
 
         {currentTest && !isTestStarted && (
             <div className="absolute inset-0 z-30 bg-gray-100/95 flex items-center justify-center p-4 backdrop-blur-sm">
-                 <div className="bg-white p-8 rounded-lg shadow-xl max-w-2xl w-full text-center border border-gray-200">
-                  <h1 className="text-3xl font-bold mb-2 text-blue-900">IELTS Academic Reading Simulation</h1>
-                  <h2 className="text-xl text-gray-600 mb-6">{currentTest.title}</h2>
+                 <div className="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-2xl w-full text-center border border-gray-200">
+                  <h1 className="text-2xl md:text-3xl font-bold mb-2 text-blue-900">IELTS Simulator</h1>
+                  <h2 className="text-lg md:text-xl text-gray-600 mb-6">{currentTest.title}</h2>
                   
-                  <div className="bg-blue-50 p-6 rounded-md mb-8 text-left border border-blue-100">
+                  <div className="bg-blue-50 p-4 md:p-6 rounded-md mb-8 text-left border border-blue-100">
                       <h2 className="font-bold text-blue-800 mb-3">{t('instructions')}:</h2>
-                      <ul className="list-disc list-inside space-y-2 text-gray-700">
+                      <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm md:text-base">
                           {isIntroMode ? (
                               <>
                                 <li><strong>{t('phase1')}:</strong> {t('introSubtitle')}.</li>
@@ -1106,19 +1131,19 @@ export default function App() {
                                 <li><strong>{t('phase3')}:</strong> {t('solutions')}.</li>
                               </>
                           ) : isTFNG ? (
-                              <li>These are rapid-fire True/False/Not Given drills.</li>
+                              <li>Rapid-fire True/False/Not Given drills.</li>
                           ) : isSummary ? (
-                              <li>These are rapid-fire Summary Completion drills.</li>
+                              <li>Rapid-fire Summary Completion drills.</li>
                           ) : isSAQ ? (
-                              <li>These are rapid-fire Short Answer drills.</li>
+                              <li>Rapid-fire Short Answer drills.</li>
                           ) : (
-                              <li>The test duration is <strong>60 minutes</strong>.</li>
+                              <li>Test duration: <strong>60 minutes</strong>.</li>
                           )}
-                          <li>There are <strong>{passages.length} Passages</strong> in this test.</li>
-                          <li>Click <strong>{t('startTest')}</strong> when you are ready to begin.</li>
+                          <li>There are <strong>{passages.length} Passages</strong>.</li>
+                          <li>Click <strong>{t('startTest')}</strong> to begin.</li>
                       </ul>
                   </div>
-                  <button onClick={startTest} className="px-8 py-3 bg-blue-700 text-white font-bold rounded shadow hover:bg-blue-800 transition-transform transform active:scale-95 text-lg">{t('startTest')}</button>
+                  <button onClick={startTest} className="w-full md:w-auto px-8 py-3 bg-blue-700 text-white font-bold rounded shadow hover:bg-blue-800 transition-transform transform active:scale-95 text-lg">{t('startTest')}</button>
               </div>
             </div>
         )}
@@ -1166,63 +1191,116 @@ export default function App() {
         {isDrillMode && isTestStarted && drillStep !== 3 && renderDrillContent()}
 
         {currentTest && activePassage && (!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode && (
-        <>
-            <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
-            {passages.length > 1 && (
-                <div className="bg-gray-100 border-b border-gray-300 flex overflow-x-auto shrink-0">
-                    {passages.map((passage, index) => (
-                    <button key={passage.id} onClick={() => { setActivePassageId(passage.id); setFocusedQuestionId(null); }} className={`px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap ${activePassageId === passage.id ? 'bg-white text-blue-800 border-t-4 border-blue-800' : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-t-4 border-transparent'}`}>{t('passage')} {index + 1}</button>
+         isMobileLayout ? (
+             // --- Mobile/Tablet Tabbed View ---
+             <div className="flex flex-col w-full h-full bg-white animate-in fade-in duration-300">
+                 <div className="flex border-b border-gray-200 bg-white shrink-0 z-10">
+                     <button 
+                       onClick={() => setMobileTab('passage')} 
+                       className={`flex-1 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${mobileTab === 'passage' ? 'border-b-4 border-blue-600 text-blue-800 bg-blue-50' : 'text-gray-500 hover:bg-gray-50'}`}
+                     >
+                         {t('passage')}
+                     </button>
+                     <button 
+                       onClick={() => setMobileTab('questions')} 
+                       className={`flex-1 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${mobileTab === 'questions' ? 'border-b-4 border-blue-600 text-blue-800 bg-blue-50' : 'text-gray-500 hover:bg-gray-50'}`}
+                     >
+                         {t('questions')}
+                     </button>
+                 </div>
+                 
+                 <div className="flex-1 overflow-hidden relative">
+                    {/* Render Passage Tab */}
+                    <div className={`absolute inset-0 w-full h-full overflow-y-auto p-4 transition-all duration-300 ${mobileTab === 'passage' ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
+                        <div className={`reading-text ${getTextSizeClass()}`}>
+                            {passages.length > 1 && (
+                                <div className="mb-4 flex flex-wrap gap-2">
+                                     {passages.map((p, index) => (
+                                         <button key={p.id} onClick={() => { setActivePassageId(p.id); }} className={`px-3 py-1 text-xs font-bold rounded border ${activePassageId === p.id ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-600 border-gray-300'}`}>{t('passage')} {index + 1}</button>
+                                     ))}
+                                </div>
+                            )}
+                            <h2 className="text-xl font-bold mb-4">{activePassage.title}</h2>
+                            {getContent().map((p, i) => <p key={i} className={`mb-4 text-justify ${getLineSpacingClass()} ${paragraphIndent ? 'indent-6' : ''}`} dangerouslySetInnerHTML={{__html: p}} />)}
+                        </div>
+                    </div>
+                    
+                    {/* Render Questions Tab */}
+                    <div className={`absolute inset-0 w-full h-full overflow-y-auto p-4 bg-[#f0f2f5] transition-all duration-300 ${mobileTab === 'questions' ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
+                        {activePassage.questionGroups.map((group) => (
+                            <QuestionGroupView 
+                                key={group.id} 
+                                group={group} 
+                                answers={answers} 
+                                onAnswerChange={handleAnswerChange}
+                                onFocus={(id) => setFocusedQuestionId(id)}
+                                activeQuestionId={focusedQuestionId}
+                                lang={contentLang}
+                            />
+                        ))}
+                    </div>
+                 </div>
+             </div>
+         ) : (
+            // --- Desktop Split View ---
+            <>
+                <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
+                {passages.length > 1 && (
+                    <div className="bg-gray-100 border-b border-gray-300 flex overflow-x-auto shrink-0">
+                        {passages.map((passage, index) => (
+                        <button key={passage.id} onClick={() => { setActivePassageId(passage.id); setFocusedQuestionId(null); }} className={`px-6 py-3 text-sm font-bold transition-colors whitespace-nowrap ${activePassageId === passage.id ? 'bg-white text-blue-800 border-t-4 border-blue-800' : 'bg-gray-200 text-gray-600 hover:bg-gray-300 border-t-4 border-transparent'}`}>{t('passage')} {index + 1}</button>
+                        ))}
+                    </div>
+                )}
+                
+                <div className={`flex-1 overflow-y-auto p-8 reading-text ${getTextSizeClass()}`}>
+                    <div className="flex justify-between items-start border-b pb-4 mb-6">
+                        <h2 className="text-2xl font-bold text-black">{activePassage.title}</h2>
+                    </div>
+                    {getContent().map((paragraph, idx) => (
+                    <p key={idx} className={`mb-4 text-justify text-gray-800 transition-all ${getLineSpacingClass()} ${paragraphIndent ? 'indent-10' : ''}`} dangerouslySetInnerHTML={{__html: paragraph}} />
                     ))}
                 </div>
-            )}
-            
-            <div className={`flex-1 overflow-y-auto p-8 reading-text ${getTextSizeClass()}`}>
-                <div className="flex justify-between items-start border-b pb-4 mb-6">
-                    <h2 className="text-2xl font-bold text-black">{activePassage.title}</h2>
-                </div>
-                {getContent().map((paragraph, idx) => (
-                <p key={idx} className={`mb-4 text-justify text-gray-800 transition-all ${getLineSpacingClass()} ${paragraphIndent ? 'indent-10' : ''}`} dangerouslySetInnerHTML={{__html: paragraph}} />
-                ))}
-            </div>
-            </section>
+                </section>
 
-            <section className="w-1/2 flex flex-col bg-[#f0f2f5]">
-            <div className="bg-white border-b border-gray-300 p-2 flex justify-between items-center px-4 shrink-0">
-                <span className="text-sm font-bold text-gray-600">{t('questions')}</span>
-                <div className="flex items-center space-x-2">
-                    <span className="text-xs text-gray-500 mr-1">{t('size')}:</span>
-                    <button onClick={() => setFontSize('standard')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'standard' ? 'bg-blue-600 text-white' : 'bg-white'}`}>A</button>
-                    <button onClick={() => setFontSize('large')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'large' ? 'bg-blue-600 text-white' : 'bg-white'} text-lg`}>A</button>
-                    <button onClick={() => setFontSize('xlarge')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'xlarge' ? 'bg-blue-600 text-white' : 'bg-white'} text-xl`}>A</button>
+                <section className="w-1/2 flex flex-col bg-[#f0f2f5]">
+                <div className="bg-white border-b border-gray-300 p-2 flex justify-between items-center px-4 shrink-0">
+                    <span className="text-sm font-bold text-gray-600">{t('questions')}</span>
+                    <div className="flex items-center space-x-2">
+                        <span className="text-xs text-gray-500 mr-1">{t('size')}:</span>
+                        <button onClick={() => setFontSize('standard')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'standard' ? 'bg-blue-600 text-white' : 'bg-white'}`}>A</button>
+                        <button onClick={() => setFontSize('large')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'large' ? 'bg-blue-600 text-white' : 'bg-white'} text-lg`}>A</button>
+                        <button onClick={() => setFontSize('xlarge')} className={`w-7 h-7 flex items-center justify-center rounded border ${fontSize === 'xlarge' ? 'bg-blue-600 text-white' : 'bg-white'} text-xl`}>A</button>
+                    </div>
                 </div>
-            </div>
 
-            <div className="flex-1 overflow-y-auto p-8">
-                {activePassage.questionGroups.map((group) => (
-                <QuestionGroupView 
-                    key={group.id} 
-                    group={group} 
-                    answers={answers} 
-                    onAnswerChange={handleAnswerChange}
-                    onFocus={(id) => setFocusedQuestionId(id)}
-                    activeQuestionId={focusedQuestionId}
-                    lang={contentLang}
-                />
-                ))}
-            </div>
-            </section>
-        </>
+                <div className="flex-1 overflow-y-auto p-8">
+                    {activePassage.questionGroups.map((group) => (
+                    <QuestionGroupView 
+                        key={group.id} 
+                        group={group} 
+                        answers={answers} 
+                        onAnswerChange={handleAnswerChange}
+                        onFocus={(id) => setFocusedQuestionId(id)}
+                        activeQuestionId={focusedQuestionId}
+                        lang={contentLang}
+                    />
+                    ))}
+                </div>
+                </section>
+            </>
+         )
         )}
       </main>
 
-      {/* Footer Navigation */}
-      <footer className="h-20 bg-white border-t border-gray-300 flex items-center justify-between px-6 shrink-0 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-20">
+      {/* Footer Navigation - Responsive */}
+      <footer className="h-auto md:h-20 bg-white border-t border-gray-300 flex flex-col md:flex-row items-center justify-between px-2 md:px-6 py-2 md:py-0 shrink-0 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-20">
          {currentTest ? (
          <>
          {(!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode ? (
-             <div className="flex-1 flex items-center overflow-hidden mr-6">
-               <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">{t('questions')}:</span>
-               <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
+             <div className="flex-1 w-full md:w-auto flex items-center overflow-hidden mb-2 md:mb-0 md:mr-6 order-2 md:order-1">
+               <span className="text-sm font-bold text-gray-500 mr-2 md:mr-3 shrink-0 hidden md:block">{t('questions')}:</span>
+               <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full scrollbar-hide md:scrollbar-default" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                  {passages.flatMap(p => p.questionGroups.flatMap(g => g.questions)).map((q) => {
                    const isAnswered = !!answers[q.id];
                    const isReview = !!reviewStatus[q.id];
@@ -1237,10 +1315,11 @@ export default function App() {
                            setActivePassageId(pId);
                        }
                        setFocusedQuestionId(q.id);
-                       setTimeout(() => scrollToQuestion(q.id), 50);
+                       // Add delay for mobile tab switch if needed
+                       scrollToQuestion(q.id);
                      }}
                      className={`
-                        relative w-10 h-10 flex items-center justify-center text-sm font-bold rounded-md border transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500
+                        relative w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-xs md:text-sm font-bold rounded-md border transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500
                         ${isFocused 
                             ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300 z-10 scale-105 shadow-md' 
                             : isAnswered 
@@ -1252,20 +1331,20 @@ export default function App() {
                      title={`Question ${q.label}`}
                    >
                      {q.label}
-                     {isReview && <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>}
+                     {isReview && <div className="absolute -top-1.5 -right-1.5 w-3 h-3 md:w-3.5 md:h-3.5 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>}
                    </button>
                  )})}
                </div>
              </div>
          ) : (
-             <div className="flex-1 text-gray-400 text-sm italic">
+             <div className="flex-1 text-gray-400 text-xs md:text-sm italic text-center md:text-left order-2 md:order-1 mb-2 md:mb-0">
                  {isIntroMode ? `Strategy Training: Question ${Math.min(INTRO_QUESTIONS.length, Math.floor((drillStep - 2) / 2) + 1)} / ${INTRO_QUESTIONS.length}` : (drillStep < 3 ? `${t('phase1')}: ${t('vocabPractice')}` : `${t('phase3')}: ${t('solutions')}`)}
              </div>
          )}
          
-         <div className="flex items-center space-x-4 shrink-0 border-l pl-6 border-gray-200">
+         <div className="w-full md:w-auto flex items-center justify-between md:justify-end space-x-2 md:space-x-4 shrink-0 md:border-l md:pl-6 border-gray-200 order-1 md:order-2">
              {(!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode && (
-                 <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+                 <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-2 md:px-3 py-1.5 md:py-2 rounded-lg border border-gray-200">
                      <input 
                         type="checkbox" 
                         id="review" 
@@ -1274,11 +1353,13 @@ export default function App() {
                         onChange={toggleReview}
                         disabled={focusedQuestionId === null}
                      />
-                     <label htmlFor="review" className={`text-sm font-bold select-none ${focusedQuestionId !== null ? 'text-gray-800 cursor-pointer' : 'text-gray-400'}`}>{t('review')}</label>
+                     <label htmlFor="review" className={`text-xs md:text-sm font-bold select-none ${focusedQuestionId !== null ? 'text-gray-800 cursor-pointer' : 'text-gray-400'}`}>{t('review')}</label>
                  </div>
              )}
-             <button onClick={handleBack} disabled={(activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)} className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${((activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)) ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}><span className="mr-1">←</span> {t('back')}</button>
-             <button onClick={handleNext} disabled={!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1} className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>{isIntroMode ? (drillStep === (2 + INTRO_QUESTIONS.length * 2) - 1 ? t('finish') : t('next')) : (isDrillMode ? (drillStep === 3 ? t('checkAnswers') : drillStep === (3 + (activeDrillData?.solutions.length || 0)) ? t('finish') : t('next')) : t('next'))} <span className="ml-1">→</span></button>
+             <div className="flex space-x-2">
+                <button onClick={handleBack} disabled={(activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)} className={`flex items-center px-3 md:px-5 py-2 md:py-2.5 font-bold rounded-lg transition-colors text-sm md:text-base ${((activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)) ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}><span className="mr-1">←</span> {t('back')}</button>
+                <button onClick={handleNext} disabled={!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1} className={`flex items-center px-3 md:px-5 py-2 md:py-2.5 font-bold rounded-lg transition-colors shadow-sm text-sm md:text-base ${(!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>{isIntroMode ? (drillStep === (2 + INTRO_QUESTIONS.length * 2) - 1 ? t('finish') : t('next')) : (isDrillMode ? (drillStep === 3 ? t('checkAnswers') : drillStep === (3 + (activeDrillData?.solutions.length || 0)) ? t('finish') : t('next')) : t('next'))} <span className="ml-1">→</span></button>
+             </div>
          </div>
          </>
          ) : (
