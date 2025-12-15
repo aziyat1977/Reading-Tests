@@ -380,9 +380,9 @@ export const TESTS: Test[] = [
                 instruction: "Choose the correct letter, A, B, C or D.",
                 renderType: "LIST",
                 questions: [
-                    { id: 27, label: "27", questionText: "What point does the writer make about computer artists in the first paragraph?", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "C" },
-                    { id: 28, label: "28", questionText: "According to Geraint Wiggins, why are many people afraid of computer art?", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "D" },
-                    { id: 29, label: "29", questionText: "What is the key difference between Aaron and the Painting Fool?", type: QuestionType.DROPDOWN, options: ["A", "B", "C", "D"], correctAnswer: "A" }
+                    { id: 27, label: "27", questionText: "What point does the writer make about computer artists in the first paragraph?", type: QuestionType.RADIO, options: ["A", "B", "C", "D"], correctAnswer: "C" },
+                    { id: 28, label: "28", questionText: "According to Geraint Wiggins, why are many people afraid of computer art?", type: QuestionType.RADIO, options: ["A", "B", "C", "D"], correctAnswer: "D" },
+                    { id: 29, label: "29", questionText: "What is the key difference between Aaron and the Painting Fool?", type: QuestionType.RADIO, options: ["A", "B", "C", "D"], correctAnswer: "A" }
                 ]
             },
             {

@@ -9,6 +9,8 @@ export interface Question {
   id: number;
   label?: string; // e.g., "1" or "24"
   questionText?: string; // The text content of the question (e.g. "What is the writer suggesting...?")
+  questionTextRU?: string;
+  questionTextUZ?: string;
   type: QuestionType;
   options?: string[]; // For dropdowns or radio
   correctAnswer: string;
@@ -34,6 +36,8 @@ export interface TableData {
 export interface QuestionGroup {
   id: string;
   instruction: string;
+  instructionRU?: string;
+  instructionUZ?: string;
   questions: Question[];
   renderType: 'TABLE' | 'LIST' | 'MATCHING_HEADINGS' | 'SUMMARY' | 'MATCHING_PEOPLE';
   tableData?: TableData; // Specific data for table rendering
@@ -77,7 +81,13 @@ export interface VocabItem {
 export interface IntroQuestion {
   id: number;
   text: string;
+  textRU?: string;
+  textUZ?: string;
   statement: string;
+  statementRU?: string;
+  statementUZ?: string;
   answer: string; // 'TRUE' | 'FALSE' | 'NOT GIVEN'
   explanation: string;
+  explanationRU?: string;
+  explanationUZ?: string;
 }
