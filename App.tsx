@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TESTS, VOCAB_LIST, VOCAB_LIST_2, VOCAB_LIST_3 } from './constants';
 import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabItem } from './types';
@@ -66,6 +67,48 @@ const DRILL_SCENARIOS: { [key: string]: { vocab: any[], solutions: any[] } } = {
       { qId: 14, question: "Psychologists fear that using AI for companionship could weaken a person's ability to interact with other humans.", correct: "TRUE", explanation: "The text states that relying on AI may \"atrophy human social skills, much like a muscle that is rarely used\". This supports the statement." },
       { qId: 15, question: "AI chatbots are programmed to occasionally disagree with users to simulate a realistic relationship.", correct: "FALSE", explanation: "The text states that chatbots are \"programmed to be relentlessly agreeable\". This contradicts the idea that they occasionally disagree." }
     ]
+  },
+  'summary-drill-1': {
+    vocab: [
+        { word: "Malignant", definition: "Cancerous; dangerous to health.", ru: "злокачественный", uz: "xavfli (kasallik)" },
+        { word: "Co-opt", definition: "To take something for your own use.", ru: "присвоить", uz: "o'zlashtirmoq" },
+        { word: "Dormant", definition: "Temporarily inactive or sleeping.", ru: "спящий / бездействующий", uz: "uyqudagi" }
+    ],
+    solutions: [
+        { qId: 1, question: "Recent research has found a mechanism that enables {{1}} to survive medical treatment.", correct: "cancer cells", explanation: "Paragraph 1: '...mechanism that allows cancer cells to survive targeted therapies.'" },
+        { qId: 2, question: "It appears that malignant cells are able to {{2}} an enzyme...", correct: "co-opt", explanation: "Paragraph 1: '...certain malignant cells co-opt a specific DNA-dismantling enzyme...'" },
+        { qId: 3, question: "...that usually functions during the process of {{3}}.", correct: "cell death", explanation: "Paragraph 1: '...normally active only during cell death...'" },
+        { qId: 4, question: "By using a low-level activation of this enzyme, the cells can go into a {{4}}...", correct: "dormant state", explanation: "Paragraph 1: '...enter a dormant state, allowing them to bounce back...'" },
+        { qId: 5, question: "Scientists believe that {{5}} this enzyme may stop tumours from growing again.", correct: "blocking", explanation: "Paragraph 1: '...blocking this enzyme could prevent tumour regrowth...'" }
+    ]
+  },
+  'summary-drill-2': {
+      vocab: [
+          { word: "Erratic", definition: "Not even or regular in pattern or movement; unpredictable.", ru: "неустойчивый", uz: "betartib" },
+          { word: "Dominate", definition: "To be the most important or conspicuous part of something.", ru: "доминировать", uz: "hukmronlik qilmoq" },
+          { word: "Interior", definition: "The inner part of something.", ru: "внутренняя часть", uz: "ichki qism" }
+      ],
+      solutions: [
+           { qId: 6, question: "A study from the University of Zurich questions the idea that Uranus and Neptune are just {{6}}.", correct: "ice giants", explanation: "Text: '...challenges the long-held belief that Uranus and Neptune are primarily ice giants.'" },
+           { qId: 7, question: "New modeling suggests these planets might essentially be {{7}} by rock instead of ice.", correct: "dominated", explanation: "Text: '...may actually be dominated by rock rather than water-rich ices.'" },
+           { qId: 8, question: "This theory could provide an explanation for the planets' unusual {{8}}...", correct: "magnetic fields", explanation: "Text: '...potentially explaining their erratic, multi-poled magnetic fields.'" },
+           { qId: 9, question: "The researchers argue that the current {{9}} of these planets is too simple.", correct: "classification", explanation: "Text: '...ice giant classification is an oversimplification.'" },
+           { qId: 10, question: "They believe that {{10}} are necessary to uncover the truth...", correct: "space missions", explanation: "Text: '...only dedicated future space missions can definitively reveal...'" }
+      ]
+  },
+  'summary-drill-3': {
+      vocab: [
+          { word: "Conventional", definition: "Based on or in accordance with what is generally done or believed.", ru: "традиционный", uz: "an'anaviy" },
+          { word: "Lattice", definition: "An interlaced structure or pattern.", ru: "решетка", uz: "panjara / to'r" },
+          { word: "Rigidity", definition: "Inability to be to bent or be forced out of shape.", ru: "жесткость", uz: "qattiqlik" }
+      ],
+      solutions: [
+          { qId: 11, question: "New findings indicate that the Earth's inner core is in a {{11}} rather than being a standard solid.", correct: "superionic state", explanation: "Text: 'Instead, it exists in a superionic state...'" },
+          { qId: 12, question: "In this condition, {{12}} are able to move fluidly...", correct: "carbon atoms", explanation: "Text: '...where carbon atoms flow like a liquid...'" },
+          { qId: 13, question: "...through a framework made of {{13}}.", correct: "solid iron", explanation: "Text: '...through a solid iron lattice.'" },
+          { qId: 14, question: "This phenomenon explains why the core appears to be {{14}} in seismic records.", correct: "soft", explanation: "Text: 'This unusual behavior makes the core surprisingly soft...'" },
+          { qId: 15, question: "The rapid movement of these elements reduces the {{15}} of the alloy...", correct: "stiffness", explanation: "Text: '...drastically reducing the alloy`s stiffness/rigidity.'" }
+      ]
   }
 };
 
@@ -555,7 +598,7 @@ export default function App() {
           
           const sol = activeDrillData.solutions[solutionIndex];
           const userAnswer = answers[sol.qId] || "No Answer";
-          const isCorrect = userAnswer === sol.correct;
+          const isCorrect = userAnswer.toLowerCase().trim() === sol.correct.toLowerCase().trim();
           
           return (
               <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden">
@@ -572,7 +615,7 @@ export default function App() {
                         <div className="p-8 space-y-8">
                             {/* Question */}
                             <div>
-                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Statement</h3>
+                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Question</h3>
                                 <p className="text-2xl font-serif text-gray-900 leading-relaxed">"{sol.question}"</p>
                             </div>
                             

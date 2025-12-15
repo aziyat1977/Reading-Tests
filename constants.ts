@@ -1,3 +1,4 @@
+
 import { Test, QuestionType, VocabItem } from './types';
 
 export const VOCAB_LIST: VocabItem[] = [
@@ -443,8 +444,8 @@ export const TESTS: Test[] = [
       ]
   },
   {
-    id: 'summary-drills',
-    title: 'Summary Completion Drills',
+    id: 'summary-drill-1',
+    title: 'Summary Drill 1: Cancer Research',
     passages: [
       {
         id: 1,
@@ -470,7 +471,13 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-2',
+    title: 'Summary Drill 2: Planetary Science',
+    passages: [
       {
         id: 2,
         title: "Drill 2: Planetary Science",
@@ -495,7 +502,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-3',
+    title: 'Summary Drill 3: Geology / Physics',
+    passages: [
       {
         id: 3,
         title: "Drill 3: Geology / Physics",
@@ -520,7 +533,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-4',
+    title: 'Summary Drill 4: Neuroscience',
+    passages: [
       {
         id: 4,
         title: "Drill 4: Neuroscience",
@@ -545,7 +564,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-5',
+    title: 'Summary Drill 5: Astronomy',
+    passages: [
       {
         id: 5,
         title: "Drill 5: Astronomy",
@@ -570,7 +595,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-6',
+    title: 'Summary Drill 6: Marine Science',
+    passages: [
       {
         id: 6,
         title: "Drill 6: Marine Science",
@@ -595,7 +626,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-7',
+    title: 'Summary Drill 7: Paleontology',
+    passages: [
       {
         id: 7,
         title: "Drill 7: Paleontology",
@@ -620,7 +657,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-8',
+    title: 'Summary Drill 8: Physics (Particle)',
+    passages: [
       {
         id: 8,
         title: "Drill 8: Physics (Particle)",
@@ -645,7 +688,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-9',
+    title: 'Summary Drill 9: Climate Science',
+    passages: [
       {
         id: 9,
         title: "Drill 9: Climate Science",
@@ -670,7 +719,13 @@ export const TESTS: Test[] = [
                 ]
             }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-10',
+    title: 'Summary Drill 10: Child Development',
+    passages: [
       {
         id: 10,
         title: "Drill 10: Child Development / Climate",
@@ -699,8 +754,8 @@ export const TESTS: Test[] = [
     ]
   },
   {
-    id: 'summary-drills-2',
-    title: 'Summary Drills (Set 2)',
+    id: 'summary-drill-11',
+    title: 'Summary Drill 11: Neuroscience & Sleep',
     passages: [
       {
         id: 1,
@@ -726,7 +781,13 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-12',
+    title: 'Summary Drill 12: Agriculture & Technology',
+    passages: [
       {
         id: 2,
         title: "Drill 12: Agriculture & Technology",
@@ -751,7 +812,13 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-13',
+    title: 'Summary Drill 13: Evolutionary Biology',
+    passages: [
       {
         id: 3,
         title: "Drill 13: Evolutionary Biology",
@@ -776,7 +843,13 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-14',
+    title: 'Summary Drill 14: Renewable Energy',
+    passages: [
       {
         id: 4,
         title: "Drill 14: Renewable Energy",
@@ -801,7 +874,13 @@ export const TESTS: Test[] = [
             ]
           }
         ]
-      },
+      }
+    ]
+  },
+  {
+    id: 'summary-drill-15',
+    title: 'Summary Drill 15: Paleontology',
+    passages: [
       {
         id: 5,
         title: "Drill 15: Paleontology",
