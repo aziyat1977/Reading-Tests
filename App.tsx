@@ -4,6 +4,49 @@ import { QuestionGroup, Question, QuestionType, UserAnswers, TableData, VocabIte
 
 const TOTAL_TIME_SECONDS = 60 * 60; // 60 minutes
 
+// --- Drill 1 Specific Data ---
+const DRILL_1_VOCAB = [
+  {
+    word: "Unprecedented",
+    definition: "Never done or known before.",
+    ru: "беспрецедентный",
+    uz: "misli ko'rilmagan"
+  },
+  {
+    word: "Emanate",
+    definition: "Issue or spread out from a source.",
+    ru: "исходить / излучаться",
+    uz: "tarqalmoq / chiqmoq"
+  },
+  {
+    word: "Anomaly",
+    definition: "Something that deviates from what is standard, normal, or expected.",
+    ru: "аномалия",
+    uz: "anomaliya"
+  }
+];
+
+const DRILL_1_SOLUTIONS = [
+  {
+    qId: 1,
+    question: "The Parker Solar Probe is the first spacecraft to enter the Sun's outer corona.",
+    correct: "NOT GIVEN",
+    explanation: "The text says the probe provided \"unprecedented insights\" and observed things \"for the first time\" due to its \"proximity\". However, it does not explicitly state that it was the very first spacecraft to ever enter the outer corona. Information about other spacecraft is missing, so we cannot confirm this statement."
+  },
+  {
+    qId: 2,
+    question: "Scientists used to think that 'switchbacks' were uncommon events.",
+    correct: "TRUE",
+    explanation: "The text states: \"Previously, astronomers believed these reversals—known as 'switchbacks'—were rare anomalies\". The word \"rare\" corresponds directly to \"uncommon\", so the statement agrees with the text."
+  },
+  {
+    qId: 3,
+    question: "The recent findings definitely prove the cause of the temperature difference between the Sun's surface and its atmosphere.",
+    correct: "FALSE",
+    explanation: "The text states that the findings are \"potentially solving\" the mystery. The word \"potentially\" contradicts the idea of \"definitely prove\". Therefore, the statement contradicts the text."
+  }
+];
+
 interface QuestionGroupViewProps {
   group: QuestionGroup;
   answers: UserAnswers;
@@ -24,6 +67,9 @@ export default function App() {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [isTestStarted, setIsTestStarted] = useState(false);
   
+  // Drill 1 Specific State
+  const [drillStep, setDrillStep] = useState(0); // 0-2: Vocab, 3: Test, 4-6: Solutions
+
   const [fontSize, setFontSize] = useState<'standard' | 'large' | 'xlarge'>('standard');
   const [lineSpacing, setLineSpacing] = useState<'compact' | 'standard' | 'loose'>('standard');
   const [paragraphIndent, setParagraphIndent] = useState(false);
@@ -41,6 +87,8 @@ export default function App() {
   const passages = currentTest ? currentTest.passages : [];
   const isTFNG = currentTestId?.startsWith('tfng-');
   const isSummary = currentTestId?.startsWith('summary-');
+  
+  const isDrill1 = currentTestId === 'tfng-1';
 
   // Reset state when test changes
   useEffect(() => {
@@ -53,6 +101,7 @@ export default function App() {
       setIsTimerRunning(false);
       setTimeLeft(TOTAL_TIME_SECONDS);
       setContentLang('EN');
+      setDrillStep(0);
     }
   }, [currentTestId]); // Only trigger when the ID changes
 
@@ -90,13 +139,33 @@ export default function App() {
 
   // Navigation Handlers
   const handleNext = () => {
+    // Special handling for Drill 1
+    if (isDrill1) {
+        setDrillStep(prev => prev + 1);
+        if (drillStep === 6) { // Last solution page
+             // Reset or go back
+             setCurrentTestId(null);
+        }
+        return;
+    }
+
+    // Normal Navigation
     if (activePassageIndex < passages.length - 1) {
       setActivePassageId(passages[activePassageIndex + 1].id);
       setFocusedQuestionId(null);
     }
   };
+  
+  const handleDrillBack = () => {
+      setDrillStep(prev => Math.max(0, prev - 1));
+  };
 
   const handleBack = () => {
+    if (isDrill1) {
+        handleDrillBack();
+        return;
+    }
+
     if (activePassageIndex > 0) {
       setActivePassageId(passages[activePassageIndex - 1].id);
       setFocusedQuestionId(null);
@@ -147,6 +216,9 @@ export default function App() {
       if (!isTFNG && !isSummary) {
         setIsTimerRunning(true);
       }
+      if (isDrill1) {
+          setDrillStep(0);
+      }
   };
 
   const toggleTimer = () => {
@@ -180,6 +252,101 @@ export default function App() {
 
       return <VocabularyStudio onBack={() => setVocabMode('none')} data={data} title={title} />;
   }
+  
+  // Drill 1 Render Logic
+  const renderDrill1Content = () => {
+      // Phase 1: Vocab (Steps 0, 1, 2)
+      if (drillStep < 3) {
+          const vocab = DRILL_1_VOCAB[drillStep];
+          return (
+              <div className="flex-1 flex items-center justify-center bg-gray-900 p-8">
+                  <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-lg w-full text-center animate-in fade-in zoom-in duration-300 relative overflow-hidden">
+                       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                       <div className="mb-8">
+                           <span className="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500 mb-4 tracking-wider">WORD {drillStep + 1} OF 3</span>
+                           <h2 className="text-5xl font-black text-gray-800 mb-2">{vocab.word}</h2>
+                           <p className="text-gray-500 italic text-lg border-b border-gray-100 pb-6">{vocab.definition}</p>
+                       </div>
+                       
+                       <div className="space-y-4 text-left bg-gray-50 p-6 rounded-xl border border-gray-200">
+                           <div className="flex justify-between items-center">
+                               <span className="font-bold text-gray-400 text-xs uppercase tracking-widest">Russian</span>
+                               <span className="text-lg font-bold text-blue-700">{vocab.ru}</span>
+                           </div>
+                           <div className="flex justify-between items-center border-t border-gray-200 pt-4">
+                               <span className="font-bold text-gray-400 text-xs uppercase tracking-widest">Uzbek</span>
+                               <span className="text-lg font-bold text-green-700">{vocab.uz}</span>
+                           </div>
+                       </div>
+                  </div>
+              </div>
+          );
+      }
+      
+      // Phase 2: Test (Step 3) - Uses standard render below, just changing the footer button text
+      if (drillStep === 3) {
+          return null; // Will fall through to standard render
+      }
+      
+      // Phase 3: Solutions (Steps 4, 5, 6)
+      if (drillStep > 3) {
+          const solutionIndex = drillStep - 4;
+          if (solutionIndex >= DRILL_1_SOLUTIONS.length) return null;
+          
+          const sol = DRILL_1_SOLUTIONS[solutionIndex];
+          const userAnswer = answers[sol.qId] || "No Answer";
+          const isCorrect = userAnswer === sol.correct;
+          
+          return (
+              <div className="flex-1 flex flex-col bg-gray-50 overflow-hidden">
+                  <div className="flex-1 overflow-y-auto p-8 flex items-center justify-center">
+                    <div className="max-w-3xl w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden animate-in slide-in-from-right duration-300">
+                        {/* Header */}
+                        <div className={`p-6 border-b flex justify-between items-center ${isCorrect ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+                            <h2 className="text-xl font-bold text-gray-800">Question {sol.qId} Analysis</h2>
+                            <span className={`px-4 py-1.5 rounded-full font-bold text-sm ${isCorrect ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+                                {isCorrect ? 'CORRECT' : 'INCORRECT'}
+                            </span>
+                        </div>
+                        
+                        <div className="p-8 space-y-8">
+                            {/* Question */}
+                            <div>
+                                <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Statement</h3>
+                                <p className="text-2xl font-serif text-gray-900 leading-relaxed">"{sol.question}"</p>
+                            </div>
+                            
+                            {/* Comparison */}
+                            <div className="flex gap-4">
+                                <div className="flex-1 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                    <div className="text-xs text-gray-500 uppercase font-bold mb-1">Your Answer</div>
+                                    <div className={`text-xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>{userAnswer}</div>
+                                </div>
+                                <div className="flex-1 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                                    <div className="text-xs text-blue-400 uppercase font-bold mb-1">Correct Answer</div>
+                                    <div className="text-xl font-bold text-blue-700">{sol.correct}</div>
+                                </div>
+                            </div>
+                            
+                            {/* Explanation */}
+                            <div className="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
+                                <h3 className="flex items-center text-yellow-800 font-bold mb-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                                    </svg>
+                                    Explanation
+                                </h3>
+                                <p className="text-gray-700 leading-7 text-lg">
+                                    {sol.explanation}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          );
+      }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-100 text-gray-900 font-sans overflow-hidden">
@@ -436,7 +603,13 @@ export default function App() {
                   <div className="bg-blue-50 p-6 rounded-md mb-8 text-left border border-blue-100">
                       <h2 className="font-bold text-blue-800 mb-3">Instructions:</h2>
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
-                          {isTFNG ? (
+                          {isDrill1 ? (
+                              <>
+                                <li><strong>Phase 1:</strong> Pre-test Vocabulary (3 words).</li>
+                                <li><strong>Phase 2:</strong> The Drill (Passage & Questions).</li>
+                                <li><strong>Phase 3:</strong> Detailed Solution Analysis.</li>
+                              </>
+                          ) : isTFNG ? (
                               <li>These are rapid-fire True/False/Not Given drills.</li>
                           ) : isSummary ? (
                               <li>These are rapid-fire Summary Completion drills.</li>
@@ -444,7 +617,6 @@ export default function App() {
                               <li>The test duration is <strong>60 minutes</strong>.</li>
                           )}
                           <li>There are <strong>{passages.length} Passages</strong> in this test.</li>
-                          <li>Questions are displayed on the right side of the screen.</li>
                           <li>Click <strong>Start Test</strong> when you are ready to begin.</li>
                       </ul>
                   </div>
@@ -529,9 +701,12 @@ export default function App() {
                 </div>
             </div>
         )}
+        
+        {/* Render Drill 1 Special Content (Vocab or Solutions) */}
+        {isDrill1 && isTestStarted && drillStep !== 3 && renderDrill1Content()}
 
-        {/* Main Split Screen - Only render if currentTest exists */}
-        {currentTest && activePassage && (
+        {/* Main Split Screen - Only render if currentTest exists AND (not Drill 1 OR Drill 1 Step 3) */}
+        {currentTest && activePassage && (!isDrill1 || (isDrill1 && drillStep === 3)) && (
         <>
             {/* Left Panel: Reading Text */}
             <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
@@ -632,72 +807,82 @@ export default function App() {
          {currentTest ? (
          <>
          {/* Question Palette - Enhanced Scrollable Bar */}
-         <div className="flex-1 flex items-center overflow-hidden mr-6">
-           <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">Questions:</span>
-           <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
-             {passages.flatMap(p => p.questionGroups.flatMap(g => g.questions)).map((q) => {
-               const isAnswered = !!answers[q.id];
-               const isReview = !!reviewStatus[q.id];
-               const isFocused = focusedQuestionId === q.id;
-               
-               return (
-               <button
-                 key={q.id}
-                 onClick={() => {
-                   const pId = passages.find(p => p.questionGroups.some(g => g.questions.some(qn => qn.id === q.id)))?.id || 1;
-                   if (pId !== activePassageId) {
-                       setActivePassageId(pId);
-                   }
-                   setFocusedQuestionId(q.id);
-                   setTimeout(() => scrollToQuestion(q.id), 50);
-                 }}
-                 className={`
-                    relative w-10 h-10 flex items-center justify-center text-sm font-bold rounded-md border transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500
-                    ${isFocused 
-                        ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300 z-10 scale-105 shadow-md' 
-                        : isAnswered 
-                            ? 'bg-gray-700 text-white border-gray-700 hover:bg-gray-600' 
-                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400'
-                    }
-                    ${isReview ? 'ring-2 ring-yellow-400 ring-offset-1' : ''}
-                 `}
-                 title={`Question ${q.label}`}
-               >
-                 {q.label}
-                 {isReview && <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>}
-               </button>
-             )})}
-           </div>
-         </div>
+         {/* Hide Palette in Vocab and Solution phases of Drill 1 */}
+         {(!isDrill1 || (isDrill1 && drillStep === 3)) ? (
+             <div className="flex-1 flex items-center overflow-hidden mr-6">
+               <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">Questions:</span>
+               <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
+                 {passages.flatMap(p => p.questionGroups.flatMap(g => g.questions)).map((q) => {
+                   const isAnswered = !!answers[q.id];
+                   const isReview = !!reviewStatus[q.id];
+                   const isFocused = focusedQuestionId === q.id;
+                   
+                   return (
+                   <button
+                     key={q.id}
+                     onClick={() => {
+                       const pId = passages.find(p => p.questionGroups.some(g => g.questions.some(qn => qn.id === q.id)))?.id || 1;
+                       if (pId !== activePassageId) {
+                           setActivePassageId(pId);
+                       }
+                       setFocusedQuestionId(q.id);
+                       setTimeout(() => scrollToQuestion(q.id), 50);
+                     }}
+                     className={`
+                        relative w-10 h-10 flex items-center justify-center text-sm font-bold rounded-md border transition-all shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500
+                        ${isFocused 
+                            ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300 z-10 scale-105 shadow-md' 
+                            : isAnswered 
+                                ? 'bg-gray-700 text-white border-gray-700 hover:bg-gray-600' 
+                                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400'
+                        }
+                        ${isReview ? 'ring-2 ring-yellow-400 ring-offset-1' : ''}
+                     `}
+                     title={`Question ${q.label}`}
+                   >
+                     {q.label}
+                     {isReview && <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-yellow-400 rounded-full border-2 border-white shadow-sm"></div>}
+                   </button>
+                 )})}
+               </div>
+             </div>
+         ) : (
+             <div className="flex-1 text-gray-400 text-sm italic">
+                 {drillStep < 3 ? 'Phase 1: Vocabulary Practice' : 'Phase 3: Solutions'}
+             </div>
+         )}
          
          {/* Navigation Controls */}
          <div className="flex items-center space-x-4 shrink-0 border-l pl-6 border-gray-200">
-             <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
-                 <input 
-                    type="checkbox" 
-                    id="review" 
-                    className="w-4 h-4 accent-yellow-500 cursor-pointer" 
-                    checked={focusedQuestionId !== null ? !!reviewStatus[focusedQuestionId] : false}
-                    onChange={toggleReview}
-                    disabled={focusedQuestionId === null}
-                 />
-                 <label htmlFor="review" className={`text-sm font-bold select-none ${focusedQuestionId !== null ? 'text-gray-800 cursor-pointer' : 'text-gray-400'}`}>Review</label>
-             </div>
+             {(!isDrill1 || (isDrill1 && drillStep === 3)) && (
+                 <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+                     <input 
+                        type="checkbox" 
+                        id="review" 
+                        className="w-4 h-4 accent-yellow-500 cursor-pointer" 
+                        checked={focusedQuestionId !== null ? !!reviewStatus[focusedQuestionId] : false}
+                        onChange={toggleReview}
+                        disabled={focusedQuestionId === null}
+                     />
+                     <label htmlFor="review" className={`text-sm font-bold select-none ${focusedQuestionId !== null ? 'text-gray-800 cursor-pointer' : 'text-gray-400'}`}>Review</label>
+                 </div>
+             )}
              
              <button 
                 onClick={handleBack}
-                disabled={activePassageIndex === 0}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                disabled={activePassageIndex === 0 && !isDrill1}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 && !isDrill1 ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
              >
                <span className="mr-1">←</span> Back
              </button>
              
              <button 
                 onClick={handleNext}
-                disabled={activePassageIndex === passages.length - 1}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${activePassageIndex === passages.length - 1 ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                disabled={!isDrill1 && activePassageIndex === passages.length - 1}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrill1 && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
              >
-               Next <span className="ml-1">→</span>
+               {isDrill1 ? (drillStep === 3 ? 'Check Answers' : drillStep === 6 ? 'Finish' : 'Next') : 'Next'} 
+               <span className="ml-1">→</span>
              </button>
          </div>
          </>
