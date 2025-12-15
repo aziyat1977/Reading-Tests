@@ -85,8 +85,8 @@ export default function App() {
   };
 
   // Safe access to active passage
-  const activePassage = passages.find((p) => p.id === activePassageId) || passages[0];
-  const activePassageIndex = passages.findIndex((p) => p.id === activePassageId);
+  const activePassage = passages.length > 0 ? (passages.find((p) => p.id === activePassageId) || passages[0]) : null;
+  const activePassageIndex = activePassage ? passages.findIndex((p) => p.id === activePassage.id) : 0;
 
   // Navigation Handlers
   const handleNext = () => {
@@ -160,6 +160,7 @@ export default function App() {
 
   // Determine content based on selected language
   const getContent = () => {
+    if (!activePassage) return [];
     if (contentLang === 'RU' && activePassage.contentRU) return activePassage.contentRU;
     if (contentLang === 'UZ' && activePassage.contentUZ) return activePassage.contentUZ;
     return activePassage.content;
@@ -530,7 +531,7 @@ export default function App() {
         )}
 
         {/* Main Split Screen - Only render if currentTest exists */}
-        {currentTest && (
+        {currentTest && activePassage && (
         <>
             {/* Left Panel: Reading Text */}
             <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
@@ -819,7 +820,7 @@ const TableQuestionRenderer: React.FC<{
                                         id={`input-q-${question.id}`}
                                         type="text"
                                         className={`
-                                            border-b-2 bg-transparent outline-none w-24 px-1 text-center font-medium transition-colors text-blue-900
+                                            border-b-2 bg-transparent outline-none w-24 min-w-[6rem] px-1 text-center font-medium transition-colors text-blue-900
                                             ${isActive ? 'border-blue-500 bg-blue-50' : 'border-gray-400 focus:border-blue-500 hover:border-gray-500'}
                                         `}
                                         value={answers[question.id] || ''}
@@ -984,7 +985,9 @@ const ConfettiCanvas = () => {
         let animationId: number;
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
+            // Fix loop to allow splicing
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
                 p.vy += p.gravity;
@@ -997,8 +1000,9 @@ const ConfettiCanvas = () => {
                 ctx.fill();
 
                 if (p.size > 0.1) p.size -= 0.08;
-                if (p.size <= 0.1) particles.splice(index, 1);
-            });
+                if (p.size <= 0.1) particles.splice(i, 1);
+            }
+
             if (particles.length > 0) {
                 animationId = requestAnimationFrame(animate);
             }
@@ -1360,6 +1364,13 @@ const MatchMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
 
     useEffect(() => { initGame(); }, []);
 
+    // Win condition check
+    useEffect(() => {
+        if (tiles.length > 0 && tiles.every(t => t.state === 'matched')) {
+            setTimeout(() => setGameWon(true), 500);
+        }
+    }, [tiles]);
+
     const handleTileClick = (id: string) => {
         if (isProcessing || tiles.find(t => t.id === id)?.state === 'matched') return;
 
@@ -1382,11 +1393,6 @@ const MatchMode: React.FC<{ vocabList: VocabItem[] }> = ({ vocabList }) => {
                 // Match!
                 setTiles(prev => prev.map(t => (t.id === selected || t.id === id) ? { ...t, state: 'matched' } : t));
                 setSelected(null);
-                
-                // Check win
-                if (tiles.filter(t => t.state === 'matched').length === tiles.length - 2) {
-                    setTimeout(() => setGameWon(true), 500);
-                }
             } else {
                 // Wrong
                 setIsProcessing(true);
