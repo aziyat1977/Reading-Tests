@@ -363,6 +363,7 @@ export default function App() {
   
   // Drill Specific State
   const [drillStep, setDrillStep] = useState(0); // 0-2: Vocab, 3: Test, 4+: Solutions
+  const [introAnswer, setIntroAnswer] = useState<string | null>(null);
 
   const [fontSize, setFontSize] = useState<'standard' | 'large' | 'xlarge'>('standard');
   const [lineSpacing, setLineSpacing] = useState<'compact' | 'standard' | 'loose'>('standard');
@@ -382,6 +383,7 @@ export default function App() {
   const isTFNG = currentTestId?.startsWith('tfng-');
   const isSummary = currentTestId?.startsWith('summary-');
   const isSAQ = currentTestId?.startsWith('saq-');
+  const isIntroMode = currentTestId === 'tfng-intro';
   
   // Identify if we are in a special Drill mode that has Vocab/Solutions
   const activeDrillData = currentTestId ? DRILL_SCENARIOS[currentTestId] : null;
@@ -399,6 +401,7 @@ export default function App() {
       setTimeLeft(TOTAL_TIME_SECONDS);
       setContentLang('EN');
       setDrillStep(0);
+      setIntroAnswer(null);
     }
   }, [currentTestId]); // Only trigger when the ID changes
 
@@ -436,6 +439,20 @@ export default function App() {
 
   // Navigation Handlers
   const handleNext = () => {
+    // Intro handling
+    if (isIntroMode) {
+        if (drillStep === 2 && !introAnswer) {
+            alert("Please select an answer first.");
+            return;
+        }
+        if (drillStep === 3) {
+            setCurrentTestId(null); // Finish Intro
+            return;
+        }
+        setDrillStep(prev => prev + 1);
+        return;
+    }
+
     // Special handling for Drills with Vocab/Solutions
     if (isDrillMode && activeDrillData) {
         setDrillStep(prev => prev + 1);
@@ -462,6 +479,11 @@ export default function App() {
   };
 
   const handleBack = () => {
+    if (isIntroMode) {
+        handleDrillBack();
+        return;
+    }
+
     if (isDrillMode) {
         handleDrillBack();
         return;
@@ -514,10 +536,10 @@ export default function App() {
 
   const startTest = () => {
       setIsTestStarted(true);
-      if (!isTFNG && !isSummary && !isSAQ) {
+      if (!isTFNG && !isSummary && !isSAQ && !isIntroMode) {
         setIsTimerRunning(true);
       }
-      if (isDrillMode) {
+      if (isDrillMode || isIntroMode) {
           setDrillStep(0);
       }
   };
@@ -553,6 +575,142 @@ export default function App() {
 
       return <VocabularyStudio onBack={() => setVocabMode('none')} data={data} title={title} />;
   }
+
+  const renderIntroContent = () => {
+      // Step 0: Title
+      if (drillStep === 0) {
+          return (
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-900 text-white p-8">
+                  <div className="max-w-2xl text-center space-y-6 animate-in fade-in zoom-in duration-500">
+                      <div className="inline-block p-4 rounded-full bg-blue-600 mb-4 shadow-lg shadow-blue-500/50">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                      </div>
+                      <h1 className="text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                          TRUE / FALSE / NOT GIVEN
+                      </h1>
+                      <p className="text-xl text-gray-400 font-light">
+                          The Logic Behind the Confusion
+                      </p>
+                      <div className="pt-12">
+                          <button onClick={handleNext} className="px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:scale-105 transition-transform">
+                              Start Lesson
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          )
+      }
+      
+      // Step 1: Theory
+      if (drillStep === 1) {
+          return (
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8 overflow-y-auto">
+                  <h2 className="text-3xl font-bold text-gray-800 mb-12">The Golden Rules</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
+                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-green-500 hover:-translate-y-2 transition-transform">
+                          <div className="text-green-600 font-black text-2xl mb-4">TRUE</div>
+                          <p className="text-gray-600 leading-relaxed">
+                              The statement <strong>agrees</strong> with the information in the passage.
+                              <br/><br/>
+                              <span className="text-sm bg-green-50 text-green-700 px-2 py-1 rounded">Matches meaning</span>
+                          </p>
+                      </div>
+                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-red-500 hover:-translate-y-2 transition-transform">
+                          <div className="text-red-600 font-black text-2xl mb-4">FALSE</div>
+                          <p className="text-gray-600 leading-relaxed">
+                              The statement <strong>contradicts</strong> the information in the passage.
+                              <br/><br/>
+                              <span className="text-sm bg-red-50 text-red-700 px-2 py-1 rounded">Opposite meaning</span>
+                          </p>
+                      </div>
+                      <div className="bg-white p-8 rounded-xl shadow-xl border-t-4 border-gray-500 hover:-translate-y-2 transition-transform">
+                          <div className="text-gray-600 font-black text-2xl mb-4">NOT GIVEN</div>
+                          <p className="text-gray-600 leading-relaxed">
+                              There is <strong>no information</strong> on this in the passage. It might be true or false, but we don't know.
+                              <br/><br/>
+                              <span className="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded">Missing info</span>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          )
+      }
+
+      // Step 2: Practice
+      if (drillStep === 2) {
+          return (
+              <div className="flex-1 flex flex-col items-center justify-center bg-white p-8">
+                   <div className="max-w-2xl w-full space-y-8 animate-in slide-in-from-right duration-300">
+                       <div className="space-y-2">
+                           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Reading Passage Excerpt</span>
+                           <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-600 text-lg font-serif text-gray-800 leading-relaxed">
+                               "The pharmacy is open 24 hours a day, every day of the year."
+                           </div>
+                       </div>
+                       
+                       <div className="space-y-2">
+                           <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">Question Statement</span>
+                           <div className="p-6 bg-gray-50 rounded-lg border border-gray-200 text-lg font-medium text-gray-900">
+                               The pharmacy closes on public holidays.
+                           </div>
+                       </div>
+                       
+                       <div className="grid grid-cols-3 gap-4 pt-4">
+                           {['TRUE', 'FALSE', 'NOT GIVEN'].map(opt => (
+                               <button
+                                 key={opt}
+                                 onClick={() => setIntroAnswer(opt)}
+                                 className={`py-4 rounded-lg font-bold text-lg border-2 transition-all ${introAnswer === opt ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105' : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400'}`}
+                               >
+                                   {opt}
+                               </button>
+                           ))}
+                       </div>
+                   </div>
+              </div>
+          )
+      }
+
+      // Step 3: Result
+      if (drillStep === 3) {
+          const isCorrect = introAnswer === 'FALSE';
+          return (
+              <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 p-8">
+                  <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in duration-300">
+                      <div className={`p-8 text-center ${isCorrect ? 'bg-green-600' : 'bg-red-600'} text-white`}>
+                          <h2 className="text-4xl font-black mb-2">{isCorrect ? 'Correct!' : 'Incorrect'}</h2>
+                          <p className="text-white/90 text-lg">The correct answer is <strong>FALSE</strong>.</p>
+                      </div>
+                      <div className="p-8 space-y-6">
+                           <div className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                               <div className="shrink-0">
+                                   <div className="text-xs font-bold text-gray-400 uppercase">Text says:</div>
+                                   <div className="font-serif text-gray-800">"Open ... every day of the year."</div>
+                               </div>
+                               <div className="text-gray-300 text-2xl">vs</div>
+                               <div>
+                                   <div className="text-xs font-bold text-gray-400 uppercase">Statement says:</div>
+                                   <div className="font-serif text-gray-800">"Closes on public holidays."</div>
+                               </div>
+                           </div>
+                           
+                           <div className="prose text-gray-600 text-lg leading-relaxed">
+                               <p>
+                                   <strong>Explanation:</strong> Public holidays are part of "every day of the year". If the pharmacy is open every day, it cannot be closed on public holidays. The statement directly <strong>contradicts</strong> the text.
+                               </p>
+                           </div>
+
+                           <button onClick={() => setCurrentTestId(null)} className="w-full py-3 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors">
+                               Finish Intro
+                           </button>
+                      </div>
+                  </div>
+              </div>
+          )
+      }
+  };
   
   // Drill Content Render Logic (Vocab & Solutions)
   const renderDrillContent = () => {
@@ -721,7 +879,27 @@ export default function App() {
 
                            {/* NEW SECTION T/F/NG */}
                            <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase mt-2">Skill Drills</div>
-                           {TESTS.filter(t => t.id.startsWith('tfng-')).map(t => (
+                           {/* Intro Button */}
+                           {TESTS.find(t => t.id === 'tfng-intro') && (
+                               <button 
+                                key="tfng-intro"
+                                onClick={() => {
+                                    setCurrentTestId('tfng-intro');
+                                    setIsMenuOpen(false);
+                                }}
+                                className="w-full flex items-center justify-between px-4 py-3 bg-gradient-to-r from-violet-600 to-purple-600 text-white rounded-lg shadow-md hover:shadow-lg transition-all transform hover:scale-[1.02] group mb-2"
+                                >
+                                <span className="font-bold flex items-center text-sm truncate">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    Intro: T/F/NG Strategy
+                                </span>
+                                <span className="bg-white/20 px-2 py-0.5 rounded text-xs ml-2 shrink-0">Start Here</span>
+                                </button>
+                           )}
+
+                           {TESTS.filter(t => t.id.startsWith('tfng-') && t.id !== 'tfng-intro').map(t => (
                                <button 
                                 key={t.id}
                                 onClick={() => {
@@ -812,7 +990,7 @@ export default function App() {
                        )}
                        
                        <div className="px-4 py-2 text-xs font-bold text-gray-400 uppercase">Cambridge Tests</div>
-                       {TESTS.filter(t => !t.id.startsWith('tfng-') && !t.id.startsWith('summary-') && !t.id.startsWith('saq-')).map(t => (
+                       {TESTS.filter(t => !t.id.startsWith('tfng-') && !t.id.startsWith('summary-') && !t.id.startsWith('saq-') && t.id !== 'tfng-intro').map(t => (
                            <button 
                              key={t.id}
                              onClick={() => {
@@ -839,7 +1017,7 @@ export default function App() {
           <div className="text-sm text-gray-300 hidden md:block">Candidate: <span className="text-white font-semibold">John Doe</span></div>
           
           {/* Timer Display - HIDE IF TFNG or SUMMARY or SAQ MODE */}
-          {!isTFNG && !isSummary && !isSAQ && (
+          {!isTFNG && !isSummary && !isSAQ && !isIntroMode && (
             <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-1">
                     <button 
@@ -927,7 +1105,13 @@ export default function App() {
                   <div className="bg-blue-50 p-6 rounded-md mb-8 text-left border border-blue-100">
                       <h2 className="font-bold text-blue-800 mb-3">Instructions:</h2>
                       <ul className="list-disc list-inside space-y-2 text-gray-700">
-                          {isDrillMode ? (
+                          {isIntroMode ? (
+                              <>
+                                <li><strong>Phase 1:</strong> Understanding the Logic.</li>
+                                <li><strong>Phase 2:</strong> Interactive Example.</li>
+                                <li><strong>Phase 3:</strong> Why the answer is what it is.</li>
+                              </>
+                          ) : isDrillMode ? (
                               <>
                                 <li><strong>Phase 1:</strong> Pre-test Vocabulary (3 words).</li>
                                 <li><strong>Phase 2:</strong> The Drill (Passage & Questions).</li>
@@ -1028,11 +1212,14 @@ export default function App() {
             </div>
         )}
         
+        {/* Render Intro Content */}
+        {isIntroMode && isTestStarted && renderIntroContent()}
+
         {/* Render Drill Special Content (Vocab or Solutions) */}
         {isDrillMode && isTestStarted && drillStep !== 3 && renderDrillContent()}
 
-        {/* Main Split Screen - Only render if currentTest exists AND (not Drill OR Drill Step 3) */}
-        {currentTest && activePassage && (!isDrillMode || (isDrillMode && drillStep === 3)) && (
+        {/* Main Split Screen - Only render if currentTest exists AND (not Drill OR Drill Step 3) AND not Intro Mode */}
+        {currentTest && activePassage && (!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode && (
         <>
             {/* Left Panel: Reading Text */}
             <section className="w-1/2 flex flex-col border-r-4 border-gray-300 bg-white">
@@ -1133,8 +1320,8 @@ export default function App() {
          {currentTest ? (
          <>
          {/* Question Palette - Enhanced Scrollable Bar */}
-         {/* Hide Palette in Vocab and Solution phases of Drill */}
-         {(!isDrillMode || (isDrillMode && drillStep === 3)) ? (
+         {/* Hide Palette in Vocab and Solution phases of Drill, and in Intro */}
+         {(!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode ? (
              <div className="flex-1 flex items-center overflow-hidden mr-6">
                <span className="text-sm font-bold text-gray-500 mr-3 shrink-0">Questions:</span>
                <div className="flex items-center space-x-2 overflow-x-auto py-3 px-1 w-full" style={{ scrollbarWidth: 'thin' }}>
@@ -1174,13 +1361,13 @@ export default function App() {
              </div>
          ) : (
              <div className="flex-1 text-gray-400 text-sm italic">
-                 {drillStep < 3 ? 'Phase 1: Vocabulary Practice' : 'Phase 3: Solutions'}
+                 {isIntroMode ? 'Strategy Training Mode' : (drillStep < 3 ? 'Phase 1: Vocabulary Practice' : 'Phase 3: Solutions')}
              </div>
          )}
          
          {/* Navigation Controls */}
          <div className="flex items-center space-x-4 shrink-0 border-l pl-6 border-gray-200">
-             {(!isDrillMode || (isDrillMode && drillStep === 3)) && (
+             {(!isDrillMode || (isDrillMode && drillStep === 3)) && !isIntroMode && (
                  <div className="flex items-center space-x-2 mr-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
                      <input 
                         type="checkbox" 
@@ -1196,18 +1383,18 @@ export default function App() {
              
              <button 
                 onClick={handleBack}
-                disabled={activePassageIndex === 0 && !isDrillMode}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${activePassageIndex === 0 && !isDrillMode ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
+                disabled={(activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors ${((activePassageIndex === 0 && !isDrillMode && !isIntroMode) || (isIntroMode && drillStep === 0) || (isDrillMode && drillStep === 0)) ? 'bg-gray-100 text-gray-300' : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300'}`}
              >
                <span className="mr-1">←</span> Back
              </button>
              
              <button 
                 onClick={handleNext}
-                disabled={!isDrillMode && activePassageIndex === passages.length - 1}
-                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrillMode && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                disabled={!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1}
+                className={`flex items-center px-5 py-2.5 font-bold rounded-lg transition-colors shadow-sm ${(!isDrillMode && !isIntroMode && activePassageIndex === passages.length - 1) ? 'bg-gray-100 text-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
              >
-               {isDrillMode ? (drillStep === 3 ? 'Check Answers' : drillStep === (3 + (activeDrillData?.solutions.length || 0)) ? 'Finish' : 'Next') : 'Next'} 
+               {isIntroMode ? (drillStep === 3 ? 'Finish' : 'Next') : (isDrillMode ? (drillStep === 3 ? 'Check Answers' : drillStep === (3 + (activeDrillData?.solutions.length || 0)) ? 'Finish' : 'Next') : 'Next')} 
                <span className="ml-1">→</span>
              </button>
          </div>

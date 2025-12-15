@@ -319,6 +319,18 @@ export const TESTS: Test[] = [
     ]
   },
   {
+    id: 'tfng-intro',
+    title: 'Strategy: True / False / Not Given',
+    passages: [
+      {
+        id: 999,
+        title: "Strategy Guide",
+        content: ["Strategy content"],
+        questionGroups: []
+      }
+    ]
+  },
+  {
     id: 'tfng-1',
     title: 'Drill 1: Parker Solar Probe',
     passages: [
