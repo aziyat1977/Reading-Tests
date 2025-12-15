@@ -1,5 +1,5 @@
 
-import { Test, QuestionType, VocabItem } from './types';
+import { Test, QuestionType, VocabItem, IntroQuestion } from './types';
 
 export const VOCAB_LIST: VocabItem[] = [
   {
@@ -125,6 +125,86 @@ export const VOCAB_LIST_3: VocabItem[] = [
     quizOptions: ["Unknown", "Highly respected", "Easy to get", "Unwanted"],
     quizCorrectIndex: 1
   }
+];
+
+export const INTRO_QUESTIONS: IntroQuestion[] = [
+    {
+        id: 1,
+        text: "The pharmacy is open 24 hours a day, every day of the year.",
+        statement: "The pharmacy closes on public holidays.",
+        answer: "FALSE",
+        explanation: "The text states it is open 'every day of the year'. This directly contradicts the idea that it closes on specific days like public holidays."
+    },
+    {
+        id: 2,
+        text: "Most of the villagers are farmers.",
+        statement: "All the people in the village work in agriculture.",
+        answer: "FALSE",
+        explanation: "The quantifier 'Most' implies that there is a minority who are NOT farmers. Therefore, 'All' is a contradiction."
+    },
+    {
+        id: 3,
+        text: "The government suggests that people should drink 2 liters of water daily.",
+        statement: "The government forces people to drink 2 liters of water daily.",
+        answer: "FALSE",
+        explanation: "'Suggests' and 'should' imply advice. 'Forces' implies obligation or mandate. These meanings contradict each other."
+    },
+    {
+        id: 4,
+        text: "The team won the match thanks to their superior strategy.",
+        statement: "The team had better physical fitness than their opponents.",
+        answer: "NOT GIVEN",
+        explanation: "The text explains the win was due to 'strategy'. It does not give any information about their 'physical fitness' compared to the opponents."
+    },
+    {
+        id: 5,
+        text: "The ancient city was completely destroyed by the volcanic eruption.",
+        statement: "The volcano obliterated the old city.",
+        answer: "TRUE",
+        explanation: "'Obliterated' is a strong synonym for 'completely destroyed'. The meanings match perfectly."
+    },
+    {
+        id: 6,
+        text: "The artist painted this portrait prior to his departure for Paris.",
+        statement: "The artist went to Paris after finishing the portrait.",
+        answer: "TRUE",
+        explanation: "'Prior to his departure' means he painted it *before* leaving. Therefore, he went to Paris *after* finishing it. The timeline matches."
+    },
+    {
+        id: 7,
+        text: "Coffee is the second most popular drink in the world after water.",
+        statement: "Tea is less popular than coffee.",
+        answer: "NOT GIVEN",
+        explanation: "We know Coffee is #2 and Water is #1. The text does not mention Tea. Tea could be #3 (less popular) or it could be irrelevant, but we cannot know for sure from this text alone."
+    },
+    {
+        id: 8,
+        text: "Only employees with a security badge can enter the server room.",
+        statement: "Visitors are not allowed in the server room.",
+        answer: "TRUE",
+        explanation: "The word 'Only' indicates exclusivity. If *only* employees can enter, then by definition, visitors (non-employees) cannot."
+    },
+    {
+        id: 9,
+        text: "Dr. Smith claims that the treatment is effective.",
+        statement: "The treatment is proven to be effective.",
+        answer: "NOT GIVEN",
+        explanation: "The text reports a 'claim' made by Dr. Smith. The statement presents it as an objective 'proven' fact. We do not know if the claim has been verified."
+    },
+    {
+        id: 10,
+        text: "It rarely snows in this region.",
+        statement: "It never snows in this region.",
+        answer: "FALSE",
+        explanation: "'Rarely' means it happens infrequently, but it *does* happen. 'Never' means it *does not* happen. Contradiction."
+    },
+    {
+        id: 11,
+        text: "The museum entrance is free for residents of the city.",
+        statement: "Tourists have to pay to enter the museum.",
+        answer: "NOT GIVEN",
+        explanation: "We know residents are free. The text does not tell us the policy for tourists. They might have to pay, or they might also be free. The information is missing."
+    }
 ];
 
 export const TESTS: Test[] = [

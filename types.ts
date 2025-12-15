@@ -73,3 +73,11 @@ export interface VocabItem {
   quizOptions: string[];
   quizCorrectIndex: number; // 0-3
 }
+
+export interface IntroQuestion {
+  id: number;
+  text: string;
+  statement: string;
+  answer: string; // 'TRUE' | 'FALSE' | 'NOT GIVEN'
+  explanation: string;
+}
